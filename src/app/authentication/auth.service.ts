@@ -8,11 +8,11 @@ import { AuthData } from "./auth-data.model";
 @Injectable({ providedIn: "root" })
 export class AuthService {
   private isAuthenticated = false;
-  private token: any ;
+  private token: any;
   private tokenTimer: any;
   private authStatusListener = new Subject<boolean>();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   getToken() {
     return this.token;
@@ -29,7 +29,7 @@ export class AuthService {
   createUser(email: string, password: string) {
     const authData: AuthData = { email: email, password: password };
     this.http
-      .post("http://localhost:5000/api/user/signup", authData)
+      .post("http://localhost:5000/api/user/", authData)
       .subscribe(response => {
         console.log(response);
       });
