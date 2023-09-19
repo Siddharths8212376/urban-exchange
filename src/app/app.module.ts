@@ -4,6 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HomeComponent } from './components/home/home.component';
+import { FooterComponent } from './components/home/footer/footer.component';
+import { ContentComponent } from './components/home/content/content.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { SignupComponent } from './authentication/signup/signup.component';
 import { MatInputModule } from '@angular/material/input';
@@ -24,12 +27,13 @@ import { AuthInterceptor } from "./authentication/auth-interceptor";
 @NgModule({
   declarations: [
     AppComponent,
- 
+    HomeComponent,
     HeaderComponent,
-
+    FooterComponent,
+    ContentComponent,
     LoginComponent,
     SignupComponent
-    
+
   ],
   imports: [
     BrowserModule,
