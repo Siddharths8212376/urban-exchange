@@ -1,0 +1,54 @@
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  background-color: #f5f5f5;
+}
+
+.loading-spinner {
+  /* Your custom styles for the loading spinner container */
+  display: block;
+  margin: 20px auto;
+}
+
+.login-form {
+  /* Your custom styles for the login form container */
+  /* For example, you can set a background color or border */
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.input-field {
+  /* Your custom styles for the input fields */
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.error-message {
+  /* Your custom styles for the error messages */
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.login-button {
+  /* Your custom styles for the login button */
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff; /* Example button color */
+  color: #fff; /* Example text color */
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  /* Your custom hover styles */
+  background-color: #0056b3; /* Example hover color */
+}
