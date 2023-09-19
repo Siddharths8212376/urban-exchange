@@ -1,0 +1,16 @@
+<div class="login-container">
+  <div *ngIf="isLoading" class="loading-spinner">
+    <!-- Your loading spinner content -->
+  </div>
+  <form (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading" class="login-form">
+    <div class="form-field">
+      <input class="input-field" name="email" ngModel type="email" placeholder="E-Mail" #emailInput="ngModel" required email>
+      <div *ngIf="emailInput.invalid" class="error-message">Please enter a valid email.</div>
+    </div>
+    <div class="form-field">
+      <input class="input-field" type="password" name="password" ngModel placeholder="Password" #passwordInput="ngModel" required>
+      <div *ngIf="passwordInput.invalid" class="error-message">Please enter a valid password.</div>
+    </div>
+    <button class="login-button" type="submit" *ngIf="!isLoading">Login</button>
+  </form>
+</div>
