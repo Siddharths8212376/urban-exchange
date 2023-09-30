@@ -1,0 +1,20 @@
+<mat-toolbar style="color: white;">
+  <span>
+    <a routerLink="/" style="color: black;">Urban Exchange</a>
+  </span>
+  <span class="spacer"></span>
+  <ul>
+    <li *ngIf="userIsAuthenticated">
+      <a mat-button class="text" routerLink="/create" routerLinkActive="mat-accent">Sell</a>
+    </li>
+    <li *ngIf="!userIsAuthenticated">
+      <a mat-button class="text" routerLink="/login" routerLinkActive="mat-accent">Login</a>
+    </li>
+    <li *ngIf="!userIsAuthenticated">
+      <a mat-button class="text" routerLink="/signup" routerLinkActive="mat-accent">Signup</a>
+    </li>
+    <li *ngIf="userIsAuthenticated">
+      <button class="text" mat-button (click)="onLogout()">Logout</button>
+    </li>
+  </ul>
+</mat-toolbar>
