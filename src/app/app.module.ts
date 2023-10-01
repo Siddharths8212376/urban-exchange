@@ -23,6 +23,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { HeaderComponent } from "./components/header/header.component";
 
 import { AuthInterceptor } from "./authentication/auth-interceptor";
+import { ProductCardComponent } from './components/product-card/product-card.component';
+import { ProductListComponent } from './components/product-list/product-list.component';
+import { ProductFilterComponent } from './components/product-filter/product-filter.component';
 
 @NgModule({
   declarations: [
@@ -32,8 +35,10 @@ import { AuthInterceptor } from "./authentication/auth-interceptor";
     FooterComponent,
     ContentComponent,
     LoginComponent,
-    SignupComponent
-
+    SignupComponent,
+    ProductCardComponent,
+    ProductListComponent,
+    ProductFilterComponent,
   ],
   imports: [
     BrowserModule,
