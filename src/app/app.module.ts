@@ -17,7 +17,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-
+import { MatIconModule } from '@angular/material/icon'
 
 
 import { HeaderComponent } from "./components/header/header.component";
@@ -53,7 +53,8 @@ import { ProductFilterComponent } from './components/product-filter/product-filt
     MatExpansionModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
-    HttpClientModule
+    HttpClientModule,
+    MatIconModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

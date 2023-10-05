@@ -52,3 +52,27 @@
   /* Your custom hover styles */
   background-color: #0056b3; /* Example hover color */
 }
+.login-card{
+position: relative;
+width: 25%;
+margin: auto;
+padding: 2%;
+}
+
+.form-field{
+  width: -webkit-fill-available;
+}
+
+.login-button{
+  width: 50%;
+  left: 25%;
+}
+
+.container{
+  background-image: url('../../../assets/backgroud-home.svg'); /* Replace 'path-to-your-image.jpg' with the actual image file path */
+            
+            /* Set background size and positioning */
+            background-size: cover; /* You can also use 'contain' or specify dimensions */
+            background-position: center center; 
+            height: calc(100vh - 110px);
+}

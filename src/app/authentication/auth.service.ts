@@ -19,6 +19,10 @@ export class AuthService {
   }
 
   getIsAuth() {
+    const token = localStorage.getItem("token");
+    if(token)
+    this.autoAuthUser();
+  
     return this.isAuthenticated;
   }
 

@@ -12,13 +12,13 @@
   margin-bottom: 20px;
 }
 
-input[type="email"],
-input[type="password"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
+// input[type="email"],
+// input[type="password"] {
+//   width: 100%;
+//   padding: 10px;
+//   border: 1px solid #ccc;
+//   border-radius: 5px;
+// }
 
 .error-message {
   color: red;
@@ -38,3 +38,70 @@ button[type="submit"] {
 button[type="submit"]:hover {
   background-color: #0056b3;
 }
+
+.sign-card{
+  position: relative;
+  width: 25%;
+  margin: auto;
+  padding: 2%;
+  }
+
+  .container{
+    background-image: url('../../../assets/backgroud-home.svg'); /* Replace 'path-to-your-image.jpg' with the actual image file path */
+              
+              /* Set background size and positioning */
+              background-size: cover; /* You can also use 'contain' or specify dimensions */
+              background-position: center center; 
+              height: calc(100vh - 110px);
+  }
+
+  .cardsignup{
+    display: flex;
+    justify-content: center;
+  }
+
+  .form-field{
+    width: -webkit-fill-available;
+  }
+
+
+  
+
+  
+  .login-form {
+    /* Your custom styles for the login form container */
+    /* For example, you can set a background color or border */
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .input-field {
+    /* Your custom styles for the input fields */
+    width: 93%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+
+
+  
+
+  .form-field{
+    width: -webkit-fill-available;
+  }
+  
+  .signup-button{
+    width: 50%;
+    left: 25%;
+  }
+  
+
+  .signup-card{
+    width: 25%;
+    margin: auto;
+    padding: 2%;
+  }
