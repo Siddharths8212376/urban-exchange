@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
+import { MatToolbar } from "@angular/material/toolbar";
 
 import { AuthService } from "../../authentication/auth.service";
 
