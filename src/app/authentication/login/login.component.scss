@@ -41,8 +41,10 @@
   /* Your custom styles for the login button */
   width: 100%;
   padding: 10px;
-  background-color: #007bff; /* Example button color */
-  color: #fff; /* Example text color */
+  background-color: #007bff;
+  /* Example button color */
+  color: #fff;
+  /* Example text color */
   border: none;
   border-radius: 3px;
   cursor: pointer;
@@ -50,29 +52,39 @@
 
 .login-button:hover {
   /* Your custom hover styles */
-  background-color: #0056b3; /* Example hover color */
-}
-.login-card{
-position: relative;
-width: 25%;
-margin: auto;
-padding: 2%;
+  background-color: #0056b3;
+  /* Example hover color */
 }
 
-.form-field{
+.login-card {
+  width: 25%;
+  margin: auto;
+  padding: 2%;
+  position: absolute !important;
+  top: 20px;
+  right: -23rem;
+  display: flex;
+  align-items: center;
+}
+
+.form-field {
   width: -webkit-fill-available;
 }
 
-.login-button{
+.login-button {
   width: 50%;
   left: 25%;
 }
 
-.container{
-  background-image: url('../../../assets/backgroud-home.svg'); /* Replace 'path-to-your-image.jpg' with the actual image file path */
-            
-            /* Set background size and positioning */
-            background-size: cover; /* You can also use 'contain' or specify dimensions */
-            background-position: center center; 
-            height: calc(100vh - 110px);
+.container {
+  background-image: url('../../../assets/backgroud-home.svg');
+  background-size: 100% 108%;
+  height: calc(100vh - 110px);
+  left: 0;
+  position: absolute;
+  background-color: #172733;
+}
+.mat-mdc-card {
+  border: none !important;
+  box-shadow: none !important;
 }
