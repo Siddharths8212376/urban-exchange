@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , OnDestroy} from '@angular/core';
 import { NgForm } from "@angular/forms";
 import { AuthService } from '../auth.service';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
@@ -11,7 +11,7 @@ import {
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit,OnDestroy {
   isLoading = false;
   // isLoading = false;
   user : any ;
@@ -37,6 +37,10 @@ export class SignupComponent implements OnInit {
      this.authService.createUser(form.value.email, form.value.password);
   }
 
+  ngOnDestroy() {
+    this.signOut();
+}
+
   loginWithGoogle(): void {
 
     let googleLoginOptions = {
@@ -44,6 +48,7 @@ export class SignupComponent implements OnInit {
     };
     this.socialauthService.signIn(GoogleLoginProvider.PROVIDER_ID,googleLoginOptions ).then((user) => {
       this.user = user;
+      if(user && user.idToken)
       this.authService.logingoogle(user.idToken);
       
     });

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , OnDestroy} from '@angular/core';
 import { NgForm } from "@angular/forms";
 import { AuthService } from '../auth.service';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
@@ -12,7 +12,7 @@ import {
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit , OnDestroy{
 
   isLoading = false;
   user : any ;
@@ -34,7 +34,9 @@ export class LoginComponent implements OnInit {
     this.authService.login(form.value.email, form.value.password);
   }
 
-
+ ngOnDestroy() {
+     this.signOut();
+ }
   loginWithGoogle(): void {
 
     let googleLoginOptions = {
@@ -43,6 +45,7 @@ export class LoginComponent implements OnInit {
     this.socialauthService.signIn(GoogleLoginProvider.PROVIDER_ID,googleLoginOptions ).then((user) => {
       this.user = user;
       // Here, you can send the user's token to your Node.js backend for validation and JWT creation.
+      if(user?.idToken)
       this.authService.logingoogle(user.idToken);
       
     });
