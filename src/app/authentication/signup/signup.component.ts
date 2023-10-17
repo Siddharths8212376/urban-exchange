@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from "@angular/forms";
 import { AuthService } from '../auth.service';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { Router } from '@angular/router';
+import {
+  GoogleLoginProvider
+} from '@abacritt/angularx-social-login';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -8,10 +13,20 @@ import { AuthService } from '../auth.service';
 })
 export class SignupComponent implements OnInit {
   isLoading = false;
-  constructor(public authService: AuthService) {}
+  // isLoading = false;
+  user : any ;
+  constructor(public authService: AuthService,
+    private route :  Router,
+    private socialauthService: SocialAuthService) {}
 
-  ngOnInit() {
-  }
+    ngOnInit(): void {
+      this.socialauthService.authState.subscribe((user) => {
+      
+ 
+        this.authService.logingoogle(user.idToken);
+        // console.log("user authtoken ," , user.authToken);
+      }); 
+    }
 
   onSignup(form: NgForm) {
     if (form.invalid) {
@@ -21,5 +36,25 @@ export class SignupComponent implements OnInit {
     console.log(form,"form");
      this.authService.createUser(form.value.email, form.value.password);
   }
+
+  loginWithGoogle(): void {
+
+    let googleLoginOptions = {
+      scope: 'profile email'
+    };
+    this.socialauthService.signIn(GoogleLoginProvider.PROVIDER_ID,googleLoginOptions ).then((user) => {
+      this.user = user;
+      this.authService.logingoogle(user.idToken);
+      
+    });
+  
+  }
+
+
+  signOut(): void {
+    this.socialauthService.signOut();
+  }
+
+
 
 }

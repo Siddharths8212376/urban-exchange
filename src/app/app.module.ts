@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,6 +18,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { MatIconModule } from '@angular/material/icon'
+import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import {
+  GoogleLoginProvider
+} from '@abacritt/angularx-social-login';
+import {  GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+
 
 
 import { HeaderComponent } from "./components/header/header.component";
@@ -26,6 +32,7 @@ import { AuthInterceptor } from "./authentication/auth-interceptor";
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductFilterComponent } from './components/product-filter/product-filter.component';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 @NgModule({
   declarations: [
@@ -54,12 +61,34 @@ import { ProductFilterComponent } from './components/product-filter/product-filt
     MatProgressSpinnerModule,
     MatPaginatorModule,
     HttpClientModule,
-    MatIconModule
+    MatIconModule,
+    SocialLoginModule,
+    GoogleSigninButtonModule,
+    OAuthModule.forRoot({
+      resourceServer: {
+        allowedUrls: ['http://localhost:5000/api/user'], // Your Node.js API server URL
+        sendAccessToken: true,
+      },
+    }),
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider('1074394604196-610lm57lcj94ovdii34lfib07mcolbqj.apps.googleusercontent.com'),
+          },
+        ],
+      } as SocialAuthServiceConfig,
+    },
   ],
-  bootstrap: [AppComponent]
+  
+  bootstrap: [AppComponent],
+
 })
 
 export class AppModule { }

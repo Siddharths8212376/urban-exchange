@@ -16,7 +16,12 @@
         <input type="password" name="password" ngModel matInput placeholder="Password" #passwordInput="ngModel" required>
         <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
       </mat-form-field>
+
       <p></p>
+      
+      <div  class="btn btn-danger">
+        <asl-google-signin-button>  SignUp with Google</asl-google-signin-button>
+      </div>
       <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Signup</button>
     </form>
   </mat-card>
