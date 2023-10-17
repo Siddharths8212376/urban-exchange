@@ -18,6 +18,10 @@
       <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
     </mat-form-field>
     <br>
+    <div  class="btn btn-danger">
+      <asl-google-signin-button>  Login with Google</asl-google-signin-button>
+    </div>
+   
     <button mat-raised-button class="login-button" color="accent" type="submit" *ngIf="!isLoading">Login</button>
   </form>
 </mat-card>

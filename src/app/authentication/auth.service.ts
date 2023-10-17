@@ -116,4 +116,26 @@ export class AuthService {
       expirationDate: new Date(expirationDate)
     }
   }
+
+  logingoogle(token : any) {
+     this.http.post<any>('http://localhost:5000/api/user/googleAuth', { token })
+    .subscribe((response) => {
+      // Handle the response from the backend, which might include a JWT.
+      if (response.token) {
+        // Save the JWT in local storage
+        
+          const expiresInDuration = response.expiresIn;
+          this.setAuthTimer(expiresInDuration);
+          this.isAuthenticated = true;
+          this.authStatusListener.next(true);
+          const now = new Date();
+          const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
+          console.log(expirationDate);
+          this.saveAuthData(response.token , expirationDate);
+          // should navigate to previous route
+          this.router.navigate(["/home"]);
+        
+      }
+    });
+  }
 }
