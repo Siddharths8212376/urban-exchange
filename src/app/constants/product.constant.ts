@@ -7,4 +7,6 @@ export const defaultProduct: Product = {
     modelNo: '',
     category: '',
     seller: '',
+    tag: '',
+    productImages: []
 }

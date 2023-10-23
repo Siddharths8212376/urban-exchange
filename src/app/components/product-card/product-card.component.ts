@@ -1,7 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Sanitizer } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { defaultProduct } from 'src/app/constants/product.constant';
 import { Product } from 'src/app/models/product.model';
+import { ImageService } from 'src/app/services/image/image.service';
 
 @Component({
   selector: 'app-product-card',
@@ -10,8 +12,23 @@ import { Product } from 'src/app/models/product.model';
 })
 export class ProductCardComponent implements OnInit {
   @Input('product') product: Product = defaultProduct;
-  constructor(private router: Router) { }
+  productImageName: string = '';
+  productImage: any = null;
+  constructor(
+    private router: Router,
+    private imageService: ImageService,
+    private sanitizer: DomSanitizer
+  ) { }
   ngOnInit(): void {
+    this.productImageName = this.product.productImages.length > 0 ? this.product.productImages[0] : '';
+    if (this.productImageName.length > 0) {
+      this.imageService.getImageByName(this.productImageName).subscribe(response => {
+        let objectURL = URL.createObjectURL(response);
+        this.productImage = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+      })
+    } else {
+      this.productImage = '../../assets/images/no-image.png';
+    }
   }
   openProduct() {
     this.router.navigate(['/product/1']);

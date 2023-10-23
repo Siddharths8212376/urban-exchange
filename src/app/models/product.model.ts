@@ -7,4 +7,6 @@ export interface Product {
     category: string;
     seller: string;
     boughtBy?: string;
+    tag: string;
+    productImages: string[];
 }

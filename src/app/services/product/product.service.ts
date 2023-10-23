@@ -11,6 +11,9 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
   getAllProducts(): Observable<{ message: string, data: Product[] }> {
-    return this.http.get<{ message: string, data: Product[] }>(env.apiUrl + "/product");
+    return this.http.get<{ message: string, data: Product[] }>(`${env.apiUrl}/product`);
+  }
+  getProductById(id: string): Observable<{ message: string, data: Product }> {
+    return this.http.get<{ message: string, data: Product }>(`${env.apiUrl}/product/${id}`);
   }
 }

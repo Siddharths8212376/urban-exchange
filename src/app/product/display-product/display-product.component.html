@@ -1,1 +1,5 @@
-<p>display-product works!</p>
+<div *ngIf="product.name.length > 0">
+    <div *ngFor="let prop of entries">
+        {{ prop[0] }}  {{ prop[1] }}
+    </div>
+</div>
