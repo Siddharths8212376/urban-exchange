@@ -1,4 +1,4 @@
-<div class="card" style="width: 13rem; margin-bottom: 1rem; cursor: pointer;" (click)="openProduct()">
+<div class="card" style="width: 13rem; margin-bottom: 1rem; cursor: pointer;" (click)="openProduct(this.product._id)">
     <img class="card-img-top" height="200px" width="200px" [src]="productImage" alt="ProductImage">
     <div class="card-body">
       <h5 class="card-title">{{ this.product.name }} </h5>

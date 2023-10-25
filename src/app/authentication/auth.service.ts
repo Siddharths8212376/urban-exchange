@@ -1,9 +1,12 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
-import { Subject } from "rxjs";
+import { BehaviorSubject, Subject } from "rxjs";
 
 import { AuthData } from "./auth-data.model";
+import { User } from "../models/user.model";
+import { defaultUser } from "../constants/user.constant";
+import { UserService } from "../services/user/user.service";
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
@@ -11,8 +14,17 @@ export class AuthService {
   private token: any;
   private tokenTimer: any;
   private authStatusListener = new Subject<boolean>();
-
-  constructor(private http: HttpClient, private router: Router) { }
+  private currentUser: User = defaultUser;
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) { }
+  getCurrentUser() {
+    if (localStorage.getItem('userId')) {
+      this.currentUser._id = localStorage.getItem('userId') as string;
+    }
+    return this.currentUser;
+  }
 
   getToken() {
     return this.token;
@@ -20,9 +32,9 @@ export class AuthService {
 
   getIsAuth() {
     const token = localStorage.getItem("token");
-    if(token)
-    this.autoAuthUser();
-  
+    if (token)
+      this.autoAuthUser();
+
     return this.isAuthenticated;
   }
 
@@ -38,17 +50,23 @@ export class AuthService {
         console.log(response);
       });
   }
-
+  setCurrentUser(user: User) {
+    if (user) {
+      localStorage.setItem('userId', user._id ? user._id : '');
+      this.currentUser = user;
+    }
+  }
   login(email: string, password: string) {
     const authData: AuthData = { email: email, password: password };
     this.http
-      .post<{ token: string; expiresIn: number }>(
+      .post<{ token: string; expiresIn: number, user: User }>(
         "http://localhost:5000/api/user/login",
         authData
       )
       .subscribe(response => {
         const token = response.token;
         this.token = token;
+        this.setCurrentUser(response.user);
         if (token) {
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
@@ -83,6 +101,7 @@ export class AuthService {
     this.token = null;
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
+    this.setCurrentUser(defaultUser);
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
     this.router.navigate(["/"]);
@@ -117,25 +136,25 @@ export class AuthService {
     }
   }
 
-  logingoogle(token : any) {
-     this.http.post<any>('http://localhost:5000/api/user/googleAuth', { token })
-    .subscribe((response) => {
-      // Handle the response from the backend, which might include a JWT.
-      if (response.token) {
-        // Save the JWT in local storage
-        
+  logingoogle(user: User) {
+    this.http.post<any>('http://localhost:5000/api/user/googleAuth', user)
+      .subscribe((response) => {
+        // Handle the response from the backend, which might include a JWT.
+        if (response.token) {
+          // Save the JWT in local storage
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
+          this.setCurrentUser(response.user);
           this.isAuthenticated = true;
           this.authStatusListener.next(true);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
           console.log(expirationDate);
-          this.saveAuthData(response.token , expirationDate);
+          this.saveAuthData(response.token, expirationDate);
           // should navigate to previous route
           this.router.navigate(["/home"]);
-        
-      }
-    });
+
+        }
+      });
   }
 }

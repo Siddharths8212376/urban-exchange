@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { defaultProduct } from 'src/app/constants/product.constant';
 import { Product } from 'src/app/models/product.model';
+import { ImageService } from 'src/app/services/image/image.service';
 import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
@@ -11,12 +14,29 @@ import { ProductService } from 'src/app/services/product/product.service';
 export class DisplayProductComponent implements OnInit {
   product: Product = defaultProduct;
   entries: [string, any][] = [];
-  constructor(private productService: ProductService) { }
+  productId: string | any;
+  productImages: string[] = [];
+  imageFiles: File[] | any = [];
+  constructor(
+    private productService: ProductService,
+    private route: ActivatedRoute,
+    private imageService: ImageService,
+    private sanitizer: DomSanitizer,
+  ) { }
   ngOnInit(): void {
-    this.productService.getProductById('65339532aa4a88d207b5b2e6').subscribe(response => {
+    this.productId = this.route.snapshot.paramMap.get('id');
+    this.productService.getProductById(this.productId).subscribe(response => {
       this.product = response.data;
+      this.productImages = this.product.productImages;
       this.entries = Object.entries(this.product);
-      console.log(this.product, 'productHere', this.entries);
+      if (this.productImages.length > 0) {
+        this.productImages.forEach(imageName => this.imageService.getImageByName(imageName).subscribe(image => {
+          let objectURL = URL.createObjectURL(image);
+          this.imageFiles.push(this.sanitizer.bypassSecurityTrustUrl(objectURL));
+        }))
+      } else {
+        this.imageFiles.push('../../assets/images/no-image.png');
+      }
     })
   }
 }
