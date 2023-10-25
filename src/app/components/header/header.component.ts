@@ -3,6 +3,9 @@ import { Subscription } from "rxjs";
 import { MatToolbar } from "@angular/material/toolbar";
 
 import { AuthService } from "../../authentication/auth.service";
+import { User } from "src/app/models/user.model";
+import { SocialAuthService } from "@abacritt/angularx-social-login";
+import { UserService } from "src/app/services/user/user.service";
 
 @Component({
   selector: "app-header",
@@ -11,9 +14,10 @@ import { AuthService } from "../../authentication/auth.service";
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
-
-
-  constructor(private authService: AuthService) { }
+  currentUser: User | null = null;
+  constructor(
+    private authService: AuthService,
+  ) { }
   private authListenerSubs!: Subscription;
 
   ngOnInit() {

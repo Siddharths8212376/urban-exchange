@@ -30,7 +30,7 @@ export class ProductCardComponent implements OnInit {
       this.productImage = '../../assets/images/no-image.png';
     }
   }
-  openProduct() {
-    this.router.navigate(['/product/1']);
+  openProduct(productId: string) {
+    this.router.navigate(['/product', productId]);
   }
 }

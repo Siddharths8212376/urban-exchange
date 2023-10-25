@@ -1,6 +1,6 @@
 <mat-toolbar style="color: white;">
   <span>
-    <a routerLink="/" style="color: black;">Urban Exchange</a>
+    <a routerLink="/home" style="color: black;">Urban Exchange</a>
   </span>
   <span class="spacer"></span>
   <ul>
@@ -15,6 +15,7 @@
     </li>
     <li *ngIf="userIsAuthenticated">
       <button class="text" mat-button (click)="onLogout()">Logout</button>
+      <p *ngIf="currentUser">Hello {{currentUser.username}} </p>
     </li>
   </ul>
 </mat-toolbar>
