@@ -112,10 +112,8 @@ export class CreateProductComponent implements OnInit {
     });
     this.imageService.uploadImages(this.inputFileList, this.productTag as string).subscribe(response => {
       this.productService.createProduct(createPayload).subscribe(createResponse => {
-        this.userService.addToUserProducts(createResponse.productId).subscribe(userResponse => {
-          sessionStorage.removeItem('tag');
-          this.router.navigate(["/home"]);
-        })
+        sessionStorage.removeItem('tag');
+        this.router.navigate(["/home"]);
       })
     })
   }

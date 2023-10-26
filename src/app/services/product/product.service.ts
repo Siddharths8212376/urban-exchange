@@ -11,7 +11,7 @@ import { env } from 'src/environments/environment';
 export class ProductService {
   httpOptions = {
     headers: new HttpHeaders({
-      Authorization: localStorage.getItem("token") as any
+      Authorization: localStorage.getItem("token") as string
     })
   }
   constructor(private http: HttpClient) { }
