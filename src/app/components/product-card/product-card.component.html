@@ -1,5 +1,5 @@
-<div class="card" style="width: 13rem; margin-bottom: 1rem; cursor: pointer;" (click)="openProduct(this.product._id)">
-    <img class="card-img-top" height="200px" width="200px" [src]="productImage" alt="ProductImage">
+<div class="card" style="width: 15rem; margin-bottom: 1.5rem; cursor: pointer; padding: 0.4rem;" (click)="openProduct(this.product._id)">
+    <img class="card-img-top card-img-bottom" height="200px" width="200px" [src]="productImage" alt="ProductImage">
     <div class="card-body">
       <h5 class="card-title">{{ this.product.name }} </h5>
       <h6 class="card-subtitle mb-2 text-muted">{{ this.product.description }} </h6>
