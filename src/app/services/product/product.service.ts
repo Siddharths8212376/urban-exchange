@@ -11,7 +11,7 @@ import { env } from 'src/environments/environment';
 export class ProductService {
   httpOptions = {
     headers: new HttpHeaders({
-      Authorization: localStorage.getItem("token") as any
+      Authorization: localStorage.getItem("token") as string
     })
   }
   constructor(private http: HttpClient) { }
@@ -28,6 +28,7 @@ export class ProductService {
     return this.http.get<{ message: string, data: CreateFields[] }>(`${env.apiUrl}/product/create-product-fields`);
   }
   createProduct(payload: any): Observable<{ message: string, productId: string }> {
+    let auth = this.httpOptions.headers.get('Authorization');
     return this.http.post<{ message: string, productId: string }>(`${env.apiUrl}/product`, payload, this.httpOptions);
   }
 }
