@@ -28,6 +28,7 @@ export class ProductService {
     return this.http.get<{ message: string, data: CreateFields[] }>(`${env.apiUrl}/product/create-product-fields`);
   }
   createProduct(payload: any): Observable<{ message: string, productId: string }> {
+    let auth = this.httpOptions.headers.get('Authorization');
     return this.http.post<{ message: string, productId: string }>(`${env.apiUrl}/product`, payload, this.httpOptions);
   }
 }
