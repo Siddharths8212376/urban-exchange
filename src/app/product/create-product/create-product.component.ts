@@ -18,6 +18,7 @@ export class CreateProductComponent implements OnInit {
   productForm: FormGroup | any = null;
   inputFileList: FileList | any;
   previews: string[] = [];
+  uploadedFiles: FileList | any = [];
   constructor(
     private productService: ProductService,
     private fb: FormBuilder,
@@ -56,8 +57,6 @@ export class CreateProductComponent implements OnInit {
       attrs: this.fb.array([]),
     })
     this.setFormControlData();
-    console.log(this.productForm, 'form');
-    console.log(this.productForm.get('attrs')['controls'], 'attrs');
   }
   getProps(field: CreateFields) {
     let props: any = {
@@ -67,15 +66,19 @@ export class CreateProductComponent implements OnInit {
       type: field.type,
       multiple: field.multiple,
       required: field.required,
+      options: [[]],
     };
     if (field.required) {
       if (['text', 'textarea'].includes(field.type)) {
-        props.value = [null, Validators.compose([Validators.required, Validators.minLength(2)])];
+        props.value = [null, Validators.compose([Validators.required, Validators.minLength(1)])];
       } else if (field.type == 'number') {
         props.value = [null, Validators.compose([Validators.required, Validators.min(1)])];
       } else {
         props.value = [null, Validators.required]
       }
+    }
+    if (field.type == 'select') {
+      props.options = [field.options]
     }
     return props;
   }
@@ -95,6 +98,7 @@ export class CreateProductComponent implements OnInit {
           this.previews.push(e.target.result);
         }
         reader.readAsDataURL(this.inputFileList[i]);
+        this.uploadedFiles.push(this.inputFileList[i]);
       }
       attribute.get('value').patchValue(true);
     }
@@ -110,7 +114,7 @@ export class CreateProductComponent implements OnInit {
     this.productForm.value['attrs'].map((attr: any) => {
       createPayload[`${attr.label}`] = attr.value;
     });
-    this.imageService.uploadImages(this.inputFileList, this.productTag as string).subscribe(response => {
+    this.imageService.uploadImages(this.uploadedFiles, this.productTag as string).subscribe(response => {
       this.productService.createProduct(createPayload).subscribe(createResponse => {
         sessionStorage.removeItem('tag');
         this.router.navigate(["/home"]);

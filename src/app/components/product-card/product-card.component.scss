@@ -1,0 +1,16 @@
+@mixin curb-lines($numLines) {
+    overflow: hidden;
+    display: -webkit-box;
+    line-clamp: $numLines;
+    -webkit-line-clamp: $numLines;
+    -webkit-box-orient: vertical;
+}
+.card-subtitle {
+    @include curb-lines(3);
+}
+.card-title {
+    @include curb-lines(2);
+}
+.card {
+    height: 25rem;
+}
