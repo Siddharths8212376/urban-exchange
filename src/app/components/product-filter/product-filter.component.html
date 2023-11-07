@@ -6,15 +6,13 @@
 
 <div class="card" *ngFor="let filter of productCategories" style="width: inherit; margin-bottom: 1rem; border-radius: 0.5rem !important;">
     <div class="card-body filter-body">
-      <!-- <h4 class="card-title">{{ filter }}</h4> -->
     <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+        <input class="form-check-input" type="checkbox" [value]="filter.filterName" [checked]="filter.checked" (change)="updateFilters(filter.filterName, $event)" [checked]="">
         <label class="form-check-label" style="font-size: large;">
-          {{ filter }}
+          {{ filter.filterName }}
         </label>
       </div>
       </div>
-
 </div>
 
 

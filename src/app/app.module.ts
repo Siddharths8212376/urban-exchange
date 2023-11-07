@@ -22,7 +22,7 @@ import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-s
 import {
   GoogleLoginProvider
 } from '@abacritt/angularx-social-login';
-import {  GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 
 
 
@@ -88,7 +88,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
       } as SocialAuthServiceConfig,
     },
   ],
-  
+
   bootstrap: [AppComponent],
 
 })
