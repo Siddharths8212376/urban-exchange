@@ -14,10 +14,12 @@ export class AuthService {
   private token: any;
   private tokenTimer: any;
   private authStatusListener = new Subject<boolean>();
+  private loggedOut = new Subject<boolean>();
   private currentUser: User = defaultUser;
   constructor(
     private http: HttpClient,
     private router: Router,
+
   ) { }
   getCurrentUser() {
     if (localStorage.getItem('userId')) {
@@ -25,6 +27,8 @@ export class AuthService {
     }
     return this.currentUser;
   }
+
+
 
   getToken() {
     return this.token;
@@ -40,6 +44,14 @@ export class AuthService {
 
   getAuthStatusListener() {
     return this.authStatusListener.asObservable();
+  }
+
+  getLoggedOut() {
+    return this.loggedOut.asObservable();
+  }
+
+  setLoggedOut(value: boolean){
+    this.loggedOut.next(value)
   }
 
   createUser(email: string, password: string) {
@@ -99,12 +111,14 @@ export class AuthService {
 
   logout() {
     this.token = null;
+    this.loggedOut.next(true);
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
     this.setCurrentUser(defaultUser);
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
     this.router.navigate(["/"]);
+   localStorage.removeItem('token');
   }
 
   private setAuthTimer(duration: number) {

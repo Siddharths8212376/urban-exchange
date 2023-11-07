@@ -33,6 +33,7 @@ import { ProductCardComponent } from './components/product-card/product-card.com
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductFilterComponent } from './components/product-filter/product-filter.component';
 import { OAuthModule } from 'angular-oauth2-oidc';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { OAuthModule } from 'angular-oauth2-oidc';
     ProductCardComponent,
     ProductListComponent,
     ProductFilterComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,
