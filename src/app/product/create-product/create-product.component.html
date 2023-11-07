@@ -18,6 +18,16 @@
                             <textarea rows="2" [type]="attr.value.type" matInput [(ngModel)]="attr.value.value" [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeOfData(attr, $event)"></textarea>
                         </mat-form-field>
                     </ng-container>
+                    <ng-container *ngIf="attr.value.type == 'select'">
+                        <mat-form-field>
+                            <mat-label>{{ attr.value.fieldName }} </mat-label>
+                            <mat-select [(ngModel)]="attr.value.value" [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeOfData(attr, $event)">
+                              <mat-option *ngFor="let option of attr.value.options" [value]="option">
+                                {{ option }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                    </ng-container>
                     <ng-container *ngIf="attr.value.type == 'file'">
                             <button type="button" mat-raised-button (click)="fileInput.click()">Choose Files</button>
                             <input hidden (change)="onFileSelected(attr)" #fileInput type="file" id="file" [multiple]="attr.value.multiple">

@@ -4,4 +4,5 @@ export interface CreateFields {
     type: string;
     required: boolean;
     multiple: boolean;
+    options?: string[];
 }

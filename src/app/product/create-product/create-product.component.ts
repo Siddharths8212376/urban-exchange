@@ -57,8 +57,6 @@ export class CreateProductComponent implements OnInit {
       attrs: this.fb.array([]),
     })
     this.setFormControlData();
-    console.log(this.productForm, 'form');
-    console.log(this.productForm.get('attrs')['controls'], 'attrs');
   }
   getProps(field: CreateFields) {
     let props: any = {
@@ -68,6 +66,7 @@ export class CreateProductComponent implements OnInit {
       type: field.type,
       multiple: field.multiple,
       required: field.required,
+      options: [[]],
     };
     if (field.required) {
       if (['text', 'textarea'].includes(field.type)) {
@@ -77,6 +76,9 @@ export class CreateProductComponent implements OnInit {
       } else {
         props.value = [null, Validators.required]
       }
+    }
+    if (field.type == 'select') {
+      props.options = [field.options]
     }
     return props;
   }
