@@ -1,0 +1,64 @@
+
+ <div class="row userProfile">
+<!-- navigation pane  -->
+
+<div class="col-3">
+    <!-- Left Navigation Pane -->
+    <div class="sidenav">
+      <a href="#section1">Section 1</a>
+      <a href="#section2">Section 2</a>
+      <a href="#section3">Section 3</a>
+      <!-- Add more navigation links here -->
+    </div>
+  </div>
+
+<div class="col-9" #userdetailsForm>
+    <form [formGroup]="userProfileForm" (ngSubmit)="onSubmit()">
+        <div>
+            <label for="username">Username<span aria-label="required">*</span>:</label>
+            <input type="text" id="username" formControlName="username" required>
+          </div>
+          
+       
+      
+        <div>
+          <label for="firstName">First Name:</label>
+          <input type="text" id="firstName" formControlName="firstName">
+        </div>
+      
+        <div>
+          <label for="lastName">Last Name:</label>
+          <input type="text" id="lastName" formControlName="lastName">
+        </div>
+      
+        <div>
+          <label for="description">Description:</label>
+          <textarea id="description" formControlName="description"></textarea>
+        </div>
+      
+        <div>
+          <label for="phone">Phone:</label>
+          <input type="tel" id="phone" formControlName="phone">
+        </div>
+      
+        <div>
+            <label for="password">Password<span aria-label="required">*</span>:</label>
+            <input type="password" id="password" formControlName="password" required>
+          </div>
+      
+        <div>
+          <label for="avatar">Avatar:</label>
+          <select id="avatar" formControlName="avatar">
+            <option value="default-avatar.png">Default Avatar</option>
+            <option value="avatar1.png">Avatar 1</option>
+            <option value="avatar2.png">Avatar 2</option>
+          </select>
+        </div>
+      
+        <div>
+          <button type="submit" [disabled]="!userProfileForm.valid">Save</button>
+        </div>
+      </form>
+
+
+</div>

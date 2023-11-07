@@ -17,5 +17,8 @@
       <button class="text" mat-button (click)="onLogout()">Logout</button>
       <p *ngIf="currentUser">Hello {{currentUser.username}} </p>
     </li>
+    <li *ngIf="userIsAuthenticated">
+      <a mat-button class="text" routerLink="/profile/123" routerLinkActive="mat-accent">profile</a>
+    </li>
   </ul>
 </mat-toolbar>
