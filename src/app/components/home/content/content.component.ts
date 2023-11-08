@@ -11,6 +11,6 @@ export class ContentComponent implements OnInit {
   products: Product[] = [];
   constructor(private productService: ProductService) { }
   ngOnInit(): void {
-    this.productService.getAllProducts().subscribe(response => this.products = response.data);
+    this.productService.getProductsByPageNoPageSizeAndOrCategory().subscribe(response => this.products = response.data[0].products);
   }
 }
