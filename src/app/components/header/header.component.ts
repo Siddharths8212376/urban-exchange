@@ -1,11 +1,9 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
-import { MatToolbar } from "@angular/material/toolbar";
 
 import { AuthService } from "../../authentication/auth.service";
 import { User } from "src/app/models/user.model";
-import { SocialAuthService } from "@abacritt/angularx-social-login";
-import { UserService } from "src/app/services/user/user.service";
+import { DataService } from "src/app/services/data/data.service";
 
 @Component({
   selector: "app-header",
@@ -17,6 +15,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentUser: User | null = null;
   constructor(
     private authService: AuthService,
+    private dataService: DataService,
   ) { }
   private authListenerSubs!: Subscription;
 
@@ -27,6 +26,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
       });
+    this.dataService.getCurrentUser().subscribe(currentUser => {
+
+      this.authService.getUserDetails().subscribe(response => {
+        this.currentUser = response.data;
+        if (!currentUser || this.currentUser._id != currentUser['_id']) {
+          this.dataService.setCurrentUser(this.currentUser);
+        }
+      })
+    })
   }
 
   onLogout() {
