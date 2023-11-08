@@ -20,7 +20,7 @@ export class ProductCardComponent implements OnInit {
     private sanitizer: DomSanitizer
   ) { }
   ngOnInit(): void {
-    this.productImageName = this.product.productImages.length > 0 ? this.product.productImages[0] : '';
+    this.productImageName = this.product?.productImages?.length > 0 ? this.product.productImages[0] : '';
     if (this.productImageName.length > 0) {
       this.imageService.getImageByName(this.productImageName).subscribe(response => {
         let objectURL = URL.createObjectURL(response);

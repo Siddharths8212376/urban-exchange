@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ProductResponse } from 'src/app/dto/product-response.dto';
 import { CreateFields } from 'src/app/models/create-product-fields.model';
 import { Product } from 'src/app/models/product.model';
 import { env } from 'src/environments/environment';
@@ -17,6 +18,13 @@ export class ProductService {
   constructor(private http: HttpClient) { }
   getAllProducts(): Observable<{ message: string, data: Product[] }> {
     return this.http.get<{ message: string, data: Product[] }>(`${env.apiUrl}/product`);
+  }
+  getProductsByPageNoPageSizeAndOrCategory(page?: number, limit?: number, category?: string): Observable<ProductResponse> {
+    if (!page) page = 0;
+    if (!limit) limit = 50;
+    let url = `${env.apiUrl}/product?page=${page}&limit=${limit}`;
+    if (category) url += `&category=${category}`;
+    return this.http.get<ProductResponse>(url);
   }
   getProductById(id: string): Observable<{ message: string, data: Product }> {
     return this.http.get<{ message: string, data: Product }>(`${env.apiUrl}/product/${id}`);
