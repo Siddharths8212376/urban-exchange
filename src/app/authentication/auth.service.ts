@@ -7,6 +7,8 @@ import { AuthData } from "./auth-data.model";
 import { User } from "../models/user.model";
 import { defaultUser } from "../constants/user.constant";
 import { UserService } from "../services/user/user.service";
+import { env } from "src/environments/environment";
+import { DataService } from "../services/data/data.service";
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
@@ -19,7 +21,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-
+    private dataService: DataService,
   ) { }
   getCurrentUser() {
     if (localStorage.getItem('userId')) {
@@ -28,7 +30,10 @@ export class AuthService {
     return this.currentUser;
   }
 
-
+  getUserDetails() {
+    this.getCurrentUser();
+    return this.http.get<{ message: string, data: User }>(`${env.apiUrl}/user/${this.currentUser._id}`);
+  }
 
   getToken() {
     return this.token;
@@ -50,7 +55,7 @@ export class AuthService {
     return this.loggedOut.asObservable();
   }
 
-  setLoggedOut(value: boolean){
+  setLoggedOut(value: boolean) {
     this.loggedOut.next(value)
   }
 
@@ -66,6 +71,7 @@ export class AuthService {
     if (user) {
       localStorage.setItem('userId', user._id ? user._id : '');
       this.currentUser = user;
+      this.dataService.setCurrentUser(this.currentUser);
     }
   }
   login(email: string, password: string) {
@@ -118,7 +124,7 @@ export class AuthService {
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
     this.router.navigate(["/"]);
-   localStorage.removeItem('token');
+    localStorage.removeItem('token');
   }
 
   private setAuthTimer(duration: number) {

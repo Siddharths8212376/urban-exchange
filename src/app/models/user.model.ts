@@ -6,7 +6,7 @@ export interface User {
     firstName?: string;
     lastName?: string;
     username?: string;
-    photoUrl?: string;
+    avatar?: string;
     provider?: string;
     _id?: string;
     productsListed?: Product[];
