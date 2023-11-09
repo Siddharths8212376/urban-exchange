@@ -3,3 +3,14 @@
         <app-product-card [product]="product"></app-product-card>
     </div>
 </div>
+
+<mat-paginator #paginator
+[length]="totalCount"
+[pageIndex]="pageNo"
+[pageSize]="pageSize"
+[pageSizeOptions]="pageSizeOptions"
+[showFirstLastButtons]="showFirstLastButtons"
+(page)="handlePageEvent($event)"
+class="paginate"
+>
+</mat-paginator>

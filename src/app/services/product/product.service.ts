@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AppConstants } from 'src/app/constants/app.constants';
 import { ProductResponse } from 'src/app/dto/product-response.dto';
 import { CreateFields } from 'src/app/models/create-product-fields.model';
 import { Product } from 'src/app/models/product.model';
@@ -20,8 +21,8 @@ export class ProductService {
     return this.http.get<{ message: string, data: Product[] }>(`${env.apiUrl}/product`);
   }
   getProductsByPageNoPageSizeAndOrCategory(page?: number, limit?: number, category?: string): Observable<ProductResponse> {
-    if (!page) page = 0;
-    if (!limit) limit = 50;
+    if (!page) page = AppConstants.DEFAULT_PAGE_NO;
+    if (!limit) limit = AppConstants.DEFAULT_PAGE_SIZE;
     let url = `${env.apiUrl}/product?page=${page}&limit=${limit}`;
     if (category) url += `&category=${category}`;
     return this.http.get<ProductResponse>(url);
