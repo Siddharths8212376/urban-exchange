@@ -3,7 +3,8 @@ $bg-color: #f5f5f5;
     height: calc(100vh - 100px);
 }
 .row {
-    height: inherit;
+    height: calc(100vh - 160px);
+    overflow-y: scroll;
     display: flex;
     justify-content: center;
     padding: 1rem;
@@ -22,4 +23,5 @@ $bg-color: #f5f5f5;
     background-color: $bg-color;
     border-radius: 1.5rem;
     padding: 1rem;
+    position: relative;
 }

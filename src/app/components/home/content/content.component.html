@@ -5,7 +5,7 @@
     </div>
     <div class="col-1 space"></div>
     <div class="col-8 product-thumbnails">
-      <app-product-list [products]="products"></app-product-list>
+      <app-product-list [products]="products" [totalCount]="totalCount" [pageSize]="pageSize" [pageNo]="pageNo" (pageUpdateEvent)="pageUpdateEvent($event)"></app-product-list>
     </div>
   </div>  
 </main>
