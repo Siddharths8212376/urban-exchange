@@ -1,6 +1,6 @@
 <mat-toolbar style="color: white;">
   <span>
-    <a routerLink="/home" style="color: black;">Urban Exchange</a>
+    <a routerLink="/home" style="color: black;" title="Home">Urban Exchange</a>
   </span>
   <span class="spacer"></span>
   <ul>
@@ -17,14 +17,13 @@
       <button class="text" mat-button (click)="onLogout()">Logout</button>
     </li>
     <li *ngIf="userIsAuthenticated">
-      <a mat-button class="text" routerLink="/profile/123" routerLinkActive="mat-accent">profile</a>
-    </li>
-    <li *ngIf="userIsAuthenticated">
       <span *ngIf="currentUser">
+        <a class="text" routerLink="/profile/123" title="Profile">
         <img *ngIf="currentUser.avatar && currentUser.avatar.length > 0; else noImage" style="border-radius: 50%; height: 2.5rem; margin-left: 1rem;" [src]="currentUser.avatar">
         <ng-template #noImage>
           <img style="border-radius: 50%; height: 2.5rem; margin-left: 1rem;" [src]="'../../assets/images/default-user.png'">
         </ng-template>
+        </a>
       </span>
     </li>
   </ul>
