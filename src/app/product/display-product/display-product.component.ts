@@ -35,7 +35,7 @@ export class DisplayProductComponent implements OnInit {
           this.imageFiles.push(this.sanitizer.bypassSecurityTrustUrl(objectURL));
         }))
       } else {
-        this.imageFiles.push('../../assets/images/no-image.png');
+        this.imageFiles.push('../../assets/images/no-image.svg');
       }
     })
   }

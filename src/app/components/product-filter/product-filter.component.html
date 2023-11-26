@@ -1,10 +1,10 @@
-<div class="card" style="width: inherit; margin-bottom: 1rem; border-radius: 0.5rem !important;">
+<div class="card" style="width: inherit; margin-bottom: 1rem; border: none;">
     <div class="card-body">
-      <h2 class="card-title">Filter By</h2>
+      <h2 class="card-title">Category</h2>
     </div>
 </div>
 
-<div class="card" *ngFor="let filter of productCategories" style="width: inherit; margin-bottom: 1rem; border-radius: 0.5rem !important;">
+<div class="card" *ngFor="let filter of productCategories" style="width: inherit; margin-bottom: 1rem; border: none">
     <div class="card-body filter-body">
     <div class="form-check">
         <input class="form-check-input" type="checkbox" [value]="filter.filterName" [checked]="filter.checked" (change)="updateFilters(filter.filterName, $event)" [checked]="">
