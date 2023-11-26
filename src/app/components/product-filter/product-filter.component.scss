@@ -12,9 +12,14 @@
 .form-check-input {
     height: 1rem; width: 1rem;
     box-shadow: none;
+    cursor: pointer;
 }
 .form-check-input:checked {
     background-color: #ff3f6c;
     border-color: #ff3f6c;
     box-shadow: none;
+}
+.checked-filter {
+    font-size: 140% !important;
+    font-weight: 800;
 }
