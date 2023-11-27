@@ -1,7 +1,12 @@
-<mat-toolbar style="color: white;">
+<mat-toolbar style="color: white;" class="header-toolbar">
   <span>
-    <a routerLink="/home" style="color: black;" title="Home">Urban Exchange</a>
+    <a routerLink="/home" style="color: black;font-family: 'Assistant';" title="Home">Urban Exchange</a>
   </span>
+  <div class="search">
+    <div class="search-span">
+    <input type="text" class="search-input text" placeholder="Search for products..">
+    </div>
+  </div>
   <span class="spacer"></span>
   <ul>
     <li *ngIf="userIsAuthenticated">
