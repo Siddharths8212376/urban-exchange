@@ -4,6 +4,7 @@ import { AppConstants } from 'src/app/constants/app.constants';
 import { ProductResponse } from 'src/app/dto/product-response.dto';
 import { Product } from 'src/app/models/product.model';
 import { DataService } from 'src/app/services/data/data.service';
+import { LoaderService } from 'src/app/services/loader/loader.service';
 import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
@@ -20,6 +21,7 @@ export class ContentComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private dataService: DataService,
+    public loader: LoaderService,
   ) { }
   ngOnInit(): void {
     this.productService.getProductsByPageNoPageSizeAndOrCategory().subscribe(response => {

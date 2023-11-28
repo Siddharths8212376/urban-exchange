@@ -48,8 +48,16 @@ ul {
   color: black;
 }
 .header-toolbar {
-  box-shadow: 0rem 0.2rem 0.5rem #e6e6e6;
+  box-shadow: 0rem 0.05rem 0.8rem #e6e6e6;;
   position: relative;
   background: white;
+  z-index: 999;
+}
+.loader-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;    
+  background: black;
+  opacity: 0.5;
   z-index: 999;
 }
