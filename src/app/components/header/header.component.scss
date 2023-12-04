@@ -10,6 +10,30 @@ a {
 }
 .text {
   color: black !important;
+  font-family: 'Assistant';
+}
+.search {
+  flex: 1 1 25rem;
+  margin-left: 9.5%;
+  border-radius: 0.25rem;
+  border: 1px solid #ddd;
+}
+.search-span::before {
+  background-image:url('../../../assets/images/icons-search.svg');
+  background-size: 1.5rem 1.5rem;
+  background-repeat: no-repeat;
+  padding-right: 2rem;
+  margin-left: 1rem;
+  vertical-align: middle;
+  content: "";
+  filter: invert(100%) sepia(0%) saturate(3818%) hue-rotate(41deg) brightness(109%) contrast(73%);
+}
+.search-input {
+  width: 90%;
+  border:none;
+}
+.search-input:focus {
+  outline: none;
 }
 ul {
   display: flex;
@@ -22,4 +46,18 @@ ul {
 .container {
   background-color: blanchedalmond;
   color: black;
+}
+.header-toolbar {
+  box-shadow: 0rem 0.05rem 0.8rem #e6e6e6;;
+  position: relative;
+  background: white;
+  z-index: 999;
+}
+.loader-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;    
+  background: black;
+  opacity: 0.5;
+  z-index: 999;
 }

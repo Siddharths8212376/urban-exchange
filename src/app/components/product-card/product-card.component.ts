@@ -27,7 +27,7 @@ export class ProductCardComponent implements OnInit {
         this.productImage = this.sanitizer.bypassSecurityTrustUrl(objectURL);
       })
     } else {
-      this.productImage = '../../assets/images/no-image.png';
+      this.productImage = '../../assets/images/no-image.svg';
     }
   }
   openProduct(productId: string) {
