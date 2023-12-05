@@ -1,0 +1,10 @@
+<div class="search">
+    <div class="search-div">
+        <span class="search-span" [ngClass]="searchInput.length > 0 ? 'enable-search' : 'disable-search'" title="search" (click)="displayItems()"></span>
+        <input [(ngModel)]="searchInput" (ngModelChange)="onChange($event)" type="text" class="search-input text" placeholder="Search for products..">
+    </div>
+</div>
+
+<div class="search-recom overlay text" *ngIf="searchResults.length > 0">
+    <div  *ngFor="let product of searchResults" class="search-result" (click)="onSelectItem(product)">{{product.name}}</div>
+</div>

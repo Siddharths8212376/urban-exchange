@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AppConstants } from 'src/app/constants/app.constants';
 import { ProductResponse } from 'src/app/dto/product-response.dto';
+import { ProductSearchResponse } from 'src/app/dto/product-search-response.dto';
 import { CreateFields } from 'src/app/models/create-product-fields.model';
 import { Product } from 'src/app/models/product.model';
 import { env } from 'src/environments/environment';
@@ -41,6 +42,13 @@ export class ProductService {
   }
   createProduct(payload: any): Observable<{ message: string, productId: string }> {
     let auth = this.httpOptions.headers.get('Authorization');
+    console.log(auth, 'authHere');
     return this.http.post<{ message: string, productId: string }>(`${env.apiUrl}/product`, payload, this.httpOptions);
+  }
+  searchProduct(searchTerm: string): Observable<{ message: string, data: ProductSearchResponse[] }> {
+    return this.http.get<{ message: string, data: ProductSearchResponse[] }>(`${env.apiUrl}/product/search/${searchTerm}`);
+  }
+  getProductListById(payload: any): Observable<{ message: string, data: Product[] }> {
+    return this.http.post<{ message: string, data: Product[] }>(`${env.apiUrl}/product/product-list-by-id`, payload);
   }
 }

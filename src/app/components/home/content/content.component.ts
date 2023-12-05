@@ -24,9 +24,7 @@ export class ContentComponent implements OnInit {
     public loader: LoaderService,
   ) { }
   ngOnInit(): void {
-    this.productService.getProductsByPageNoPageSizeAndOrCategory().subscribe(response => {
-      this.setProductAndPageData(response);
-    });
+    this.getAllProductData();
 
     this.dataService.getProductFilters().subscribe(response => {
       if (response) {
@@ -41,6 +39,27 @@ export class ContentComponent implements OnInit {
         this.setProductAndPageData(response);
       });
     })
+    this.dataService.getSearchResults().subscribe(response => {
+      if (response.length > 0) {
+        let idList = response.map((r: any) => r['_id']);
+        let payload = {
+          idList: idList
+        }
+        this.productService.getProductListById(payload).subscribe(productResponse => {
+          this.products = productResponse.data;
+          this.totalCount = this.products.length;
+          this.pageNo = AppConstants.DEFAULT_PAGE_NO;
+          this.pageSize = AppConstants.DEFAULT_PAGE_SIZE;
+        })
+      } else {
+        this.getAllProductData();
+      }
+    })
+  }
+  getAllProductData() {
+    this.productService.getProductsByPageNoPageSizeAndOrCategory().subscribe(response => {
+      this.setProductAndPageData(response);
+    });
   }
   pageUpdateEvent(e: PageEvent) {
     this.productService.getProductsByPageNoPageSizeAndOrCategory(e.pageIndex, e.pageSize).subscribe(response => {

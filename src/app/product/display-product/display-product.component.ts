@@ -24,7 +24,14 @@ export class DisplayProductComponent implements OnInit {
     private sanitizer: DomSanitizer,
   ) { }
   ngOnInit(): void {
+    this.route.params.subscribe(param => {
+      this.productId = this.route.snapshot.paramMap.get('id');
+      this.getProductDetails();
+    })
     this.productId = this.route.snapshot.paramMap.get('id');
+  }
+  getProductDetails() {
+    this.imageFiles = [];
     this.productService.getProductById(this.productId).subscribe(response => {
       this.product = response.data;
       this.productImages = this.product.productImages;
