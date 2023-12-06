@@ -1,6 +1,72 @@
 .product-form {
     margin: 5rem;
+    font-family: 'Assistant';
+    font-size: large;
 }
+
 .submit {
     margin-top: 2rem;
+}
+
+.ast {
+    font-family: 'Assistant';
+    font-size: large;
+}
+
+mat-label {
+    font-family: 'Assistant';
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.previews {
+    margin-left: 1rem;
+}
+
+.preview-title {
+    margin-bottom: 1rem;
+}
+
+.image-preview {
+    height: 15rem;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    position: relative;
+}
+
+.image-preview:hover {
+    box-shadow: 0rem 0.05rem 0.8rem #e6e6e6;
+    transform: scale(1.02);
+}
+
+.close-icon {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: 999;
+    cursor: pointer;
+}
+
+.camera {
+    position: relative;
+    top: 0.3rem;
+}
+
+.broken {
+    transform: scale(10);
+    color: #e6e6e6;
+    position: absolute;
+    top: 10rem;
+    left: 20rem;
+}
+
+.nothing {
+    margin-top: 8rem;
+    font-size: xx-large;
+    position: relative;
+    display: flex;
+    color: #e6e6e6;
+    justify-content: center;
 }
