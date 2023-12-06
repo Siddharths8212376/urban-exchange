@@ -24,7 +24,6 @@ export class ContentComponent implements OnInit {
     public loader: LoaderService,
   ) { }
   ngOnInit(): void {
-    this.getAllProductData();
 
     this.dataService.getProductFilters().subscribe(response => {
       if (response) {
@@ -39,6 +38,8 @@ export class ContentComponent implements OnInit {
         this.productService.getProductsByPageNoPageSizeAndOrCategory(AppConstants.DEFAULT_PAGE_NO, AppConstants.DEFAULT_PAGE_SIZE, filters).subscribe(response => {
           this.setProductAndPageData(response);
         });
+      } else {
+        this.getAllProductData();
       }
     })
     this.dataService.getSearchResults().subscribe((response: any) => {
