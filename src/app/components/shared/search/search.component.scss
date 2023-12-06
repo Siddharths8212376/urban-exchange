@@ -48,6 +48,11 @@
     text-overflow: ellipsis;
 }
 
+.search-result:hover {
+    background: #ffebf0;
+    padding-left: 0.25rem;
+}
+
 .disable-search {
     filter: invert(100%) sepia(0%) saturate(3818%) hue-rotate(41deg) brightness(109%) contrast(73%);
 }

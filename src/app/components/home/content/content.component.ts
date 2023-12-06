@@ -35,24 +35,28 @@ export class ContentComponent implements OnInit {
       let filters = '';
       this.productFilter.forEach(filter => filter.checked == true ? filters += filter.filterName + ',' : null);
       if (filters.charAt(filters.length - 1) == ',') filters = filters.substring(0, filters.length - 1);
-      this.productService.getProductsByPageNoPageSizeAndOrCategory(AppConstants.DEFAULT_PAGE_NO, AppConstants.DEFAULT_PAGE_SIZE, filters).subscribe(response => {
-        this.setProductAndPageData(response);
-      });
+      if (filters.trim().length > 0) {
+        this.productService.getProductsByPageNoPageSizeAndOrCategory(AppConstants.DEFAULT_PAGE_NO, AppConstants.DEFAULT_PAGE_SIZE, filters).subscribe(response => {
+          this.setProductAndPageData(response);
+        });
+      }
     })
-    this.dataService.getSearchResults().subscribe(response => {
-      if (response.length > 0) {
-        let idList = response.map((r: any) => r['_id']);
-        let payload = {
-          idList: idList
+    this.dataService.getSearchResults().subscribe((response: any) => {
+      if (response) {
+        if (response.length > 0) {
+          let idList = response.map((r: any) => r['_id']);
+          let payload = {
+            idList: idList
+          }
+          this.productService.getProductListById(payload).subscribe(productResponse => {
+            this.products = productResponse.data;
+            this.totalCount = this.products.length;
+            this.pageNo = AppConstants.DEFAULT_PAGE_NO;
+            this.pageSize = AppConstants.DEFAULT_PAGE_SIZE;
+          })
+        } else {
+          this.getAllProductData();
         }
-        this.productService.getProductListById(payload).subscribe(productResponse => {
-          this.products = productResponse.data;
-          this.totalCount = this.products.length;
-          this.pageNo = AppConstants.DEFAULT_PAGE_NO;
-          this.pageSize = AppConstants.DEFAULT_PAGE_SIZE;
-        })
-      } else {
-        this.getAllProductData();
       }
     })
   }
