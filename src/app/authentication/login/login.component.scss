@@ -39,9 +39,9 @@
 
 .login-button {
   /* Your custom styles for the login button */
-  width: 100%;
+  width: 80%;
   padding: 10px;
-  background-color: #007bff;
+  background-color: #ff3f6c;
   /* Example button color */
   color: #fff;
   /* Example text color */
@@ -52,12 +52,12 @@
 
 .login-button:hover {
   /* Your custom hover styles */
-  background-color: #0056b3;
+  background-color: #eb2150;
   /* Example hover color */
 }
 
 .login-card {
-  width: 25%;
+  // width: 25%;
   margin: auto;
   padding: 2%;
   position: absolute !important;
@@ -72,19 +72,56 @@
 }
 
 .login-button {
-  width: 50%;
-  left: 25%;
+  width: 75%;
+  font-family: 'Assistant';
+  height: 3rem;
+  margin-bottom: 1rem;
+  font-size: large;
 }
 
 .container {
-  background-image: url('../../../assets/backgroud-home.svg');
+  // background-image: url('../../../assets/backgroud-home.svg');
   background-size: 100% 108%;
   height: calc(100vh - 110px);
   left: 0;
   position: absolute;
-  background-color: #172733;
+  // background-color: #172733;
 }
+
 .mat-mdc-card {
   border: none !important;
   box-shadow: none !important;
+}
+
+.urban {
+  margin-top: 10rem;
+  font-size: 700%;
+  position: relative;
+  /* display: flex; */
+  color: #e6e6e6;
+}
+
+.exchange {
+  margin-top: 5rem;
+  font-size: 800%;
+  position: relative;
+  z-index: 999;
+}
+
+.btn {
+  transform: scale(1.2)
+}
+
+.sign-in {
+  display: flex;
+  justify-content: center;
+}
+
+.uex {
+
+  transform: scale(20);
+  color: #e6e6e6;
+  position: absolute;
+  top: 14rem;
+  left: -3rem;
 }
