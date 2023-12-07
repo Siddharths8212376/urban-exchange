@@ -3,13 +3,23 @@
     transform: scale(20);
     color: #e6e6e6;
     position: absolute;
-    left: 13rem;
+    left: -13rem;
     top: 15rem;
+}
+
+.caption {
+    position: absolute;
+    top: 9rem;
+    padding-left: 1.4rem;
+    font-family: 'Assistant';
+    font-size: xx-large;
+    color: #aeaead;
 }
 
 .landing {
     min-height: 1024px;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .logo {
@@ -40,7 +50,7 @@
 
 .landing-image {
     background-image: url('../../../assets/landing-image.png');
-    right: 0;
+    right: -2rem;
     background-repeat: no-repeat;
     position: absolute;
     top: 0;
