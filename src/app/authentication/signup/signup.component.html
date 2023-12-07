@@ -1,6 +1,6 @@
 <div class="container">
   <div class="cardsignup">
-<mat-card class="signup-card" style="position: relative; top: 20px; background-color: wheat;"> 
+<mat-card class="signup-card" style="position: relative; top: 20px;"> 
   <span style="    position: relative;
   margin: auto;">
     <img src="../../../assets/person.svg" style="height: 50px;"> 
@@ -18,11 +18,14 @@
       </mat-form-field>
 
       <p></p>
-      
-      <div  class="btn btn-danger">
-        <asl-google-signin-button>  SignUp with Google</asl-google-signin-button>
+      <div class="row">
+        <div class="col-12 sign-in">
+          <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Signup</button>
+        </div>
+        <div class="col-12 btn sign-in">
+          <asl-google-signin-button  type='standard' size='large'>  Sign Up with Google</asl-google-signin-button>
+        </div>
       </div>
-      <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Signup</button>
     </form>
   </mat-card>
   
