@@ -1,62 +1,62 @@
 ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+	list-style: none;
+	padding: 0;
+	margin: 0;
 }
 
 .row {
-  width: 100%;
+	width: 100%;
 }
 
 a {
-  text-decoration: none;
-  color: black;
+	text-decoration: none;
+	color: black;
 }
 
 .options {
-  display: flex;
-  justify-content: flex-end;
+	display: flex;
+	justify-content: flex-end;
 }
 
 .text {
-  color: black !important;
-  font-family: 'Assistant';
+	color: black !important;
+	font-family: 'Assistant';
 }
 
 ul {
-  display: flex;
+	display: flex;
 }
 
 .spacer {
-  flex: 1 1 auto;
+	flex: 1 1 auto;
 }
 
 .container {
-  background-color: blanchedalmond;
-  color: black;
+	background-color: blanchedalmond;
+	color: black;
 }
 
 .header-toolbar {
-  box-shadow: 0rem 0.05rem 0.8rem #e6e6e6;
-  ;
-  position: relative;
-  background: white;
-  z-index: 999;
+	box-shadow: 0rem 0.05rem 0.8rem #e6e6e6;
+	;
+	position: relative;
+	background: black;
+	z-index: 999;
 }
 
 .loader-container {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background: black;
-  opacity: 0.5;
-  z-index: 999;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background: black;
+	opacity: 0.5;
+	z-index: 999;
 }
 
 .search {
-  position: relative;
+	position: relative;
 }
 
 .remove-shadow {
-  box-shadow: none;
+	box-shadow: none;
 }

@@ -17,6 +17,11 @@ export class DisplayProductComponent implements OnInit {
   productId: string | any;
   productImages: string[] = [];
   imageFiles: File[] | any = [];
+  inWishlistIcon: string = '../../../assets/images/inWishlist.svg';
+  notInWishlistIcon: string = '../../../assets/images/notInWishlist.svg';
+  wishlistIcon: string = this.notInWishlistIcon;
+  wishlist: boolean = false;
+  
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
@@ -55,5 +60,10 @@ export class DisplayProductComponent implements OnInit {
         this.imageFiles.push('../../assets/images/no-image.svg');
       }
     })
+  }
+
+  onClickWishlist() {
+    this.wishlist = !this.wishlist;
+    this.wishlistIcon = this.wishlist ? this.inWishlistIcon : this.notInWishlistIcon;
   }
 }

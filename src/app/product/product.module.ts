@@ -7,6 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { CarouselComponent } from './carousel/carousel.component';
+
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -16,7 +18,8 @@ import { MatIconModule } from '@angular/material/icon';
 @NgModule({
   declarations: [
     DisplayProductComponent,
-    CreateProductComponent
+    CreateProductComponent,
+    CarouselComponent
   ],
   imports: [
     FormsModule,

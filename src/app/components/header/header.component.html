@@ -1,4 +1,4 @@
-<mat-toolbar style="color: white;" class="header-toolbar" [ngClass]="!userIsAuthenticated ? 'remove-shadow' : ''">
+<mat-toolbar style="color: white; background-color: white !important;" class="header-toolbar" [ngClass]="!userIsAuthenticated ? 'remove-shadow' : ''">
   <div class="row">
     <div class="col-md-4">
       <a [routerLink]="userIsAuthenticated ? '/home' : '/'" style="color: black;font-family: 'Assistant';" title="Home"><span style="color: #e6e6e6;">U</span>Ex</a>
