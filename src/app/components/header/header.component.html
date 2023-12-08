@@ -3,9 +3,15 @@
     <a routerLink="/home" class="text" title="Home">URBAN EXCHANGE</a>
   </span>
   <div class="search" *ngIf="userIsAuthenticated">
-    <div class="search-span">
-    <input type="text" class="search-input text" placeholder="Search for products..">
-    </div>
+    <form action="" class="search-bar">
+      <input type="search" name="search" pattern=".*\S.*" required>
+      <button class="search-btn" type="submit">
+        <span>Search</span>
+      </button>
+    </form>
+    <!-- <div class="search-span">
+      <input type="text" class="search-input searchBox" placeholder="Search for products..">
+    </div> -->
   </div>
   <span class="spacer"></span>
   <ul>
