@@ -1,7 +1,12 @@
-<mat-toolbar class="navbar">
+<mat-toolbar class="navbar" class="header-toolbar">
   <span>
-    <a routerLink="/home" class="text">URBAN EXCHANGE</a>
+    <a routerLink="/home" class="text" title="Home">URBAN EXCHANGE</a>
   </span>
+  <div class="search" *ngIf="userIsAuthenticated">
+    <div class="search-span">
+    <input type="text" class="search-input text" placeholder="Search for products..">
+    </div>
+  </div>
   <span class="spacer"></span>
   <ul>
     <li *ngIf="userIsAuthenticated">
@@ -15,10 +20,19 @@
     </li>
     <li *ngIf="userIsAuthenticated">
       <button class="text" mat-button (click)="onLogout()">Logout</button>
-      <p *ngIf="currentUser">Hello {{currentUser.username}} </p>
     </li>
     <li *ngIf="userIsAuthenticated">
-      <a mat-button class="text" routerLink="/profile/123" routerLinkActive="mat-accent">profile</a>
+      <span *ngIf="currentUser">
+        <a class="text" routerLink="/profile/123" title="Profile">
+        <img *ngIf="currentUser.avatar && currentUser.avatar.length > 0; else noImage" style="border-radius: 50%; height: 2.5rem; margin-left: 1rem;" [src]="currentUser.avatar">
+        <ng-template #noImage>
+          <img style="border-radius: 50%; height: 2.5rem; margin-left: 1rem;" [src]="'../../assets/images/default-user.png'">
+        </ng-template>
+        </a>
+      </span>
     </li>
   </ul>
 </mat-toolbar>
+<div *ngIf="loader.displayLoader$ | async" >
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>

@@ -9,6 +9,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { CarouselComponent } from './carousel/carousel.component';
 
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -21,6 +24,7 @@ import { CarouselComponent } from './carousel/carousel.component';
     FormsModule,
     MatInputModule,
     MatSelectModule,
+    MatPaginatorModule,
     MatButtonModule,
     ReactiveFormsModule,
     CommonModule,

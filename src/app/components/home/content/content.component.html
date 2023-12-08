@@ -1,11 +1,14 @@
 <main class="content">
+
+  <div *ngIf="loader.displayLoader$ | async" class="loader-container"><mat-spinner style="top:50%; left:50%"></mat-spinner></div>
+
   <div class="row">
     <div class="col-2 filter">
       <app-product-filter></app-product-filter>
     </div>
     <div class="col-1 space"></div>
-    <div class="col-8 product-thumbnails">
-      <app-product-list [products]="products"></app-product-list>
+    <div class="col-9 product-thumbnails">
+      <app-product-list [products]="products" [totalCount]="totalCount" [pageSize]="pageSize" [pageNo]="pageNo" (pageUpdateEvent)="pageUpdateEvent($event)"></app-product-list>
     </div>
   </div>  
 </main>

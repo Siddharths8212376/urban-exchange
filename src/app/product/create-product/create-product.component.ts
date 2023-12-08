@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/authentication/auth.service';
 import { CreateFields } from 'src/app/models/create-product-fields.model';
 import { ImageService } from 'src/app/services/image/image.service';
+import { LoaderService } from 'src/app/services/loader/loader.service';
 import { ProductService } from 'src/app/services/product/product.service';
 import { UserService } from 'src/app/services/user/user.service';
 
@@ -25,7 +26,7 @@ export class CreateProductComponent implements OnInit {
     private imageService: ImageService,
     private router: Router,
     private authService: AuthService,
-    private userService: UserService,
+    public loader: LoaderService,
   ) { }
   ngOnInit(): void {
     this.generateProductTag();

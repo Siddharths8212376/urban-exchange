@@ -1,5 +1,16 @@
-<div class="row">
-    <div class="col-3" *ngFor="let product of filteredProducts">
+<div class="row row-cols-5 product-list">
+    <div class="col" *ngFor="let product of products">
         <app-product-card [product]="product"></app-product-card>
     </div>
 </div>
+
+<mat-paginator #paginator
+[length]="totalCount"
+[pageIndex]="pageNo"
+[pageSize]="pageSize"
+[pageSizeOptions]="pageSizeOptions"
+[showFirstLastButtons]="showFirstLastButtons"
+(page)="handlePageEvent($event)"
+class="paginate"
+>
+</mat-paginator>

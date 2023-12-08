@@ -5,12 +5,22 @@
     -webkit-line-clamp: $numLines;
     -webkit-box-orient: vertical;
 }
+@mixin font-style($style, $fallback) {
+    font-family: $style, $fallback;
+}
 .card-subtitle {
-    @include curb-lines(3);
+    @include curb-lines(2);
+    @include font-style('Assistant', 'Roboto');
+    font-size: small;
 }
 .card-title {
     @include curb-lines(2);
+    @include font-style('Assistant', 'Roboto');
+    font-size: large;
+}
+.card-text {
+    font-size: medium;
 }
 .card {
-    height: 25rem;
+    height: 24rem;
 }

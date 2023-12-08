@@ -34,6 +34,8 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductFilterComponent } from './components/product-filter/product-filter.component';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { RequestInterceptor } from './services/request/request.interceptor';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     MatIconModule,
     SocialLoginModule,
     GoogleSigninButtonModule,
+    MatProgressBarModule,
     OAuthModule.forRoot({
       resourceServer: {
         allowedUrls: ['http://localhost:5000/api/user'], // Your Node.js API server URL
@@ -75,6 +78,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
