@@ -1,0 +1,18 @@
+<div id="carouselExampleIndicators" class="carousel slide">
+  <div class="carousel-indicators" >
+    <button *ngFor="let image of imageFiles; let i=index;" type="button" data-bs-target="#carouselExampleIndicators" [attr.data-bs-slide-to]="i" [ngClass]="{'active': i == 0 }" aria-current="true" aria-label="Product Images indicator"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item" *ngFor="let image of imageFiles; let i=index;" [ngClass]="{'active': i == 0 }">
+      <img class="imgPosition" width="200" height="200" [src]="image" alt="First slide">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>

@@ -7,13 +7,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { CarouselComponent } from './carousel/carousel.component';
 
 
 
 @NgModule({
   declarations: [
     DisplayProductComponent,
-    CreateProductComponent
+    CreateProductComponent,
+    CarouselComponent
   ],
   imports: [
     FormsModule,

@@ -1,25 +1,23 @@
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+.navbar {
+  background: black;
 
-a {
-  text-decoration: none;
-  color: black;
-}
-.text {
-  color: black !important;
-}
-ul {
-  display: flex;
-}
+  a {
+    text-decoration: none;
+    color: black;
+  }
 
-.spacer {
-  flex: 1 1 auto;
-}
+  .text {
+    color: white;
+  }
 
-.container {
-  background-color: blanchedalmond;
-  color: black;
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
 }
