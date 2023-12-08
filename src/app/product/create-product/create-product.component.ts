@@ -107,6 +107,9 @@ export class CreateProductComponent implements OnInit {
   onChangeOfData(attribute: any, $event: any) {
     attribute.get('value').patchValue($event);
   }
+  removeImageFromPreview(idx: number) {
+    this.previews.splice(idx, 1);
+  }
   onSumbit() {
     let createPayload: any = {
       tag: this.productTag,

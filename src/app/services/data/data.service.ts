@@ -8,6 +8,7 @@ import { User } from 'src/app/models/user.model';
 export class DataService {
   productFilters$ = new BehaviorSubject(null);
   currentUser$ = new BehaviorSubject(null);
+  searchResults$ = new BehaviorSubject(null);
   constructor() { }
   getProductFilters() {
     return this.productFilters$.asObservable();
@@ -20,5 +21,11 @@ export class DataService {
   }
   setCurrentUser(currentUser: any) {
     this.currentUser$.next(currentUser);
+  }
+  getSearchResults() {
+    return this.searchResults$.asObservable();
+  }
+  setSearchResults(searchResults: any) {
+    this.searchResults$.next(searchResults);
   }
 }

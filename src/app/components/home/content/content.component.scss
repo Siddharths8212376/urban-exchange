@@ -1,7 +1,9 @@
 $bg-color: white;
+
 .content {
     height: calc(100vh - 100px);
 }
+
 .row {
     height: calc(100vh - 150px);
     overflow-y: scroll;
@@ -10,27 +12,31 @@ $bg-color: white;
     padding: 1rem;
     padding-top: 3rem;
 }
+
 .filter {
     background-color: $bg-color;
     padding: 1rem;
     border-right: 1px solid #ddd;
     width: 14%;
     // margin-left: 5rem;
-} 
+}
+
 .space {
     margin-left: -7rem;
 }
+
 .product-thumbnails {
     background-color: $bg-color;
     border-radius: 1.5rem;
     padding: 1rem;
     position: relative;
 }
+
 .loader-container {
     position: absolute;
     height: 100%;
-    width: 100%;    
+    width: 100%;
     background: black;
     opacity: 0.5;
-    z-index: 999;
+    z-index: 99;
 }

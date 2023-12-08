@@ -12,6 +12,7 @@ import { CarouselComponent } from './carousel/carousel.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     ReactiveFormsModule,
     CommonModule,
     ProductRoutingModule,
+    MatIconModule,
   ]
 })
 export class ProductModule { }

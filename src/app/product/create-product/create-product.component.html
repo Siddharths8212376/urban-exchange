@@ -1,47 +1,63 @@
 <div *ngIf="productForm" class="product-form">
-    <form [formGroup]="productForm" autocomplete="off">
-        <div *ngFor="let attr of productForm.get('attrs')['controls']">
-            <div class="row">
-                <div class="col-3">
-                    {{ attr.value.fieldName }} <span style="color: red;" *ngIf="attr.value.required">*</span>
+    <div class="row">
+        <div class="col-6">
+            <form [formGroup]="productForm" autocomplete="off">
+                <div *ngFor="let attr of productForm.get('attrs')['controls']">
+                    <div class="row">
+                        <div class="col-6">
+                            {{ attr.value.fieldName }} <span style="color: red;" *ngIf="attr.value.required">*</span>
+                        </div>
+                        <div class="col-6">
+                            <ng-container *ngIf="attr.value.type == 'text' || attr.value.type == 'number'">
+                                <mat-form-field>
+                                    <mat-label>{{ attr.value.fieldName }} </mat-label>
+                                    <input [type]="attr.value.type" matInput [(ngModel)]="attr.value.value" [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeOfData(attr, $event)">
+                                </mat-form-field>
+                            </ng-container>
+                            <ng-container *ngIf="attr.value.type == 'textarea'">
+                                <mat-form-field>
+                                    <mat-label>{{ attr.value.fieldName }} </mat-label>
+                                    <textarea rows="2" [type]="attr.value.type" matInput [(ngModel)]="attr.value.value" [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeOfData(attr, $event)"></textarea>
+                                </mat-form-field>
+                            </ng-container>
+                            <ng-container *ngIf="attr.value.type == 'select'">
+                                <mat-form-field>
+                                    <mat-label>{{ attr.value.fieldName }} </mat-label>
+                                    <mat-select [(ngModel)]="attr.value.value" [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeOfData(attr, $event)">
+                                      <mat-option *ngFor="let option of attr.value.options" [value]="option">
+                                        {{ option }}
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                            </ng-container>
+                            <ng-container *ngIf="attr.value.type == 'file'">
+                                    <button class="ast" type="button" mat-raised-button (click)="fileInput.click()">Choose Files</button>
+                                    <input hidden (change)="onFileSelected(attr)" #fileInput type="file" id="file" [multiple]="attr.value.multiple">
+                            </ng-container>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-4">
-                    <ng-container *ngIf="attr.value.type == 'text' || attr.value.type == 'number'">
-                        <mat-form-field>
-                            <mat-label>{{ attr.value.fieldName }} </mat-label>
-                            <input [type]="attr.value.type" matInput [(ngModel)]="attr.value.value" [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeOfData(attr, $event)">
-                        </mat-form-field>
-                    </ng-container>
-                    <ng-container *ngIf="attr.value.type == 'textarea'">
-                        <mat-form-field>
-                            <mat-label>{{ attr.value.fieldName }} </mat-label>
-                            <textarea rows="2" [type]="attr.value.type" matInput [(ngModel)]="attr.value.value" [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeOfData(attr, $event)"></textarea>
-                        </mat-form-field>
-                    </ng-container>
-                    <ng-container *ngIf="attr.value.type == 'select'">
-                        <mat-form-field>
-                            <mat-label>{{ attr.value.fieldName }} </mat-label>
-                            <mat-select [(ngModel)]="attr.value.value" [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeOfData(attr, $event)">
-                              <mat-option *ngFor="let option of attr.value.options" [value]="option">
-                                {{ option }}
-                              </mat-option>
-                            </mat-select>
-                          </mat-form-field>
-                    </ng-container>
-                    <ng-container *ngIf="attr.value.type == 'file'">
-                            <button type="button" mat-raised-button (click)="fileInput.click()">Choose Files</button>
-                            <input hidden (change)="onFileSelected(attr)" #fileInput type="file" id="file" [multiple]="attr.value.multiple">
-                            <div class="row">
-                                <div *ngFor="let preview of previews" class="col-3">
-                                    <img [src]="preview" style="width:100%;height: 100%;object-fit: contain;"> 
-                                </div>
-                            </div>
-                    </ng-container>
-                </div>
-            </div>
+            </form>
         </div>
-    </form>
+        <div class="col-6">
+            <div class="preview-title nothing" *ngIf="previews.length == 0"> 
+                Nothing Here. Upload to Preview Images!
+                <mat-icon title="No Images" fontIcon="heart_broken" class="broken"></mat-icon>
+             </div>
+            <div class="row previews" *ngIf="previews.length > 0">
+                <div class="preview-title"> 
+                    Preview Images
+                    <mat-icon title="Preview" fontIcon="remove_red_eye" class="camera"></mat-icon>
+                 </div>
+                <div *ngFor="let preview of previews; let i = index" class="col-4 image-preview">
+                    <span (click)="removeImageFromPreview(i)"><mat-icon title="Remove Image" fontIcon="close" class="close-icon"></mat-icon></span>
+                    <img [src]="preview" style="width:100%;height: 100%;object-fit: contain;"> 
+                </div>
+        </div>
+        </div>
+    </div>
+
     <div class="submit">
-        <button [disabled]="!productForm.valid" mat-raised-button color="accent" (click)="onSumbit()" >Submit</button>
+        <button class="ast" [disabled]="!productForm.valid" mat-raised-button color="accent" (click)="onSumbit()" >Submit</button>
     </div>
 </div>

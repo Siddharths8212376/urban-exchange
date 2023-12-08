@@ -36,6 +36,8 @@ import { OAuthModule } from 'angular-oauth2-oidc';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { RequestInterceptor } from './services/request/request.interceptor';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { SearchComponent } from './components/shared/search/search.component';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     ProductListComponent,
     ProductFilterComponent,
     UserProfileComponent,
+    SearchComponent,
+    LandingPageComponent,
   ],
   imports: [
     BrowserModule,

@@ -4,9 +4,12 @@
     left: 0;
     width: 100%;
     font-family: 'Assistant';
+    color: #c0c0c0;
 }
-.center {
+
+.left {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    padding-left: 1rem;
 }

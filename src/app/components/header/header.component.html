@@ -1,44 +1,39 @@
-<mat-toolbar class="header-toolbar">
-  <span>
-    <a routerLink="/home" class="text" title="Home">URBAN EXCHANGE</a>
-  </span>
-  <div class="search" *ngIf="userIsAuthenticated">
-    <form action="" class="search-bar">
-      <input type="search" name="search" pattern=".*\S.*" required>
-      <button class="search-btn" type="submit">
-        <span>Search</span>
-      </button>
-    </form>
-    <!-- <div class="search-span">
-      <input type="text" class="search-input searchBox" placeholder="Search for products..">
-    </div> -->
+<mat-toolbar style="color: white; background-color: white !important;" class="header-toolbar" [ngClass]="!userIsAuthenticated ? 'remove-shadow' : ''">
+  <div class="row">
+    <div class="col-md-4">
+      <a [routerLink]="userIsAuthenticated ? '/home' : '/'" style="color: black;font-family: 'Assistant';" title="Home"><span style="color: #e6e6e6;">U</span>Ex</a>
+    </div>
+    <div class="col-md-4">
+    <app-search *ngIf="userIsAuthenticated" class="search"></app-search>
+    </div>
+    <div class="col-md-4 options">
+    <ul>
+      <li *ngIf="userIsAuthenticated">
+        <a mat-button class="text" routerLink="/product" routerLinkActive="mat-accent">Sell</a>
+      </li>
+      <li *ngIf="!userIsAuthenticated">
+        <a mat-button class="text" routerLink="/login" routerLinkActive="mat-accent">Login</a>
+      </li>
+      <li *ngIf="!userIsAuthenticated">
+        <a mat-button class="text" routerLink="/signup" routerLinkActive="mat-accent">Signup</a>
+      </li>
+      <li *ngIf="userIsAuthenticated">
+        <button class="text" mat-button (click)="onLogout()">Logout</button>
+      </li>
+      <li *ngIf="userIsAuthenticated">
+        <span *ngIf="currentUser">
+          <a class="text" routerLink="/profile/123" title="Profile">
+          <img *ngIf="currentUser.avatar && currentUser.avatar.length > 0; else noImage" style="border-radius: 50%; height: 2.5rem; margin-left: 1rem;" [src]="currentUser.avatar">
+          <ng-template #noImage>
+            <img style="border-radius: 50%; height: 2.5rem; margin-left: 1rem;" [src]="'../../assets/images/default-user.png'">
+          </ng-template>
+          </a>
+        </span>
+      </li>
+    </ul>
+    </div>
   </div>
-  <span class="spacer"></span>
-  <ul>
-    <li *ngIf="userIsAuthenticated">
-      <a mat-button class="text" routerLink="/product" routerLinkActive="mat-accent">Sell</a>
-    </li>
-    <li *ngIf="!userIsAuthenticated">
-      <a mat-button class="text" routerLink="/login" routerLinkActive="mat-accent">Login</a>
-    </li>
-    <li *ngIf="!userIsAuthenticated">
-      <a mat-button class="text" routerLink="/signup" routerLinkActive="mat-accent">Signup</a>
-    </li>
-    <li *ngIf="userIsAuthenticated">
-      <button class="text" mat-button (click)="onLogout()">Logout</button>
-    </li>
-    <li *ngIf="userIsAuthenticated">
-      <span *ngIf="currentUser">
-        <a class="text" routerLink="/profile/123" title="Profile">
-        <img *ngIf="currentUser.avatar && currentUser.avatar.length > 0; else noImage" style="border-radius: 50%; height: 2.5rem; margin-left: 1rem;" [src]="currentUser.avatar">
-        <ng-template #noImage>
-          <img style="border-radius: 50%; height: 2.5rem; margin-left: 1rem;" [src]="'../../assets/images/default-user.png'">
-        </ng-template>
-        </a>
-      </span>
-    </li>
-  </ul>
 </mat-toolbar>
 <div *ngIf="loader.displayLoader$ | async" >
-  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  <mat-progress-bar color="accent" mode="indeterminate"></mat-progress-bar>
 </div>

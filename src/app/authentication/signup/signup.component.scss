@@ -27,81 +27,101 @@
 }
 
 button[type="submit"] {
-  background-color: #007bff;
+  background-color: #ff3f6c;
   color: #fff;
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
   cursor: pointer;
+  width: 60%;
+  font-family: 'Assistant';
+  font-size: large;
 }
 
 button[type="submit"]:hover {
-  background-color: #0056b3;
+  background-color: #eb2150;
 }
 
-.sign-card{
+
+
+.sign-in {
+  display: flex;
+  justify-content: center;
+}
+
+.sign-card {
   position: relative;
   width: 25%;
   margin: auto;
   padding: 2%;
-  }
+}
 
-  .container{
-    background-image: url('../../../assets/backgroud-home.svg'); /* Replace 'path-to-your-image.jpg' with the actual image file path */
-              
-              /* Set background size and positioning */
-              background-size: cover; /* You can also use 'contain' or specify dimensions */
-              background-position: center center; 
-              height: calc(100vh - 110px);
-  }
+.container {
+  // background-image: url('../../../assets/backgroud-home.svg'); /* Replace 'path-to-your-image.jpg' with the actual image file path */
 
-  .cardsignup{
-    display: flex;
-    justify-content: center;
-  }
+  /* Set background size and positioning */
+  background-size: cover;
+  /* You can also use 'contain' or specify dimensions */
+  background-position: center center;
+  height: calc(100vh - 110px);
+}
 
-  .form-field{
-    width: -webkit-fill-available;
-  }
+.cardsignup {
+  display: flex;
+  justify-content: center;
+}
 
-
-  
-
-  
-  .login-form {
-    /* Your custom styles for the login form container */
-    /* For example, you can set a background color or border */
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    padding: 20px;
-    border-radius: 5px;
-  }
-  
-  .input-field {
-    /* Your custom styles for the input fields */
-    width: 93%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-  }
-  
+.form-field {
+  width: -webkit-fill-available;
+}
 
 
-  
 
-  .form-field{
-    width: -webkit-fill-available;
-  }
-  
-  .signup-button{
-    width: 50%;
-    left: 25%;
-  }
-  
 
-  .signup-card{
-    width: 25%;
-    margin: auto;
-    padding: 2%;
-  }
+
+.login-form {
+  /* Your custom styles for the login form container */
+  /* For example, you can set a background color or border */
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.input-field {
+  /* Your custom styles for the input fields */
+  width: 93%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+
+
+
+
+.form-field {
+  width: -webkit-fill-available;
+}
+
+.signup-button {
+  width: 50%;
+  left: 25%;
+}
+
+
+.signup-card {
+  width: 25%;
+  margin: auto;
+  padding: 2%;
+}
+
+.mdc-button {
+  height: 40px;
+  padding: 10px;
+}
+
+.container ::ng-deep .mat-mdc-card {
+  box-shadow: none;
+}

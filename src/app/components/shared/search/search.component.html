@@ -1,0 +1,17 @@
+<div class="search">
+    <!-- Search Bar Pop Open -->
+    <!-- <form action="" class="search-bar">
+        <input type="search" name="search" pattern=".*\S.*" required>
+        <button class="search-btn" type="submit">
+          <span>Search</span>
+        </button>
+      </form> -->
+    <div class="search-div">
+        <span class="search-span" [ngClass]="searchInput.length > 0 ? 'enable-search' : 'disable-search'" title="search" (click)="displayItems()"></span>
+        <input [(ngModel)]="searchInput" (ngModelChange)="onChange($event)" (focus)="displayAutoCompleteResults=true" type="text" class="search-input text" placeholder="Search for products..">
+    </div>
+</div>
+
+<div class="search-recom overlay text" *ngIf="displayAutoCompleteResults && searchResults.length > 0">
+    <div  *ngFor="let product of searchResults" class="search-result" (click)="onSelectItem(product)">{{product.name}}</div>
+</div>
