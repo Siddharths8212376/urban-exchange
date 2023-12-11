@@ -38,6 +38,7 @@ import { RequestInterceptor } from './services/request/request.interceptor';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { SearchComponent } from './components/shared/search/search.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
+import { AuthGuard } from './authentication/auth.guard';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
     }),
   ],
   providers: [
+    AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
     {
