@@ -11,16 +11,19 @@ import { AuthService } from "./auth.service";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean | Observable<boolean> | Promise<boolean> {
     const isAuth = this.authService.getIsAuth();
-    if (!isAuth) {
-      this.router.navigate(['/login']);
+    // if (!isAuth) {
+    //   this.router.navigate(['/login']);
+    // }
+    if (isAuth && this.router.url == '/') {
+      this.router.navigate(["/home"]);
     }
-    return isAuth;
+    return true;
   }
 }
