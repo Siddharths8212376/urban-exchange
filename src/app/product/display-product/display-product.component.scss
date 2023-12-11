@@ -1,4 +1,9 @@
+@mixin set-font-fam {
+  font-family: 'Assistant';
+}
+
 .mainContainer {
+  font-family: 'Assistant';
   padding: 20px;
   background-color: #DCEAFE;
 
@@ -328,6 +333,7 @@
       }
 
       .productName {
+
         font-size: 30px;
         font-weight: bold;
       }
@@ -365,4 +371,13 @@
     -webkit-box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
     -moz-box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
   }
+}
+
+.desc,
+.mrp,
+.productName,
+.location,
+.postedDate,
+.sellerName {
+  @include set-font-fam();
 }
