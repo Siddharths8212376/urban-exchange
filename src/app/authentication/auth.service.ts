@@ -31,8 +31,10 @@ export class AuthService {
   }
 
   getUserDetails() {
-    this.getCurrentUser();
-    return this.http.get<{ message: string, data: User }>(`${env.apiUrl}/user/${this.currentUser._id}`);
+    // this.getCurrentUser();
+    let _id = localStorage.getItem('userId')
+    
+    return this.http.get<{ message: string, data: User }>(`${env.apiUrl}/user/${_id}`);
   }
 
   getToken() {
@@ -61,6 +63,7 @@ export class AuthService {
 
   createUser(email: string, password: string) {
     const authData: AuthData = { email: email, password: password };
+    console.log("auth");
     this.http
       .post("http://localhost:5000/api/user/", authData)
       .subscribe(response => {
@@ -69,6 +72,7 @@ export class AuthService {
   }
   setCurrentUser(user: User) {
     if (user) {
+      console.log("userr",user);
       localStorage.setItem('userId', user._id ? user._id : '');
       this.currentUser = user;
       this.dataService.setCurrentUser(this.currentUser);
@@ -164,7 +168,9 @@ export class AuthService {
           // Save the JWT in local storage
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
-          this.setCurrentUser(response.user);
+          localStorage.setItem('userId', response.user[0]._id ? response.user[0]._id : '');
+          this.currentUser = response.user[0];
+          this.dataService.setCurrentUser(this.currentUser);
           this.isAuthenticated = true;
           this.authStatusListener.next(true);
           const now = new Date();

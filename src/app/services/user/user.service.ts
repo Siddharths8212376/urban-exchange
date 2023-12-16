@@ -21,4 +21,15 @@ export class UserService {
     }
     return this.http.post(`${env.apiUrl}/user/add-product`, payload);
   }
+
+
+  userDetails(userDetails: string) {
+   
+    return this.http.post(`${env.apiUrl}/user/getUserDetails`, userDetails);
+  }
+
+  //api to set user details
+  setUserDetails(userDetails: any) {
+    return this.http.post(`${env.apiUrl}/user/setUserDetails`, userDetails);
+  }
 }

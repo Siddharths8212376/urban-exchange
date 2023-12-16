@@ -22,7 +22,7 @@
       </li>
       <li *ngIf="userIsAuthenticated">
         <span *ngIf="currentUser">
-          <a class="text" routerLink="/profile/123" title="Profile">
+            <a class="text" (click)="openProfile(currentUser)" title="Profile">
           <img *ngIf="currentUser.avatar && currentUser.avatar.length > 0; else noImage" style="border-radius: 50%; height: 2.5rem; margin-left: 1rem;" [src]="currentUser.avatar">
           <ng-template #noImage>
             <img style="border-radius: 50%; height: 2.5rem; margin-left: 1rem;" [src]="'../../assets/images/default-user.png'">
