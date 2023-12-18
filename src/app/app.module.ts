@@ -39,6 +39,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { SearchComponent } from './components/shared/search/search.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { AuthGuard } from './authentication/auth.guard';
+import { WishlistComponent } from './components/wishlist/wishlist.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { AuthGuard } from './authentication/auth.guard';
     UserProfileComponent,
     SearchComponent,
     LandingPageComponent,
+    WishlistComponent,
   ],
   imports: [
     BrowserModule,

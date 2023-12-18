@@ -9,8 +9,8 @@
         </span>
         <span class="separator"></span>
         <span class="productMainInfo">
-            <div class="wishlist">          
-                <input type="checkbox" class="checkbox" id="checkbox" />
+            <div class="wishlist" (click)="clickOnWishlist()">          
+                <input type="checkbox" class="checkbox" id="checkbox" [checked]="isInWishlist"/>
                 <label for="checkbox">
                     <svg id="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
                         <g id="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">

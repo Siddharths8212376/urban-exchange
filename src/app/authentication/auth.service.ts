@@ -22,6 +22,7 @@ export class AuthService {
     private http: HttpClient,
     private router: Router,
     private dataService: DataService,
+    private userService: UserService,
   ) { }
   getCurrentUser() {
     if (localStorage.getItem('userId')) {
@@ -85,6 +86,9 @@ export class AuthService {
         const token = response.token;
         this.token = token;
         this.setCurrentUser(response.user);
+        let wishlist: any = response.user.wishlist;
+        this.userService.setUserWishlist(wishlist);
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
         if (token) {
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
@@ -165,6 +169,8 @@ export class AuthService {
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
           this.setCurrentUser(response.user);
+          this.userService.setUserWishlist(response.user.wishlist);
+          localStorage.setItem('wishlist', JSON.stringify(response.user.wishlist));
           this.isAuthenticated = true;
           this.authStatusListener.next(true);
           const now = new Date();
