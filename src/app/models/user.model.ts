@@ -11,4 +11,5 @@ export interface User {
     _id?: string;
     productsListed?: Product[];
     productsPurchased?: Product[];
+    wishlist?: Product[],
 }
