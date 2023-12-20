@@ -5,6 +5,8 @@ import { defaultProduct } from 'src/app/constants/product.constant';
 import { Product } from 'src/app/models/product.model';
 import { ImageService } from 'src/app/services/image/image.service';
 import { ProductService } from 'src/app/services/product/product.service';
+import { UserService } from 'src/app/services/user/user.service';
+import { LoaderService } from 'src/app/services/loader/loader.service';
 
 @Component({
   selector: 'app-display-product',
@@ -17,12 +19,12 @@ export class DisplayProductComponent implements OnInit {
   productId: string | any;
   productImages: string[] = [];
   imageFiles: File[] | any = [];
-  inWishlistIcon: string = '../../../assets/images/inWishlist.svg';
-  notInWishlistIcon: string = '../../../assets/images/notInWishlist.svg';
-  wishlistIcon: string = this.notInWishlistIcon;
-  wishlist: boolean = false;
+  isInWishlist: boolean = false;
+  wishlist: any = [];
   
   constructor(
+    private userService: UserService,
+    private loader: LoaderService,
     private productService: ProductService,
     private route: ActivatedRoute,
     private imageService: ImageService,
@@ -34,6 +36,8 @@ export class DisplayProductComponent implements OnInit {
       this.getProductDetails();
     })
     this.productId = this.route.snapshot.paramMap.get('id');
+    this.wishlist = this.userService.getWislist();
+    this.isInWishlist = this.wishlist.includes(this.productId);
   }
   getProductDetails() {
     this.imageFiles = [];
@@ -62,8 +66,13 @@ export class DisplayProductComponent implements OnInit {
     })
   }
 
-  onClickWishlist() {
-    this.wishlist = !this.wishlist;
-    this.wishlistIcon = this.wishlist ? this.inWishlistIcon : this.notInWishlistIcon;
+  clickOnWishlist() {
+    this.isInWishlist = !this.isInWishlist;
+    if (this.isInWishlist) this.wishlist.unshift(this.productId);
+    else this.wishlist.splice(this.wishlist.indexOf(this.productId), 1);
+    this.loader.start();
+    this.userService.addToUserWishlist(this.wishlist).subscribe(response => {
+      this.loader.stop();
+    });
   }
 }

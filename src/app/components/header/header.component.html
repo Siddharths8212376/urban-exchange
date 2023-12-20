@@ -9,6 +9,11 @@
     <div class="col-md-4 options">
     <ul>
       <li *ngIf="userIsAuthenticated">
+        <a mat-button class="text" routerLink="/wishlist" routerLinkActive="mat-accent">
+          <i class="bi bi-suit-heart-fill"></i>
+        </a>
+      </li>
+      <li *ngIf="userIsAuthenticated">
         <a mat-button class="text" routerLink="/product" routerLinkActive="mat-accent">Sell</a>
       </li>
       <li *ngIf="!userIsAuthenticated">
