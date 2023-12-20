@@ -61,13 +61,19 @@ export class AuthService {
     this.loggedOut.next(value)
   }
 
-  createUser(email: string, password: string) {
-    const authData: AuthData = { email: email, password: password };
-    console.log("auth");
-    this.http
-      .post("http://localhost:5000/api/user/", authData)
+  createUser(email: string, password: string, firstName?: string, lastName?: string, phone?: string) {
+    const authData: AuthData = {
+      email: email,
+      password: password,
+      firstName: firstName,
+      lastName: lastName,
+      phone: phone
+    };
+  
+    this.http.post("http://localhost:5000/api/user/", authData)
       .subscribe(response => {
         console.log(response);
+        this.router.navigate(["/login"]);
       });
   }
   setCurrentUser(user: User) {
@@ -78,6 +84,8 @@ export class AuthService {
       this.dataService.setCurrentUser(this.currentUser);
     }
   }
+
+  
   login(email: string, password: string) {
     const authData: AuthData = { email: email, password: password };
     this.http

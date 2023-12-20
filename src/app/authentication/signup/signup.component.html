@@ -16,6 +16,22 @@
         <input type="password" name="password" ngModel matInput placeholder="Password" #passwordInput="ngModel" required>
         <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
       </mat-form-field>
+      <mat-form-field class="form-field">
+        <input matInput name="firstName" ngModel type="text" placeholder="First Name" #firstNameInput="ngModel" required>
+        <mat-error *ngIf="firstNameInput.invalid">Please enter your first name.</mat-error>
+      </mat-form-field>
+
+      <!-- Add last name field -->
+      <mat-form-field class="form-field">
+        <input matInput name="lastName" ngModel type="text" placeholder="Last Name" #lastNameInput="ngModel" required>
+        <mat-error *ngIf="lastNameInput.invalid">Please enter your last name.</mat-error>
+      </mat-form-field>
+
+      <!-- Add phone field -->
+      <mat-form-field class="form-field">
+        <input matInput name="phone" ngModel type="tel" placeholder="Phone" #phoneInput="ngModel" required>
+        <mat-error *ngIf="phoneInput.invalid">Please enter a valid phone number.</mat-error>
+      </mat-form-field>
 
       <p></p>
       <div class="row">
