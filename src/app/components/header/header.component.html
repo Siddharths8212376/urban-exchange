@@ -39,6 +39,9 @@
     </div>
   </div>
 </mat-toolbar>
-<div *ngIf="loader.displayLoader$ | async" >
+<div *ngIf="loader.displayLoader$ | async; else space" >
   <mat-progress-bar color="accent" mode="indeterminate"></mat-progress-bar>
 </div>
+<ng-template #space>
+  <div style="height: 4px; width: 100%;"></div>
+</ng-template>
