@@ -32,8 +32,10 @@ export class AuthService {
   }
 
   getUserDetails() {
-    this.getCurrentUser();
-    return this.http.get<{ message: string, data: User }>(`${env.apiUrl}/user/${this.currentUser._id}`);
+    // this.getCurrentUser();
+    let _id = localStorage.getItem('userId')
+    
+    return this.http.get<{ message: string, data: User }>(`${env.apiUrl}/user/${_id}`);
   }
 
   getToken() {
@@ -60,21 +62,31 @@ export class AuthService {
     this.loggedOut.next(value)
   }
 
-  createUser(email: string, password: string) {
-    const authData: AuthData = { email: email, password: password };
-    this.http
-      .post("http://localhost:5000/api/user/", authData)
+  createUser(email: string, password: string, firstName?: string, lastName?: string, phone?: string) {
+    const authData: AuthData = {
+      email: email,
+      password: password,
+      firstName: firstName,
+      lastName: lastName,
+      phone: phone
+    };
+  
+    this.http.post("http://localhost:5000/api/user/", authData)
       .subscribe(response => {
         console.log(response);
+        this.router.navigate(["/login"]);
       });
   }
   setCurrentUser(user: User) {
     if (user) {
+      console.log("userr",user);
       localStorage.setItem('userId', user._id ? user._id : '');
       this.currentUser = user;
       this.dataService.setCurrentUser(this.currentUser);
     }
   }
+
+  
   login(email: string, password: string) {
     const authData: AuthData = { email: email, password: password };
     this.http
@@ -168,7 +180,9 @@ export class AuthService {
           // Save the JWT in local storage
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
-          this.setCurrentUser(response.user);
+          localStorage.setItem('userId', response.user[0]._id ? response.user[0]._id : '');
+          this.currentUser = response.user[0];
+          this.dataService.setCurrentUser(this.currentUser);
           this.userService.setUserWishlist(response.user.wishlist);
           localStorage.setItem('wishlist', JSON.stringify(response.user.wishlist));
           this.isAuthenticated = true;
