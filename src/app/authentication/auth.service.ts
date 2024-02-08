@@ -34,7 +34,7 @@ export class AuthService {
   getUserDetails() {
     // this.getCurrentUser();
     let _id = localStorage.getItem('userId')
-    
+
     return this.http.get<{ message: string, data: User }>(`${env.apiUrl}/user/${_id}`);
   }
 
@@ -70,7 +70,7 @@ export class AuthService {
       lastName: lastName,
       phone: phone
     };
-  
+
     this.http.post("http://localhost:5000/api/user/", authData)
       .subscribe(response => {
         console.log(response);
@@ -79,14 +79,14 @@ export class AuthService {
   }
   setCurrentUser(user: User) {
     if (user) {
-      console.log("userr",user);
+      console.log("userr", user);
       localStorage.setItem('userId', user._id ? user._id : '');
       this.currentUser = user;
       this.dataService.setCurrentUser(this.currentUser);
     }
   }
 
-  
+
   login(email: string, password: string) {
     const authData: AuthData = { email: email, password: password };
     this.http
@@ -180,8 +180,8 @@ export class AuthService {
           // Save the JWT in local storage
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
-          localStorage.setItem('userId', response.user[0]._id ? response.user[0]._id : '');
-          this.currentUser = response.user[0];
+          localStorage.setItem('userId', response.user._id ? response.user._id : '');
+          this.currentUser = response.user;
           this.dataService.setCurrentUser(this.currentUser);
           this.userService.setUserWishlist(response.user.wishlist);
           localStorage.setItem('wishlist', JSON.stringify(response.user.wishlist));
