@@ -1,10 +1,16 @@
-<div class="row row-cols-5 product-list">
+<div class="row row-cols-5 product-list" *ngIf="products.length > 0; else noProducts">
     <div class="col" *ngFor="let product of products">
         <app-product-card [product]="product"></app-product-card>
     </div>
 </div>
+<ng-template #noProducts>
+   <div class="no-products">
+    <span class="nothing">Nothing Here!</span>
+   </div>
+</ng-template>
 
 <mat-paginator #paginator
+*ngIf="products.length > 0"
 [length]="totalCount"
 [pageIndex]="pageNo"
 [pageSize]="pageSize"

@@ -5,6 +5,17 @@
     margin-left: -1rem;
     border-radius: 1.5rem;
 }
+
 .product-list {
     margin-bottom: 1rem;
+}
+
+.no-products {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Assistant';
+    font-size: xx-large;
+    color: #e6e6e6;
 }
