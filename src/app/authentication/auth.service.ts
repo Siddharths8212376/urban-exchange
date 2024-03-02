@@ -79,7 +79,6 @@ export class AuthService {
   }
   setCurrentUser(user: User) {
     if (user) {
-      console.log("userr", user);
       localStorage.setItem('userId', user._id ? user._id : '');
       this.currentUser = user;
       this.dataService.setCurrentUser(this.currentUser);
@@ -90,17 +89,19 @@ export class AuthService {
   login(email: string, password: string) {
     const authData: AuthData = { email: email, password: password };
     this.http
-      .post<{ token: string; expiresIn: number, user: User }>(
+      .post<{ token: string; expiresIn: number, user: User[] }>(
         `${env.apiUrl}/user/login`,
         authData
       )
       .subscribe(response => {
         const token = response.token;
         this.token = token;
-        this.setCurrentUser(response.user);
-        let wishlist: any = response.user.wishlist;
-        this.userService.setUserWishlist(wishlist);
-        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        this.setCurrentUser(response.user[0]);
+        let wishlist: any = response.user[0].wishlist;
+        if (wishlist) {
+          this.userService.setUserWishlist(wishlist);
+          localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        }
         if (token) {
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
@@ -180,11 +181,11 @@ export class AuthService {
           // Save the JWT in local storage
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
-          localStorage.setItem('userId', response.user._id ? response.user._id : '');
-          this.currentUser = response.user;
+          localStorage.setItem('userId', response.user[0]._id ? response.user[0]._id : '');
+          this.currentUser = response.user[0];
           this.dataService.setCurrentUser(this.currentUser);
-          this.userService.setUserWishlist(response.user.wishlist);
-          localStorage.setItem('wishlist', JSON.stringify(response.user.wishlist));
+          this.userService.setUserWishlist(response.user[0].wishlist);
+          localStorage.setItem('wishlist', JSON.stringify(response.user[0].wishlist));
           this.isAuthenticated = true;
           this.authStatusListener.next(true);
           const now = new Date();
@@ -193,7 +194,6 @@ export class AuthService {
           this.saveAuthData(response.token, expirationDate);
           // should navigate to previous route
           this.router.navigate(["/home"]);
-
         }
       });
   }
