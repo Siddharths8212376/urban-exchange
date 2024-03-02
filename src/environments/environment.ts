@@ -3,7 +3,7 @@ switch (window.location.hostname) {
     case "localhost":
         apiUrl = "http://localhost:5000/api"
         break;
-    case "urban-exchange.onrender.com":
+    case "urban-exchange.netlify.app":
         apiUrl = "https://urban-exchange-backend.onrender.com/api"
         break;
 }
