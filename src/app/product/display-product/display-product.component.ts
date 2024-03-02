@@ -21,7 +21,7 @@ export class DisplayProductComponent implements OnInit {
   imageFiles: File[] | any = [];
   isInWishlist: boolean = false;
   wishlist: any = [];
-  
+
   constructor(
     private userService: UserService,
     private loader: LoaderService,
@@ -66,7 +66,8 @@ export class DisplayProductComponent implements OnInit {
     })
   }
 
-  clickOnWishlist() {
+  clickOnWishlist($event: Event) {
+    $event.stopPropagation();
     this.isInWishlist = !this.isInWishlist;
     if (this.isInWishlist) this.wishlist.unshift(this.productId);
     else this.wishlist.splice(this.wishlist.indexOf(this.productId), 1);
