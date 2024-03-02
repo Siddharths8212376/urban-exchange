@@ -30,9 +30,22 @@
                                     </mat-select>
                                   </mat-form-field>
                             </ng-container>
+                            <ng-container *ngIf="attr.value.type == 'autocomplete'">
+                                <mat-form-field>
+                                    <mat-label>{{ attr.value.fieldName }} </mat-label>
+                                    <input type="text" matInput  [(ngModel)]="attr.value.value"  [matAutocomplete]="auto"  [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeOfData(attr, $event)">
+                                    <mat-autocomplete #auto="matAutocomplete">
+                                      <mat-option *ngFor="let option of attr.value.displayOptions" [value]="option[0]">
+                                        {{option[0]}}
+                                      </mat-option>
+                                    </mat-autocomplete>
+                                  </mat-form-field>
+                            </ng-container>
                             <ng-container *ngIf="attr.value.type == 'file'">
+                                <div style="padding-bottom: 2rem;">
                                     <button class="ast" type="button" mat-raised-button (click)="fileInput.click()">Choose Files</button>
                                     <input hidden (change)="onFileSelected(attr)" #fileInput type="file" id="file" [multiple]="attr.value.multiple">
+                                </div>
                             </ng-container>
                         </div>
                     </div>

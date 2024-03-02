@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { map, startWith } from 'rxjs';
 import { AuthService } from 'src/app/authentication/auth.service';
 import { CreateFields } from 'src/app/models/create-product-fields.model';
 import { ImageService } from 'src/app/services/image/image.service';
@@ -78,8 +79,11 @@ export class CreateProductComponent implements OnInit {
         props.value = [null, Validators.required]
       }
     }
-    if (field.type == 'select') {
-      props.options = [field.options]
+    if (field.type == 'select' || field.type == 'autocomplete') {
+      props.options = [field.options];
+      if (field.type == 'autocomplete') {
+        props.displayOptions = [field.options];
+      }
     }
     return props;
   }
@@ -106,6 +110,9 @@ export class CreateProductComponent implements OnInit {
   }
   onChangeOfData(attribute: any, $event: any) {
     attribute.get('value').patchValue($event);
+    if (attribute.value.type == 'autocomplete') {
+      attribute.value.displayOptions = attribute.value.options.filter((opt: string) => opt[0].toLowerCase().includes($event.toLowerCase()));
+    }
   }
   removeImageFromPreview(idx: number) {
     this.previews.splice(idx, 1);

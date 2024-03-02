@@ -13,7 +13,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
-
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -23,6 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
   ],
   imports: [
     FormsModule,
+    MatAutocompleteModule,
     MatInputModule,
     MatSelectModule,
     MatPaginatorModule,
