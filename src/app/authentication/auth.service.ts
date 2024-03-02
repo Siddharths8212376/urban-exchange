@@ -71,7 +71,7 @@ export class AuthService {
       phone: phone
     };
 
-    this.http.post("http://localhost:5000/api/user/", authData)
+    this.http.post(`${env.apiUrl}/user/`, authData)
       .subscribe(response => {
         console.log(response);
         this.router.navigate(["/login"]);
@@ -91,7 +91,7 @@ export class AuthService {
     const authData: AuthData = { email: email, password: password };
     this.http
       .post<{ token: string; expiresIn: number, user: User }>(
-        "http://localhost:5000/api/user/login",
+        `${env.apiUrl}/user/login`,
         authData
       )
       .subscribe(response => {
@@ -173,7 +173,7 @@ export class AuthService {
   }
 
   logingoogle(user: User) {
-    this.http.post<any>('http://localhost:5000/api/user/googleAuth', user)
+    this.http.post<any>(`${env.apiUrl}/user/googleAuth`, user)
       .subscribe((response) => {
         // Handle the response from the backend, which might include a JWT.
         if (response.token) {

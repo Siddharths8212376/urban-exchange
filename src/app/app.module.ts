@@ -40,6 +40,7 @@ import { SearchComponent } from './components/shared/search/search.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { AuthGuard } from './authentication/auth.guard';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
+import { env } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,7 @@ import { WishlistComponent } from './components/wishlist/wishlist.component';
     MatProgressBarModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: ['http://localhost:5000/api/user'], // Your Node.js API server URL
+        allowedUrls: [`${env.apiUrl}/user`], // Your Node.js API server URL
         sendAccessToken: true,
       },
     }),
