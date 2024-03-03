@@ -170,12 +170,15 @@ export class AuthService {
     }
   }
 
-  logingoogle(user: User) {
+  logingoogle(user: any) {
     this.http.post<any>(`${env.apiUrl}/user/googleAuth`, user)
       .subscribe((response) => {
         // Handle the response from the backend, which might include a JWT.
         if (response.token) {
           // Save the JWT in local storage
+          if (response.user.length && response.user.length > 0) {
+            response.user = response.user[0];
+          }
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
           localStorage.setItem('userId', response.user._id ? response.user._id : '');
