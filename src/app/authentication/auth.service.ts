@@ -89,15 +89,15 @@ export class AuthService {
   login(email: string, password: string) {
     const authData: AuthData = { email: email, password: password };
     this.http
-      .post<{ token: string; expiresIn: number, user: User[] }>(
+      .post<{ token: string; expiresIn: number, user: User }>(
         `${env.apiUrl}/user/login`,
         authData
       )
       .subscribe(response => {
         const token = response.token;
         this.token = token;
-        this.setCurrentUser(response.user[0]);
-        let wishlist: any = response.user[0].wishlist;
+        this.setCurrentUser(response.user);
+        let wishlist: any = response.user.wishlist;
         if (wishlist) {
           this.userService.setUserWishlist(wishlist);
           localStorage.setItem('wishlist', JSON.stringify(wishlist));
