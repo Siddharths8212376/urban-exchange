@@ -178,11 +178,11 @@ export class AuthService {
           // Save the JWT in local storage
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
-          localStorage.setItem('userId', response.user[0]._id ? response.user[0]._id : '');
-          this.currentUser = response.user[0];
+          localStorage.setItem('userId', response.user._id ? response.user._id : '');
+          this.currentUser = response.user;
           this.dataService.setCurrentUser(this.currentUser);
-          this.userService.setUserWishlist(response.user[0].wishlist);
-          localStorage.setItem('wishlist', JSON.stringify(response.user[0].wishlist));
+          this.userService.setUserWishlist(response.user.wishlist);
+          localStorage.setItem('wishlist', JSON.stringify(response.user.wishlist));
           this.isAuthenticated = true;
           this.authStatusListener.next(true);
           const now = new Date();
