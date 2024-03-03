@@ -73,7 +73,6 @@ export class AuthService {
 
     this.http.post(`${env.apiUrl}/user/`, authData)
       .subscribe(response => {
-        console.log(response);
         this.router.navigate(["/login"]);
       });
   }
@@ -109,7 +108,6 @@ export class AuthService {
           this.authStatusListener.next(true);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-          console.log(expirationDate);
           this.saveAuthData(token, expirationDate);
           // should navigate to previous route
           this.router.navigate(["/home"]);
@@ -145,7 +143,6 @@ export class AuthService {
   }
 
   private setAuthTimer(duration: number) {
-    console.log("Setting timer: " + duration);
     this.tokenTimer = setTimeout(() => {
       this.logout();
     }, duration * 1000);
@@ -190,7 +187,6 @@ export class AuthService {
           this.authStatusListener.next(true);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-          console.log(expirationDate);
           this.saveAuthData(response.token, expirationDate);
           // should navigate to previous route
           this.router.navigate(["/home"]);
