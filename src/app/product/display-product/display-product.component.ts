@@ -65,7 +65,10 @@ export class DisplayProductComponent implements OnInit {
       }
     })
   }
-
+  getProductLocation(product: Product): string {
+    let loc = product.address?.meta[0];
+    return loc ? `${loc.postalLocation}, ${loc.district}, ${loc.state}` : 'Bangalore';
+  }
   clickOnWishlist($event: Event) {
     $event.stopPropagation();
     this.isInWishlist = !this.isInWishlist;

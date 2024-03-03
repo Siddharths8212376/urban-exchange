@@ -41,7 +41,6 @@ export class ProductService {
     return this.http.get<{ message: string, data: string[] }>(`${env.apiUrl}/product/product-categories`);
   }
   createProduct(payload: any): Observable<{ message: string, productId: string }> {
-    let auth = this.httpOptions.headers.get('Authorization');
     return this.http.post<{ message: string, productId: string }>(`${env.apiUrl}/product`, payload, this.httpOptions);
   }
   searchProduct(searchTerm: string): Observable<{ message: string, data: ProductSearchResponse[] }> {
