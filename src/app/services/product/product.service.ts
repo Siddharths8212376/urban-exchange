@@ -42,7 +42,6 @@ export class ProductService {
   }
   createProduct(payload: any): Observable<{ message: string, productId: string }> {
     let auth = this.httpOptions.headers.get('Authorization');
-    console.log(auth, 'authHere', this.httpOptions.headers.keys());
     return this.http.post<{ message: string, productId: string }>(`${env.apiUrl}/product`, payload, this.httpOptions);
   }
   searchProduct(searchTerm: string): Observable<{ message: string, data: ProductSearchResponse[] }> {
