@@ -15,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { MatIconModule } from '@angular/material/icon'
@@ -41,7 +42,9 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import { AuthGuard } from './authentication/auth.guard';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { env } from 'src/environments/environment';
+
 import { ChatInterfaceComponent } from './components/chat-interface/chat-interface.component';
+
 
 @NgModule({
   declarations: [
@@ -63,6 +66,7 @@ import { ChatInterfaceComponent } from './components/chat-interface/chat-interfa
   ],
   imports: [
     BrowserModule,
+    MatAutocompleteModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
@@ -81,7 +85,7 @@ import { ChatInterfaceComponent } from './components/chat-interface/chat-interfa
     MatProgressBarModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: ['http://localhost:5000/api/user'], // Your Node.js API server URL
+        allowedUrls: [`${env.apiUrl}/user`], // Your Node.js API server URL
         sendAccessToken: true,
       },
     }),

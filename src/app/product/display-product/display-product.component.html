@@ -9,9 +9,9 @@
         </span>
         <span class="separator"></span>
         <span class="productMainInfo">
-            <div class="wishlist" (click)="clickOnWishlist()">          
+            <div class="wishlist">          
                 <input type="checkbox" class="checkbox" id="checkbox" [checked]="isInWishlist"/>
-                <label for="checkbox">
+                <label for="checkbox" (click)="clickOnWishlist($event)">
                     <svg id="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
                         <g id="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
                             <path d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z" id="heart" fill="#AAB8C2"/>
@@ -57,11 +57,11 @@
            </div>
             <h1 class="productName">{{product.name}}</h1>
             <h2 class="mrp">MRP: &#8377; {{product.price}}</h2>
-            <h3 class="location">Location: Bangalore</h3>
-            <h3 class="postedDate">Posted On: 2nd May, 2023</h3>
+            <h3 class="location">Location: {{getProductLocation(product)}}</h3>
+            <h3 class="postedDate">Posted On: {{(product.created ? product.created : "2024-03-03T14:37:35.412Z") | date: 'MMM d, y' }} </h3>
             <div class="sellerInfo">
                 <img src="../../../assets/images/avatar.png" alt="Avatar" class="avatar">
-                <h3 class="sellerName">Apurva Hegde</h3>
+                <h3 class="sellerName">{{product.sellerUname ? product.sellerUname : 'Apurva Hegde'}}</h3>
             </div>
             <button (click)="openChat(product.seller)" class="chatBtn mt-2">Chat With Seller</button>
         </span>

@@ -10,4 +10,21 @@ export interface Product {
     boughtBy?: string;
     tag: string;
     productImages: string[];
+    address?: {
+        location: {
+            type: string;
+            coordinates: number[];
+        },
+        state: string;
+        pin: string;
+        meta: {
+            postalLocation: string;
+            district: string;
+            province: string;
+            state: string;
+        }[];
+    };
+    created: Date;
+    lastUpdated: Date;
+    sellerUname: string;
 }

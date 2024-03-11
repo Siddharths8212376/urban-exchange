@@ -14,7 +14,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+
 import { MatDialogModule } from '@angular/material/dialog';
+
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { MatDialogModule } from '@angular/material/dialog';
   ],
   imports: [
     FormsModule,
+    MatAutocompleteModule,
     MatInputModule,
     MatSelectModule,
     MatPaginatorModule,

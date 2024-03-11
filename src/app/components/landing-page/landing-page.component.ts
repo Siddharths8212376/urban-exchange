@@ -15,7 +15,8 @@ export class LandingPageComponent implements OnInit, AfterViewChecked {
   ngOnInit(): void {
   }
   ngAfterViewChecked(): void {
-    gsap.to(".urban", { duration: 0.5, text: "Urban" });
+    gsap.to(".init", { duration: 0.5, text: "" });
+    gsap.to(".urban", { duration: 0.5, text: "Urban" }, "+=0.2");
     gsap.to(".exchange", { duration: 0.5, text: "Exchange" }, "+=0.2");
     gsap.to(".uex", { rotation: 720, x: 420, duration: 0.5 }, "+=0.2");
     gsap.to(".caption", { duration: 0.25, text: "Your P2P Marketplace" }, "+=0.2");

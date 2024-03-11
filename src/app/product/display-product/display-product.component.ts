@@ -24,7 +24,7 @@ export class DisplayProductComponent implements OnInit {
   imageFiles: File[] | any = [];
   isInWishlist: boolean = false;
   wishlist: any = [];
-  
+
   constructor(
     private userService: UserService,
     private loader: LoaderService,
@@ -70,8 +70,12 @@ export class DisplayProductComponent implements OnInit {
       }
     })
   }
-
-  clickOnWishlist() {
+  getProductLocation(product: Product): string {
+    let loc = product.address?.meta[0];
+    return loc ? `${loc.postalLocation}, ${loc.district}, ${loc.state}` : 'Bangalore';
+  }
+  clickOnWishlist($event: Event) {
+    $event.stopPropagation();
     this.isInWishlist = !this.isInWishlist;
     if (this.isInWishlist) this.wishlist.unshift(this.productId);
     else this.wishlist.splice(this.wishlist.indexOf(this.productId), 1);

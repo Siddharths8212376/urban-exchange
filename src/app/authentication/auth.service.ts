@@ -34,7 +34,7 @@ export class AuthService {
   getUserDetails() {
     // this.getCurrentUser();
     let _id = localStorage.getItem('userId')
-    
+
     return this.http.get<{ message: string, data: User }>(`${env.apiUrl}/user/${_id}`);
   }
 
@@ -70,28 +70,26 @@ export class AuthService {
       lastName: lastName,
       phone: phone
     };
-  
-    this.http.post("http://localhost:5000/api/user/", authData)
+
+    this.http.post(`${env.apiUrl}/user/`, authData)
       .subscribe(response => {
-        console.log(response);
         this.router.navigate(["/login"]);
       });
   }
   setCurrentUser(user: User) {
     if (user) {
-      console.log("userr",user);
       localStorage.setItem('userId', user._id ? user._id : '');
       this.currentUser = user;
       this.dataService.setCurrentUser(this.currentUser);
     }
   }
 
-  
+
   login(email: string, password: string) {
     const authData: AuthData = { email: email, password: password };
     this.http
       .post<{ token: string; expiresIn: number, user: User }>(
-        "http://localhost:5000/api/user/login",
+        `${env.apiUrl}/user/login`,
         authData
       )
       .subscribe(response => {
@@ -99,8 +97,10 @@ export class AuthService {
         this.token = token;
         this.setCurrentUser(response.user);
         let wishlist: any = response.user.wishlist;
-        this.userService.setUserWishlist(wishlist);
-        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        if (wishlist) {
+          this.userService.setUserWishlist(wishlist);
+          localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        }
         if (token) {
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
@@ -108,7 +108,6 @@ export class AuthService {
           this.authStatusListener.next(true);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-          console.log(expirationDate);
           this.saveAuthData(token, expirationDate);
           // should navigate to previous route
           this.router.navigate(["/home"]);
@@ -144,7 +143,6 @@ export class AuthService {
   }
 
   private setAuthTimer(duration: number) {
-    console.log("Setting timer: " + duration);
     this.tokenTimer = setTimeout(() => {
       this.logout();
     }, duration * 1000);
@@ -172,16 +170,19 @@ export class AuthService {
     }
   }
 
-  logingoogle(user: User) {
-    this.http.post<any>('http://localhost:5000/api/user/googleAuth', user)
+  logingoogle(user: any) {
+    this.http.post<any>(`${env.apiUrl}/user/googleAuth`, user)
       .subscribe((response) => {
         // Handle the response from the backend, which might include a JWT.
         if (response.token) {
           // Save the JWT in local storage
+          if (response.user.length && response.user.length > 0) {
+            response.user = response.user[0];
+          }
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
-          localStorage.setItem('userId', response.user[0]._id ? response.user[0]._id : '');
-          this.currentUser = response.user[0];
+          localStorage.setItem('userId', response.user._id ? response.user._id : '');
+          this.currentUser = response.user;
           this.dataService.setCurrentUser(this.currentUser);
           this.userService.setUserWishlist(response.user.wishlist);
           localStorage.setItem('wishlist', JSON.stringify(response.user.wishlist));
@@ -189,11 +190,9 @@ export class AuthService {
           this.authStatusListener.next(true);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-          console.log(expirationDate);
           this.saveAuthData(response.token, expirationDate);
           // should navigate to previous route
           this.router.navigate(["/home"]);
-
         }
       });
   }
