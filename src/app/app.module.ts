@@ -43,6 +43,9 @@ import { AuthGuard } from './authentication/auth.guard';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { env } from 'src/environments/environment';
 
+import { ChatInterfaceComponent } from './components/chat-interface/chat-interface.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,6 +62,7 @@ import { env } from 'src/environments/environment';
     SearchComponent,
     LandingPageComponent,
     WishlistComponent,
+    ChatInterfaceComponent,
   ],
   imports: [
     BrowserModule,
