@@ -40,6 +40,8 @@ import { SearchComponent } from './components/shared/search/search.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { AuthGuard } from './authentication/auth.guard';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
+import { env } from 'src/environments/environment';
+import { ChatInterfaceComponent } from './components/chat-interface/chat-interface.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,7 @@ import { WishlistComponent } from './components/wishlist/wishlist.component';
     SearchComponent,
     LandingPageComponent,
     WishlistComponent,
+    ChatInterfaceComponent,
   ],
   imports: [
     BrowserModule,
