@@ -15,6 +15,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
+import { MatDialogModule } from '@angular/material/dialog';
+
+
 @NgModule({
   declarations: [
     DisplayProductComponent,
@@ -32,6 +35,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     CommonModule,
     ProductRoutingModule,
     MatIconModule,
+    MatDialogModule
   ]
 })
 export class ProductModule { }
