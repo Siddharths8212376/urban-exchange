@@ -13,6 +13,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -23,6 +26,7 @@ import { MatIconModule } from '@angular/material/icon';
   ],
   imports: [
     FormsModule,
+    MatAutocompleteModule,
     MatInputModule,
     MatSelectModule,
     MatPaginatorModule,
@@ -31,6 +35,7 @@ import { MatIconModule } from '@angular/material/icon';
     CommonModule,
     ProductRoutingModule,
     MatIconModule,
+    MatDialogModule
   ]
 })
 export class ProductModule { }

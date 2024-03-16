@@ -1,53 +1,52 @@
-
+<div class="profile">
  <div class="row userProfile">
 <!-- navigation pane  -->
-
+<div class="col-2"></div>
 <div class="col-3">
     <!-- Left Navigation Pane -->
     <div class="sidenav">
-      <a href="#section1">Section 1</a>
-      <a href="#section2">Section 2</a>
-      <a href="#section3">Section 3</a>
+      <a>View Profile</a>
+      <a>Products Purchased</a>
+      <a>Products Listed </a>
+      <a>Wishlist </a>
       <!-- Add more navigation links here -->
     </div>
   </div>
 
-<div class="col-9" #userdetailsForm>
+<div class="col-5" #userdetailsForm>
     <form [formGroup]="userProfileForm" (ngSubmit)="onSubmit()">
         <div>
-            <label for="username">Username<span aria-label="required">*</span>:</label>
+            <label for="username">Username<span aria-label="required">*</span></label>
             <input type="text" id="username" formControlName="username" required>
           </div>
-          
-       
-      
+
         <div>
-          <label for="firstName">First Name:</label>
+          <label for="firstName">First Name</label>
           <input type="text" id="firstName" formControlName="firstName">
         </div>
       
         <div>
-          <label for="lastName">Last Name:</label>
+          <label for="lastName">Last Name</label>
           <input type="text" id="lastName" formControlName="lastName">
         </div>
       
-        <div>
+        <!-- <div>
           <label for="description">Description:</label>
           <textarea id="description" formControlName="description"></textarea>
         </div>
-      
+       -->
         <div>
-          <label for="phone">Phone:</label>
-          <input type="tel" id="phone" formControlName="phone">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" formControlName="Phone">
         </div>
       
-        <div>
+        <!-- <div>
             <label for="password">Password<span aria-label="required">*</span>:</label>
             <input type="password" id="password" formControlName="password" required>
-          </div>
+          </div> -->
       
         <div>
-          <label for="avatar">Avatar:</label>
+          <label for="avatar">Avatar</label>
           <select id="avatar" formControlName="avatar">
             <option value="default-avatar.png">Default Avatar</option>
             <option value="avatar1.png">Avatar 1</option>
@@ -56,9 +55,12 @@
         </div>
       
         <div>
-          <button type="submit" [disabled]="!userProfileForm.valid">Save</button>
+          <button type="submit" [disabled]="!userProfileForm.valid" style="background-color: #ff4081;">Save</button>
         </div>
       </form>
 
 
+</div>
+<div class="col-2"></div>
+</div>
 </div>

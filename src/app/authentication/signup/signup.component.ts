@@ -21,10 +21,7 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.socialauthService.authState.subscribe((user) => {
-
-
       this.authService.logingoogle(user);
-      // console.log("user authtoken ," , user.authToken);
     });
   }
 
@@ -32,9 +29,17 @@ export class SignupComponent implements OnInit, OnDestroy {
     if (form.invalid) {
       return;
     }
+
     this.isLoading = true;
-    console.log(form, "form");
-    this.authService.createUser(form.value.email, form.value.password);
+
+    const email = form.value.email;
+    const password = form.value.password;
+    const username = form.value.username; // Assuming you added a username field
+    const firstName = form.value.firstName; // Assuming you added a firstName field
+    const lastName = form.value.lastName; // Assuming you added a lastName field
+    const phone = form.value.phone; // Assuming you added a phone field
+
+    this.authService.createUser(email, password, firstName, lastName, phone);
   }
 
   ngOnDestroy() {

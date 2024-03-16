@@ -57,13 +57,13 @@
            </div>
             <h1 class="productName">{{product.name}}</h1>
             <h2 class="mrp">MRP: &#8377; {{product.price}}</h2>
-            <h3 class="location">Location: Bangalore</h3>
-            <h3 class="postedDate">Posted On: 2nd May, 2023</h3>
+            <h3 class="location">Location: {{getProductLocation(product)}}</h3>
+            <h3 class="postedDate">Posted On: {{(product.created ? product.created : "2024-03-03T14:37:35.412Z") | date: 'MMM d, y' }} </h3>
             <div class="sellerInfo">
                 <img src="../../../assets/images/avatar.png" alt="Avatar" class="avatar">
-                <h3 class="sellerName">Apurva Hegde</h3>
+                <h3 class="sellerName">{{product.sellerUname ? product.sellerUname : 'Apurva Hegde'}}</h3>
             </div>
-            <button class="chatBtn mt-2">Chat With Seller</button>
+            <button (click)="openChat(product.seller)" class="chatBtn mt-2">Chat With Seller</button>
         </span>
     </div>
 

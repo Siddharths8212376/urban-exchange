@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
-
+import { Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { AuthService } from "../../authentication/auth.service";
 import { User } from "src/app/models/user.model";
 import { DataService } from "src/app/services/data/data.service";
@@ -18,6 +19,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private dataService: DataService,
     public loader: LoaderService,
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
   private authListenerSubs!: Subscription;
 
@@ -29,17 +32,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.userIsAuthenticated = isAuthenticated;
       });
     this.dataService.getCurrentUser().subscribe(currentUser => {
+      let _id = localStorage.getItem('userId')
+      if(_id){
       this.authService.getUserDetails().subscribe(response => {
         this.currentUser = response.data;
-        if (!currentUser || this.currentUser._id != currentUser['_id']) {
+        if (!currentUser) {
           this.dataService.setCurrentUser(this.currentUser);
         }
       })
+    }
     })
   }
 
   onLogout() {
     this.authService.logout();
+  }
+
+  openProfile(currentUser: User) {
+    //redirect to profile page with user id
+     this.router.navigate(['/profile', currentUser._id]);
   }
 
   ngOnDestroy() {

@@ -15,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { MatIconModule } from '@angular/material/icon'
@@ -40,6 +41,10 @@ import { SearchComponent } from './components/shared/search/search.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { AuthGuard } from './authentication/auth.guard';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
+import { env } from 'src/environments/environment';
+
+import { ChatInterfaceComponent } from './components/chat-interface/chat-interface.component';
+
 
 @NgModule({
   declarations: [
@@ -57,9 +62,11 @@ import { WishlistComponent } from './components/wishlist/wishlist.component';
     SearchComponent,
     LandingPageComponent,
     WishlistComponent,
+    ChatInterfaceComponent,
   ],
   imports: [
     BrowserModule,
+    MatAutocompleteModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
@@ -78,7 +85,7 @@ import { WishlistComponent } from './components/wishlist/wishlist.component';
     MatProgressBarModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: ['http://localhost:5000/api/user'], // Your Node.js API server URL
+        allowedUrls: [`${env.apiUrl}/user`], // Your Node.js API server URL
         sendAccessToken: true,
       },
     }),
