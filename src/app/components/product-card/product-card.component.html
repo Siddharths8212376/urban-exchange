@@ -2,7 +2,7 @@
     <img class="card-img-top card-img-bottom" height="240px" width="180px" [src]="productImage" alt="ProductImage">
     <div class="card-body">
       <h5 class="card-title">{{ this.product.name }} </h5>
-      <a mat-button class="text" (click)="addToWishlist($event)">
+      <a mat-button class="text wishlistBtn" (click)="addToWishlist($event)">
         <i *ngIf="!isInWishlist" class="bi bi-suit-heart"></i>
         <i *ngIf="isInWishlist" class="bi bi-suit-heart-fill"></i>
       </a>
