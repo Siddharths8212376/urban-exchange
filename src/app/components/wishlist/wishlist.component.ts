@@ -25,8 +25,9 @@ export class WishlistComponent implements OnInit {
     private imageService: ImageService,
     private productService: ProductService,
   ) { }
-  ngOnInit(): void {
-    this.wishlist = this.userService.getWislist();
+  async ngOnInit(): Promise<void> {
+    this.wishlist = await this.userService.getWislist();
+    // this.wishlist = response.data;
     if(this.wishlist.length > 0) {
       this.loader.start();
       this.productService.getProductListById({idList: this.wishlist}).subscribe(productResponse => {
@@ -64,10 +65,13 @@ export class WishlistComponent implements OnInit {
     })
   }
 
-  removeItem(id: any) {
+  async removeItem(id: any) {
     this.wishlistItems = this.wishlistItems.filter((item: any) => item._id !== id);
-    this.wishlist = this.wishlist.filter((item: any) => item._id !== id);
-    this.userService.setUserWishlist(this.wishlist);
+    this.wishlist = this.wishlist.filter((item: any) => item !== id);
+    this.loader.start();
+    await this.userService.addDeleteFromUserWishlist(this.wishlist).subscribe(response => {
+      this.loader.stop();
+    });
   }
 
   viewDetails(productId: string) {

@@ -33,11 +33,22 @@ export class UserService{
     this.wishlist = wishlist;
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
   }
-  getWislist() {
-    if(this.wishlist.length == 0 && localStorage.getItem('wishlist')!=null) return JSON.parse(localStorage['wishlist']);
-    return this.wishlist;
+  async getWislist() {
+    if(this.wishlist.length == 0) {
+      if(localStorage.getItem('wishlist')!=null) return JSON.parse(localStorage['wishlist']);
+      else { 
+        await this.getUserWishlist().subscribe((response: any) => {
+          if(response) {
+            this.setUserWishlist(response.data);
+            return response.data;
+          }
+
+        });
+      }
+    }
+    else return this.wishlist;
   }
-  addToUserWishlist(wishlist: any) {
+  addDeleteFromUserWishlist(wishlist: any) {
     this.setUserWishlist(wishlist);
     let authService = this.injector.get(AuthService);
     let payload = {

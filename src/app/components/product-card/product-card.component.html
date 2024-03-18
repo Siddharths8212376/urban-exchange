@@ -8,7 +8,7 @@
       </h5>
     </div>
     <div class="col-md-4">
-      <a mat-button class="text" (click)="addToWishlist($event)">
+      <a mat-button class="text wishlistBtn" (click)="addToWishlist($event)">
         <i *ngIf="!isInWishlist" class="bi bi-suit-heart"></i>
         <i *ngIf="isInWishlist" class="bi bi-suit-heart-fill"></i>
       </a>
