@@ -25,8 +25,8 @@ export class ProductCardComponent implements OnInit {
     private userService: UserService,
     private sanitizer: DomSanitizer
   ) { }
-  ngOnInit(): void {
-    this.wishlist = this.userService.getWislist();
+  async ngOnInit(): Promise<void> {
+    this.wishlist = await this.userService.getWislist();
     this.isInWishlist = this.wishlist.includes(this.product._id);
     this.productImageName = this.product?.productImages?.length > 0 ? this.product.productImages[0] : '';
     if (this.productImageName.length > 0) {
@@ -58,7 +58,7 @@ export class ProductCardComponent implements OnInit {
     if (this.isInWishlist) this.wishlist.unshift(this.product._id);
     else this.wishlist.splice(this.wishlist.indexOf(this.product._id), 1);
     this.loader.start();
-    this.userService.addToUserWishlist(this.wishlist).subscribe(response => {
+    this.userService.addDeleteFromUserWishlist(this.wishlist).subscribe(response => {
       this.loader.stop();
     });
   }

@@ -35,13 +35,13 @@ export class DisplayProductComponent implements OnInit {
     public dialog: MatDialog,
     public authService: AuthService
   ) { }
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.route.params.subscribe(param => {
       this.productId = this.route.snapshot.paramMap.get('id');
       this.getProductDetails();
     })
     this.productId = this.route.snapshot.paramMap.get('id');
-    this.wishlist = this.userService.getWislist();
+    this.wishlist = await this.userService.getWislist();
     this.isInWishlist = this.wishlist.includes(this.productId);
   }
   getProductDetails() {
@@ -74,13 +74,19 @@ export class DisplayProductComponent implements OnInit {
     let loc = product.address?.meta[0];
     return loc ? `${loc.postalLocation}, ${loc.district}, ${loc.state}` : 'Bangalore';
   }
-  clickOnWishlist($event: Event) {
-    $event.stopPropagation();
+  async clickOnWishlist() {
     this.isInWishlist = !this.isInWishlist;
+
     if (this.isInWishlist) this.wishlist.unshift(this.productId);
-    else this.wishlist.splice(this.wishlist.indexOf(this.productId), 1);
+    else {
+      let productIndex = this.wishlist.indexOf(this.productId);
+      if (productIndex !== -1) {
+        this.wishlist.splice(productIndex, 1);
+      }
+    }
+
     this.loader.start();
-    this.userService.addToUserWishlist(this.wishlist).subscribe(response => {
+    await this.userService.addDeleteFromUserWishlist(this.wishlist).subscribe(response => {
       this.loader.stop();
     });
   }
