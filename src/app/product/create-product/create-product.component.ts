@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { map, startWith } from 'rxjs';
 import { AuthService } from 'src/app/authentication/auth.service';
 import { CreateFields } from 'src/app/models/create-product-fields.model';
 import { ImageService } from 'src/app/services/image/image.service';
 import { LoaderService } from 'src/app/services/loader/loader.service';
 import { ProductService } from 'src/app/services/product/product.service';
-import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-create-product',
@@ -60,7 +58,7 @@ export class CreateProductComponent implements OnInit {
     })
     this.setFormControlData();
   }
-  getProps(field: CreateFields) {
+  getProps(field: CreateFields, subCatLevel?: number) {
     let props: any = {
       value: '',
       fieldName: field.fieldName,
@@ -69,6 +67,8 @@ export class CreateProductComponent implements OnInit {
       multiple: field.multiple,
       required: field.required,
       options: [[]],
+      metadata: [[]],
+      subCatLevel: subCatLevel ? subCatLevel : 0
     };
     if (field.required) {
       if (['text', 'textarea'].includes(field.type)) {
@@ -108,10 +108,39 @@ export class CreateProductComponent implements OnInit {
       attribute.get('value').patchValue(true);
     }
   }
+  addSubCategory(fields: CreateFields[], fieldName: string, subCatLevel: number) {
+    let categoryField = fields.find(field => field.fieldName == 'Category');
+    let subCategory = null;
+    if (subCatLevel == 1) {
+      subCategory = categoryField?.metadata?.find(m => m.category == fieldName);
+    }
+    else if (subCatLevel == 2) {
+      let subCatL1 = this.attrs.value.find((v: any) => v.fieldName == 'Category').value;
+      subCategory = categoryField?.metadata?.find(m => m.category == subCatL1)?.fields.find(f => f.fieldName == 'Category')?.metadata?.find(m => m.category == fieldName);
+    }
+
+    let subCatFields = subCategory?.fields;
+    let subCatIdxPrev: number[] = [];
+    this.attrs.controls.forEach((control, index) => {
+      if (control.value.subCatLevel >= subCatLevel) {
+        subCatIdxPrev.push(index);
+      }
+    });
+    subCatIdxPrev.reverse().forEach((index) => {
+      this.attrs.removeAt(index);
+    });
+    subCatFields?.forEach(field => {
+      const ctl = this.fb.group({ ...this.getProps(field, subCatLevel) });
+      this.attrs.push(ctl);
+    })
+  }
   onChangeOfData(attribute: any, $event: any) {
     attribute.get('value').patchValue($event);
     if (attribute.value.type == 'autocomplete') {
       attribute.value.displayOptions = attribute.value.options.filter((opt: string) => opt[0].toLowerCase().includes($event.toLowerCase()));
+    }
+    if (attribute.value.fieldName == 'Category') {
+      this.addSubCategory(this.createFields, attribute.value.value, attribute.value.subCatLevel + 1);
     }
   }
   removeImageFromPreview(idx: number) {
