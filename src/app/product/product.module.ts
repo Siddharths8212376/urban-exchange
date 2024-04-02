@@ -16,13 +16,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { MatDialogModule } from '@angular/material/dialog';
+import { GeolocationComponent } from './geolocation/geolocation.component';
 
 
 @NgModule({
   declarations: [
     DisplayProductComponent,
     CreateProductComponent,
-    CarouselComponent
+    CarouselComponent,
+    GeolocationComponent
   ],
   imports: [
     FormsModule,
