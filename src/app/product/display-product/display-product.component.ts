@@ -24,6 +24,7 @@ export class DisplayProductComponent implements OnInit {
   imageFiles: File[] | any = [];
   isInWishlist: boolean = false;
   wishlist: any = [];
+  productLocation: any = [];
 
   constructor(
     private userService: UserService,
@@ -49,6 +50,7 @@ export class DisplayProductComponent implements OnInit {
     this.productService.getProductById(this.productId).subscribe(response => {
       this.product = response.data;
       this.productImages = this.product.productImages;
+      if(this.product.address!=undefined || this.product.address!=null) this.productLocation = this.product.address.location.coordinates;
       this.entries = Object.entries(this.product);
       if (this.productImages.length > 0) {
         this.productImages.forEach(imageName => this.imageService.getImageByName(imageName).subscribe(image => {

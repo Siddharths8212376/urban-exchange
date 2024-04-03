@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/authentication/auth.service';
 import { CreateFields } from 'src/app/models/create-product-fields.model';
 import { ImageService } from 'src/app/services/image/image.service';
 import { LoaderService } from 'src/app/services/loader/loader.service';
 import { ProductService } from 'src/app/services/product/product.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-product',
@@ -16,9 +17,12 @@ export class CreateProductComponent implements OnInit {
   productTag: string | null = '';
   createFields: CreateFields[] = [];
   productForm: FormGroup | any = null;
+  pinCodeControl: FormControl | any;
   inputFileList: FileList | any;
   previews: string[] = [];
   uploadedFiles: FileList | any = [];
+  stateAddedFlag: boolean = false;
+  postalBaseUrl: string = 'https://api.postalpincode.in/pincode';
   constructor(
     private productService: ProductService,
     private fb: FormBuilder,
@@ -26,10 +30,12 @@ export class CreateProductComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     public loader: LoaderService,
+    private http: HttpClient
   ) { }
   ngOnInit(): void {
     this.generateProductTag();
     this.getCreateFields();
+    this.setPinCodeValidators();
   }
   get attrs() {
     return this.productForm?.controls['attrs'] as FormArray;
@@ -85,6 +91,10 @@ export class CreateProductComponent implements OnInit {
         props.displayOptions = [field.options];
       }
     }
+    // Add pin code validation
+    if (field.fieldName === 'PIN') {
+      props.value = [null, Validators.compose([Validators.required, Validators.pattern('^[0-9]{6}$')])];
+    }
     return props;
   }
   setFormControlData() {
@@ -92,6 +102,16 @@ export class CreateProductComponent implements OnInit {
       const ctl = this.fb.group({ ...this.getProps(field) });
       this.attrs.push(ctl);
     })
+  }
+  setPinCodeValidators() {
+    this.pinCodeControl = new FormControl({ value: '', disabled: true }, [
+      Validators.required,
+      Validators.pattern('^[0-9]{6}$')
+    ]);
+  }
+  isStateFieldFilled(): boolean {
+    let stateFields = this.productForm.get('attrs')['controls'].filter((control: any) => control.value.fieldName == 'State');
+    return stateFields.length > 0 && (stateFields[0].value.value != null || stateFields[0].value.value != '');
   }
   onFileSelected(attribute: any) {
     const inputNode: any = document.querySelector('#file');
@@ -134,7 +154,7 @@ export class CreateProductComponent implements OnInit {
       this.attrs.push(ctl);
     })
   }
-  onChangeOfData(attribute: any, $event: any) {
+  async onChangeOfData(attribute: any, $event: any) {
     attribute.get('value').patchValue($event);
     if (attribute.value.type == 'autocomplete') {
       attribute.value.displayOptions = attribute.value.options.filter((opt: string) => opt[0].toLowerCase().includes($event.toLowerCase()));
@@ -142,9 +162,58 @@ export class CreateProductComponent implements OnInit {
     if (attribute.value.fieldName == 'Category') {
       this.addSubCategory(this.createFields, attribute.value.value, attribute.value.subCatLevel + 1);
     }
+
+    if(attribute.value.fieldName == 'State') {
+      if(attribute.value.value != null && attribute.value.value != '')
+        this.stateAddedFlag = true;
+      else {
+        this.stateAddedFlag = false;
+        let pinField = this.productForm.get('attrs')['controls'].filter((cntrl: any) => cntrl.value.fieldName == 'PIN');
+        pinField[0].get('value').patchValue(null); // Reset pin code
+      }
+    }
+    this.checkIfPinCodeIsDisabled();
+
+    if(attribute.value.fieldName == 'PIN' && !this.pinCodeControl.hasError('pattern') && attribute.value.value !== null) {
+      attribute = await this.validateIfPinCodeMatchesState(attribute);
+    }
+  }
+  checkIfPinCodeIsDisabled() {
+    if (this.stateAddedFlag) {
+      this.pinCodeControl.enable();
+    } else {
+      this.pinCodeControl.disable();
+    }
+  }
+  validateIfPinCodeMatchesState(attribute: any) {
+    return new Promise((resolve, reject) => {
+      this.loader.start();
+      this.http.get(`${this.postalBaseUrl}/${attribute.value.value}`).subscribe((response: any) => {
+        if (response && response.length>0 && response[0].Status == 'Success') {
+          let stateFields = this.productForm.get('attrs')['controls'].filter((cntrl: any) => cntrl.value.fieldName == 'State');
+          if(response[0].PostOffice && response[0].PostOffice.length>0 && response[0].PostOffice[0].State !== stateFields[0].value.value) {
+            this.pinCodeControl.setErrors({invalid: true}); // Set error for pin code
+            attribute.setErrors({invalid: true}); // Set error in the form so that submit button is disabled
+            this.loader.stop();
+            resolve(attribute);
+          }
+          this.loader.stop();
+        } else {
+          this.pinCodeControl.setErrors({invalid: true});
+          attribute.setErrors({invalid: true});
+          this.loader.stop();
+          resolve(attribute);
+        }
+      });
+    });
   }
   removeImageFromPreview(idx: number) {
     this.previews.splice(idx, 1);
+  }
+  preventNegativeInput(event: any): void {
+    if (event.key === '-') {
+      event.preventDefault();
+    }
   }
   onSumbit() {
     let createPayload: any = {

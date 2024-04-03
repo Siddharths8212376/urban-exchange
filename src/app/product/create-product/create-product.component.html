@@ -8,10 +8,30 @@
                             {{ attr.value.fieldName }} <span style="color: red;" *ngIf="attr.value.required">*</span>
                         </div>
                         <div class="col-6">
-                            <ng-container *ngIf="attr.value.type == 'text' || attr.value.type == 'number'">
+                            <ng-container *ngIf="attr.value.type == 'text'">
                                 <mat-form-field>
                                     <mat-label>{{ attr.value.fieldName }} </mat-label>
                                     <input [type]="attr.value.type" matInput [(ngModel)]="attr.value.value" [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeOfData(attr, $event)">
+                                </mat-form-field>
+                            </ng-container>
+                            <ng-container *ngIf="attr.value.type == 'number' && attr.value.fieldName!='PIN'">
+                                <mat-form-field>
+                                    <mat-label>{{ attr.value.fieldName }} </mat-label>
+                                    <input [type]="attr.value.type" matInput [(ngModel)]="attr.value.value" step="0.01" min="1" [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeOfData(attr, $event)" 
+                                        (keypress)="preventNegativeInput($event)">
+                                </mat-form-field>
+                            </ng-container>
+                            <ng-container *ngIf="attr.value.fieldName=='PIN'">
+                                <mat-form-field>
+                                    <mat-label>{{ attr.value.fieldName }} </mat-label>
+                                    <input matInput [(ngModel)]="attr.value.value" [formControl]="pinCodeControl" (ngModelChange)="onChangeOfData(attr, $event)" 
+                                        [formControl]="pinCodeControl">
+                                        <mat-error *ngIf="pinCodeControl.hasError('pattern')">
+                                            Invalid Pin Code
+                                        </mat-error>
+                                        <mat-error *ngIf="pinCodeControl.hasError('invalid')">
+                                            Pin Code does not match the state
+                                        </mat-error>
                                 </mat-form-field>
                             </ng-container>
                             <ng-container *ngIf="attr.value.type == 'textarea'">
