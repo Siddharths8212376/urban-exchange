@@ -87,7 +87,11 @@
                                 </mat-form-field>
                                     <div *ngIf="!isValidHashTag(hashtag)" class="invalid-hashtag">Not a valid hashtag. Please enter valid format #xyz</div>
                                     <div class="search-recom overlay text" *ngIf="hashSearchResults.length > 0">
-                                        <div  *ngFor="let hash of hashSearchResults" class="search-result" (click)="addHashTag(hash)">{{hash}}</div>
+                                        <div  *ngFor="let hash of hashSearchResults" class="search-result row" (click)="addHashTag(hash.tag)">
+                                           <span>{{hash.tag}} 
+                                           <span class="tag-count">({{hash.items}})</span>
+                                           </span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-4">

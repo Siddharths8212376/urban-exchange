@@ -16,7 +16,7 @@
     padding: 0.5rem;
     padding-top: 0;
     border-radius: 0.5rem;
-    background-color: gainsboro;
+    background-color: #ffebf0;
     margin: 0.5rem;
 }
 
@@ -115,4 +115,20 @@ mat-form-field {
     box-shadow: 0rem 0.05rem 0.8rem #e6e6e6;
     border-radius: 0.25rem;
     padding: 0.5rem 1rem;
+}
+
+.search-result {
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.search-result:hover {
+    transform: scale(1.02);
+    background-color: #ffebf0;
+}
+
+.tag-count {
+    font-size: smaller;
+    font-style: italic;
+    color: #9b9595;
 }

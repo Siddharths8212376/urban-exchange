@@ -8,6 +8,8 @@ import { LoaderService } from 'src/app/services/loader/loader.service';
 import { ProductService } from 'src/app/services/product/product.service';
 import { HttpClient } from '@angular/common/http';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
+import { HashtagService } from 'src/app/services/hashtag/hashtag.service';
+import { HashTag } from 'src/app/models/hashtag.model';
 
 @Component({
   selector: 'app-create-product',
@@ -28,7 +30,7 @@ export class CreateProductComponent implements OnInit {
   hashtag: string | null = null;
   displayAddHashtags: boolean = false;
   hashTextChanged: Subject<string> = new Subject<string>();
-  hashSearchResults: string[] = [];
+  hashSearchResults: HashTag[] = [];
   constructor(
     private productService: ProductService,
     private fb: FormBuilder,
@@ -36,7 +38,8 @@ export class CreateProductComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     public loader: LoaderService,
-    private http: HttpClient
+    private http: HttpClient,
+    private hashTagService: HashtagService,
   ) { }
   ngOnInit(): void {
     this.generateProductTag();
@@ -151,6 +154,9 @@ export class CreateProductComponent implements OnInit {
   searchHashTags(hashtag: string) {
     // do some async op and return the search results
     // store into hashSearchResults
+    this.hashTagService.searchHashTag(hashtag).subscribe(response => {
+      this.hashSearchResults = response.data;
+    })
   }
   setPinCodeValidators() {
     this.pinCodeControl = new FormControl({ value: '', disabled: true }, [
@@ -268,9 +274,14 @@ export class CreateProductComponent implements OnInit {
     let createPayload: any = {
       tag: this.productTag,
       seller: this.authService.getCurrentUser()._id,
+      metadata: {}
     };
     this.productForm.value['attrs'].map((attr: any) => {
-      createPayload[`${attr.label}`] = attr.value;
+      if (attr.subCatLevel > 0) {
+        createPayload['metadata'][`${attr.label}`] = attr.value;
+      } else {
+        createPayload[`${attr.label}`] = attr.value;
+      }
     });
     this.imageService.uploadImages(this.uploadedFiles, this.productTag as string).subscribe(response => {
       this.productService.createProduct(createPayload).subscribe(createResponse => {
