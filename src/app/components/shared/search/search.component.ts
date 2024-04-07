@@ -45,7 +45,10 @@ export class SearchComponent implements OnInit {
   }
   onSearchItem() {
     if (this.searchInput.trim().length > 0) {
-      this.productService.searchProduct(this.searchInput.trim()).subscribe(response => {
+      // for hashtag search
+      let searchItem = this.searchInput.trim();
+      if (searchItem[0] == '#') searchItem = searchItem.substring(1);
+      this.productService.searchProduct(searchItem).subscribe(response => {
         this.searchResults = response.data;
         this.displayAutoCompleteResults = this.searchResults.length > 0;
       })
