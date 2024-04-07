@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/authentication/auth.service';
 import { CreateFields } from 'src/app/models/create-product-fields.model';
@@ -7,6 +7,7 @@ import { ImageService } from 'src/app/services/image/image.service';
 import { LoaderService } from 'src/app/services/loader/loader.service';
 import { ProductService } from 'src/app/services/product/product.service';
 import { HttpClient } from '@angular/common/http';
+import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-create-product',
@@ -23,6 +24,11 @@ export class CreateProductComponent implements OnInit {
   uploadedFiles: FileList | any = [];
   stateAddedFlag: boolean = false;
   postalBaseUrl: string = 'https://api.postalpincode.in/pincode';
+  hashtags: string[] = [];
+  hashtag: string | null = null;
+  displayAddHashtags: boolean = false;
+  hashTextChanged: Subject<string> = new Subject<string>();
+  hashSearchResults: string[] = [];
   constructor(
     private productService: ProductService,
     private fb: FormBuilder,
@@ -36,6 +42,11 @@ export class CreateProductComponent implements OnInit {
     this.generateProductTag();
     this.getCreateFields();
     this.setPinCodeValidators();
+    this.hashTextChanged.pipe(
+      debounceTime(300), distinctUntilChanged()
+    ).subscribe(searchItem => {
+      if (this.isValidHashTag(searchItem)) this.searchHashTags(searchItem);
+    });
   }
   get attrs() {
     return this.productForm?.controls['attrs'] as FormArray;
@@ -103,6 +114,44 @@ export class CreateProductComponent implements OnInit {
       this.attrs.push(ctl);
     })
   }
+  onChangeHashTag($event: any) {
+    this.hashTextChanged.next($event);
+  }
+
+  isValidHashTag(value: string | null): boolean {
+    if (value == null || value == undefined) return true;
+    if (value.length == 0) return false;
+    else {
+      let v = value;
+      v = v.trim();
+      if (v.length == 0) return false;
+      if (!v || v && v[0] !== '#' || v && v.includes(' ') || v && v[0] == '#' && v.length < 2) {
+        return false;
+      }
+    }
+    return true;
+  }
+  displayAddHashTag() {
+    this.displayAddHashtags = true;
+  }
+  removeFromHashtags(hashtag: string, attribute: any) {
+    this.hashtags = this.hashtags.filter(h => h !== hashtag);
+    attribute.get('value').patchValue(this.hashtags);
+  }
+  addHashTag(hashtag: string | null) {
+    if (this.isValidHashTag(hashtag) && !this.hashtags.find(ht => ht == hashtag) && hashtag !== null) this.hashtags.push(hashtag);
+  }
+  submitInfo(hashtag: string | null, attribute: any) {
+    this.addHashTag(hashtag);
+    this.hashtag = null;
+    attribute.get('value').patchValue(this.hashtags);
+    this.hashSearchResults = [];
+    this.displayAddHashtags = false;
+  }
+  searchHashTags(hashtag: string) {
+    // do some async op and return the search results
+    // store into hashSearchResults
+  }
   setPinCodeValidators() {
     this.pinCodeControl = new FormControl({ value: '', disabled: true }, [
       Validators.required,
@@ -136,7 +185,7 @@ export class CreateProductComponent implements OnInit {
     }
     else if (subCatLevel == 2) {
       let subCatL1 = this.attrs.value.find((v: any) => v.fieldName == 'Category').value;
-      subCategory = categoryField?.metadata?.find(m => m.category == subCatL1)?.fields.find(f => f.fieldName == 'Category')?.metadata?.find(m => m.category == fieldName);
+      subCategory = categoryField?.metadata?.find(m => m.category == subCatL1)?.fields.find(f => f.label == 'subCategory')?.metadata?.find(m => m.category == fieldName);
     }
 
     let subCatFields = subCategory?.fields;
@@ -151,7 +200,7 @@ export class CreateProductComponent implements OnInit {
     });
     subCatFields?.forEach(field => {
       const ctl = this.fb.group({ ...this.getProps(field, subCatLevel) });
-      this.attrs.push(ctl);
+      this.attrs.insert(this.attrs.length - 7, ctl);
     })
   }
   async onChangeOfData(attribute: any, $event: any) {
@@ -159,12 +208,12 @@ export class CreateProductComponent implements OnInit {
     if (attribute.value.type == 'autocomplete') {
       attribute.value.displayOptions = attribute.value.options.filter((opt: string) => opt[0].toLowerCase().includes($event.toLowerCase()));
     }
-    if (attribute.value.fieldName == 'Category') {
+    if (['category', 'subCategory'].includes(attribute.value.label)) {
       this.addSubCategory(this.createFields, attribute.value.value, attribute.value.subCatLevel + 1);
     }
 
-    if(attribute.value.fieldName == 'State') {
-      if(attribute.value.value != null && attribute.value.value != '')
+    if (attribute.value.fieldName == 'State') {
+      if (attribute.value.value != null && attribute.value.value != '')
         this.stateAddedFlag = true;
       else {
         this.stateAddedFlag = false;
@@ -174,7 +223,7 @@ export class CreateProductComponent implements OnInit {
     }
     this.checkIfPinCodeIsDisabled();
 
-    if(attribute.value.fieldName == 'PIN' && !this.pinCodeControl.hasError('pattern') && attribute.value.value !== null) {
+    if (attribute.value.fieldName == 'PIN' && !this.pinCodeControl.hasError('pattern') && attribute.value.value !== null) {
       attribute = await this.validateIfPinCodeMatchesState(attribute);
     }
   }
@@ -189,18 +238,18 @@ export class CreateProductComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.loader.start();
       this.http.get(`${this.postalBaseUrl}/${attribute.value.value}`).subscribe((response: any) => {
-        if (response && response.length>0 && response[0].Status == 'Success') {
+        if (response && response.length > 0 && response[0].Status == 'Success') {
           let stateFields = this.productForm.get('attrs')['controls'].filter((cntrl: any) => cntrl.value.fieldName == 'State');
-          if(response[0].PostOffice && response[0].PostOffice.length>0 && response[0].PostOffice[0].State !== stateFields[0].value.value) {
-            this.pinCodeControl.setErrors({invalid: true}); // Set error for pin code
-            attribute.setErrors({invalid: true}); // Set error in the form so that submit button is disabled
+          if (response[0].PostOffice && response[0].PostOffice.length > 0 && response[0].PostOffice[0].State !== stateFields[0].value.value) {
+            this.pinCodeControl.setErrors({ invalid: true }); // Set error for pin code
+            attribute.setErrors({ invalid: true }); // Set error in the form so that submit button is disabled
             this.loader.stop();
             resolve(attribute);
           }
           this.loader.stop();
         } else {
-          this.pinCodeControl.setErrors({invalid: true});
-          attribute.setErrors({invalid: true});
+          this.pinCodeControl.setErrors({ invalid: true });
+          attribute.setErrors({ invalid: true });
           this.loader.stop();
           resolve(attribute);
         }
