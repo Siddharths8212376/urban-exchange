@@ -56,20 +56,15 @@ export class ProductFilterComponent implements OnInit {
         let subOptions = productMetadata?.subOptions;
         if (option.checked && subOptions) {
           subOptions.filter(opt => opt.category == filter).forEach(opt => {
-            // console.log(opt, 'filtered');
             let subFilterB = { category: filter, field: opt.field, options: opt.options.map(opt => { return { value: opt, checked: false } }) }
-            // console.log(subFilterB, 'sfb');
             if (!this.subFiltersB) this.subFiltersB = [];
             if (subFilterB) {
               this.subFiltersB.push(subFilterB);
-              console.log(this.subFiltersB, 'helloin');
             }
           })
         }
-        console.log(this.subFiltersB, 'hello');
       }
     } else if (this.subFiltersB && this.subFiltersB.length > 0) {
-      console.log(this.subFiltersB, 'undo heyo', filter);
       this.subFiltersB?.forEach(sf => {
         if (sf.options && sf.field == subFilterField) {
           let option = sf.options.find(opt => opt.value == filter);
