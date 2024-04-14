@@ -56,8 +56,8 @@
                                     <mat-label>{{ attr.value.fieldName }} </mat-label>
                                     <input type="text" matInput  [(ngModel)]="attr.value.value"  [matAutocomplete]="auto"  [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeOfData(attr, $event)">
                                     <mat-autocomplete #auto="matAutocomplete">
-                                      <mat-option *ngFor="let option of attr.value.displayOptions" [value]="option[0]">
-                                        {{option[0]}}
+                                      <mat-option *ngFor="let option of attr.value.displayOptions" [value]="attr.value.label == 'state' ? option[0] : option">
+                                        {{attr.value.label == 'state' ? option[0] : option }}
                                       </mat-option>
                                     </mat-autocomplete>
                                   </mat-form-field>
