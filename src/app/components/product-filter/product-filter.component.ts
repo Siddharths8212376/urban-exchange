@@ -18,6 +18,9 @@ export class ProductFilterComponent implements OnInit {
     private dataService: DataService,
   ) { }
   ngOnInit(): void {
+    this.getProductCategoriesData();
+  }
+  getProductCategoriesData() {
     this.productService.getProductCategories().subscribe(response => {
       this.productMetadata = response.metadata;
       response.metadata.forEach(filter => this.productCategories.push({ filterName: filter.category, checked: false }));
@@ -41,8 +44,15 @@ export class ProductFilterComponent implements OnInit {
           this.subFilterA = null;
         }
         this.subFiltersB = [];
+        this.setSubFilters();
       }
     }
+  }
+  setSubFilters() {
+    this.dataService.setSubFilters({
+      subFilterA: this.subFilterA,
+      subFiltersB: this.subFiltersB
+    });
   }
   updateSubFilters(filter: string, $event: any, filterLevel: number, subFilterField?: string) {
     let productCategory = this.productCategories.find(p => p.checked == true);
@@ -77,5 +87,6 @@ export class ProductFilterComponent implements OnInit {
         }
       })
     }
+    this.setSubFilters();
   }
 }
