@@ -34,7 +34,6 @@ export class ContentComponent implements OnInit {
       if (response) {
         this.productSubFilters = response;
         this.subFiltersValue = this.checkAndAddSubFilters();
-        console.log(this.subFiltersValue);
         if (this.filtersValue.trim().length > 0) {
           let compositeFilter = this.filtersValue + this.subFiltersValue;
           this.productService.getProductsByPageNoPageSizeAndOrCategory(AppConstants.DEFAULT_PAGE_NO, AppConstants.DEFAULT_PAGE_SIZE, compositeFilter).subscribe(response => {
@@ -43,6 +42,8 @@ export class ContentComponent implements OnInit {
         } else {
           this.getAllProductData();
         }
+      } else {
+        this.getAllProductData();
       }
     })
     this.dataService.getProductFilters().subscribe(response => {
