@@ -212,7 +212,11 @@ export class CreateProductComponent implements OnInit {
   async onChangeOfData(attribute: any, $event: any) {
     attribute.get('value').patchValue($event);
     if (attribute.value.type == 'autocomplete') {
-      attribute.value.displayOptions = attribute.value.options.filter((opt: string) => opt[0].toLowerCase().includes($event.toLowerCase()));
+      if (attribute.value.label == 'state') {
+        attribute.value.displayOptions = attribute.value.options.filter((opt: string) => opt[0].toLowerCase().includes($event.toLowerCase()));
+      } else {
+        attribute.value.displayOptions = attribute.value.options.filter((opt: string) => opt.toLowerCase().includes($event.toLowerCase()));
+      }
     }
     if (['category', 'subCategory'].includes(attribute.value.label)) {
       this.addSubCategory(this.createFields, attribute.value.value, attribute.value.subCatLevel + 1);
