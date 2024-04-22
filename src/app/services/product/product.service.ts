@@ -43,11 +43,11 @@ export class ProductService {
   getAllProducts(): Observable<{ message: string, data: Product[] }> {
     return this.http.get<{ message: string, data: Product[] }>(`${env.apiUrl}/product`);
   }
-  getProductsByPageNoPageSizeAndOrCategory(page?: number, limit?: number, category?: string): Observable<ProductResponse> {
-    if (!page) page = AppConstants.DEFAULT_PAGE_NO;
-    if (!limit) limit = AppConstants.DEFAULT_PAGE_SIZE;
-    let url = `${env.apiUrl}/product?page=${page}&limit=${limit}`;
-    if (category) url += `&category=${category}`;
+  getProductsByPageNoPageSizeAndOrCategory(payload: any): Observable<ProductResponse> {
+    if (!payload.page) payload.page = AppConstants.DEFAULT_PAGE_NO;
+    if (!payload.limit) payload.limit = AppConstants.DEFAULT_PAGE_SIZE;
+    let url = `${env.apiUrl}/product?page=${payload.page}&limit=${payload.limit}&latitude=${payload.latitude}&longitude=${payload.longitude}`;
+    if (payload.category) url += `&category=${payload.category}`;
     return this.http.get<ProductResponse>(url);
   }
   getProductById(id: string): Observable<{ message: string, data: Product }> {
@@ -58,6 +58,10 @@ export class ProductService {
   }
   getProductCreateFields(): Observable<{ message: string, data: CreateFields[] }> {
     return this.http.get<{ message: string, data: CreateFields[] }>(`${env.apiUrl}/product/create-product-fields`);
+  }
+  validatePinCode(attributeValue: any): Observable<any> {
+    let body = {attributeValue};
+    return this.http.post<any>(`${env.apiUrl}/product/validatePin`, body);
   }
   getProductCategories(): Observable<{ message: string, data: string[], metadata: { category: string, options: string[], subOptions: { category: string, field: string, options: string[] }[] }[] }> {
     return this.http.get<{ message: string, data: string[], metadata: { category: string, options: string[], subOptions: { category: string, field: string, options: string[] }[] }[] }>(`${env.apiUrl}/product/product-categories`);
