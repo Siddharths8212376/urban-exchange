@@ -40,7 +40,14 @@ export class ContentComponent implements OnInit {
         this.subFiltersValue = this.checkAndAddSubFilters();
         if (this.filtersValue.trim().length > 0) {
           let compositeFilter = this.filtersValue + this.subFiltersValue;
-          this.productService.getProductsByPageNoPageSizeAndOrCategory(AppConstants.DEFAULT_PAGE_NO, AppConstants.DEFAULT_PAGE_SIZE, compositeFilter).subscribe(response => {
+          let payload = {
+            page: AppConstants.DEFAULT_PAGE_NO,
+            limit: AppConstants.DEFAULT_PAGE_SIZE,
+            latitude: this.latitude,
+            longitude: this.longitude,
+            category: compositeFilter
+          }
+          this.productService.getProductsByPageNoPageSizeAndOrCategory(payload).subscribe(response => {
             this.setProductAndPageData(response);
           });
         } else {
