@@ -1,0 +1,171 @@
+/* Apply general styles to the form container */
+form {
+    // max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    // box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Style form fields */
+  div {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    font-weight: bold;
+    font-family: 'Assistant';
+  }
+  
+  input[type="text"],
+  input[type="password"],
+  input[type="tel"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* Style the form container */
+  .sidenav-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  /* Style the sidenav (navigation pane) */
+  .sidenav {
+  
+    background-color: rgb(255, 255, 255);
+    color: black;
+    font-family: 'Assistant';
+    border-radius: 0.5rem;
+  }
+  
+  /* Style the sidenav content */
+  .sidenav-content {
+    padding: 20px;
+  }
+  
+  /* Customize the appearance of the select dropdown */
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  
+  label[for]>span[aria-label="required"] {
+    color: red;
+    margin-left: 4px;
+  }
+  
+  /* Add any other specific styles as needed */
+  
+  
+  .container {
+    padding: 20px;
+  }
+  
+  .row {
+    display: flex;
+  }
+  
+  .col-3 {
+    flex: 0 0 25%;
+  }
+  
+  /* Styling for the left navigation pane */
+  .sidenav {
+    height: 100%;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+  }
+  
+  .sidenav a {
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    display: block;
+  }
+  
+  .sidenav a:hover,
+  .sidenav a:active {
+    background-color: #ffefef;
+    color: rgb(12, 12, 12);
+    transform: scale(1.02);
+  }
+  
+  input,
+  select {
+    font-family: 'Assistant';
+  }
+  
+  .sidenav a {
+    cursor: pointer;
+  }
+  
+  /* Content area */
+  // .col-9 {
+  //     // padding: 20px;
+  // }
+  
+  .userProfile {
+    padding: 2rem 10rem;
+    overflow-y: auto;
+  }
+  
+  .profile {
+    height: calc(100vh - 150px);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+
+  .profile {
+    width: 50%;
+    margin: 0% 25%;
+}
+
+.userProfile {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.userProfile th, .userProfile td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.userProfile tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.userProfile tr:hover {
+    background-color: #ddd;
+}

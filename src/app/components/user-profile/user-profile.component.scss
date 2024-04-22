@@ -144,3 +144,9 @@ select {
   justify-content: center;
   flex-direction: column;
 }
+
+.chatTable th, .chatTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}

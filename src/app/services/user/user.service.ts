@@ -66,4 +66,7 @@ export class UserService{
   setUserDetails(userDetails: any) {
     return this.http.post(`${env.apiUrl}/user/setUserDetails`, userDetails);
   }
+
+  //api to get all chats basing current user as sender
+  
 }

@@ -24,7 +24,7 @@ export class DisplayProductComponent implements OnInit {
   imageFiles: File[] | any = [];
   isInWishlist: boolean = false;
   wishlist: any = [];
-
+ currUser : any;
   constructor(
     private userService: UserService,
     private loader: LoaderService,
@@ -39,7 +39,9 @@ export class DisplayProductComponent implements OnInit {
     this.route.params.subscribe(param => {
       this.productId = this.route.snapshot.paramMap.get('id');
       this.getProductDetails();
+      
     })
+    this.currUser = this.authService.getCurrentUser()? this.authService.getCurrentUser() : '';
     this.productId = this.route.snapshot.paramMap.get('id');
     this.wishlist = await this.userService.getWislist();
     this.isInWishlist = this.wishlist.includes(this.productId);
@@ -130,5 +132,9 @@ export class DisplayProductComponent implements OnInit {
       height: '80%',
       data: { chatData : seller } // Pass the seller data to your dialog component
     });
+  }
+
+  checkIfProductisOfSeller(product : any){
+    return this.currUser._id == product.seller;
   }
 }

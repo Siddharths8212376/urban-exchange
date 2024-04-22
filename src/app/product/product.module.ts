@@ -16,13 +16,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { MatDialogModule } from '@angular/material/dialog';
+import { ChatListComponent } from './chat-list/chat-list.component';
 
 
 @NgModule({
   declarations: [
     DisplayProductComponent,
     CreateProductComponent,
-    CarouselComponent
+    CarouselComponent,
+    ChatListComponent
   ],
   imports: [
     FormsModule,
