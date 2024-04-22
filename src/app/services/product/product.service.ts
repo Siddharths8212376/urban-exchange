@@ -17,13 +17,13 @@ export class ProductService {
 
   // private socket;
   public message$: BehaviorSubject<any> = new BehaviorSubject({});
-  
+
   httpOptions = {
     headers: new HttpHeaders({
       Authorization: localStorage.getItem("token") as string
     })
   }
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     // this.socket = io('http://localhost:5000');
   }
 
@@ -36,7 +36,7 @@ export class ProductService {
   //   this.socket.on('message', (message) =>{
   //     this.message$.next(message);
   //   });
-    
+
   //   return this.message$.asObservable();
   // };
 
@@ -63,13 +63,13 @@ export class ProductService {
     let body = {attributeValue};
     return this.http.post<any>(`${env.apiUrl}/product/validatePin`, body);
   }
-  getProductCategories(): Observable<{ message: string, data: string[] }> {
-    return this.http.get<{ message: string, data: string[] }>(`${env.apiUrl}/product/product-categories`);
+  getProductCategories(): Observable<{ message: string, data: string[], metadata: { category: string, options: string[], subOptions: { category: string, field: string, options: string[] }[] }[] }> {
+    return this.http.get<{ message: string, data: string[], metadata: { category: string, options: string[], subOptions: { category: string, field: string, options: string[] }[] }[] }>(`${env.apiUrl}/product/product-categories`);
   }
   createProduct(payload: any): Observable<{ message: string, productId: string }> {
 
     let auth = this.httpOptions.headers.get('Authorization');
-    
+
     console.log(auth, 'authHere');
 
     return this.http.post<{ message: string, productId: string }>(`${env.apiUrl}/product`, payload, this.httpOptions);
@@ -80,20 +80,20 @@ export class ProductService {
   getProductListById(payload: any): Observable<{ message: string, data: Product[] }> {
     return this.http.post<{ message: string, data: Product[] }>(`${env.apiUrl}/product/product-list-by-id`, payload);
   }
-  
-  getChatId(currentUser : any , prodId  : any , seller : any){
-    return this.http.post(`${env.apiUrl}/chat/getChatId`,{currentUser,prodId , seller});
+
+  getChatId(currentUser: any, prodId: any, seller: any) {
+    return this.http.post(`${env.apiUrl}/chat/getChatId`, { currentUser, prodId, seller });
   }
 
-  createChat(currentUser: any ,prodId : any , seller : any ): Observable<{ message: string, data: any }> {
-    return this.http.post<{ message: string, data: any }>(`${env.apiUrl}/chat/createChat`, {currentUser,prodId , seller});
+  createChat(currentUser: any, prodId: any, seller: any): Observable<{ message: string, data: any }> {
+    return this.http.post<{ message: string, data: any }>(`${env.apiUrl}/chat/createChat`, { currentUser, prodId, seller });
   }
-  updateChat(chatid : any ,messages : any[]  ): Observable<{ message: string, data: any }> {
-    console.log(chatid , messages , 'chatid , messages');
-    return this.http.post<{ message: string, data: any }>(`${env.apiUrl}/chat/updateChat`, {chatid , messages });
+  updateChat(chatid: any, messages: any[]): Observable<{ message: string, data: any }> {
+    console.log(chatid, messages, 'chatid , messages');
+    return this.http.post<{ message: string, data: any }>(`${env.apiUrl}/chat/updateChat`, { chatid, messages });
   }
 
-  getChat(chatId : any){
+  getChat(chatId: any) {
     return this.http.get<{ message: string, data: string[] }>(`${env.apiUrl}/chat/getChat/${chatId}`);
   }
 }

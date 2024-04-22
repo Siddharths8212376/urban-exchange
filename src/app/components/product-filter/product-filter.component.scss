@@ -3,23 +3,49 @@
     height: 2rem;
     font-family: 'Assistant', 'Roboto';
 }
+
 .card-title {
-    font-size: large;
+    font-size: initial;
+    font-weight: 900;
 }
+
 .filter-body {
     height: 1.5rem !important;
 }
+
 .form-check-input {
-    height: 1rem; width: 1rem;
+    height: 1rem;
+    width: 1rem;
     box-shadow: none;
     cursor: pointer;
 }
+
 .form-check-input:checked {
     background-color: #ff3f6c;
     border-color: #ff3f6c;
     box-shadow: none;
 }
+
 .checked-filter {
     font-size: 140% !important;
     font-weight: 800;
+}
+
+.checked-filter-sub {
+    font-size: 110% !important;
+    font-weight: 800;
+}
+
+.init-cat,
+.sub-cat-level-1,
+.sub-cat-level-2 {
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.sub-filter {
+    margin-bottom: 1rem;
+}
+
+.init-cat {
+    padding-bottom: 1rem;
 }

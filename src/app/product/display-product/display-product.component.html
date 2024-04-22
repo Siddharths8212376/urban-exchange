@@ -73,7 +73,7 @@
             {{product.description}} 
         </div>
 
-        <div class="additionalInfoData" *ngIf="productLocation.length>0">
+        <div class="additionalInfoData" *ngIf="productLocation.length>0 && displayMap">
             <h2 class="desc">Location</h2>
             <app-geolocation [coordinates]="productLocation"></app-geolocation>
         </div>
