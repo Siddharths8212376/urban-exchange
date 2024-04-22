@@ -18,13 +18,16 @@ export class ContentComponent implements OnInit {
   pageNo: number = 0;
   pageSize: number = 25;
   productFilter: { filterName: string, checked: boolean }[] = [];
+  latitude: any = '';
+  longitude: any = '';
+
   constructor(
     private productService: ProductService,
     private dataService: DataService,
     public loader: LoaderService,
   ) { }
-  ngOnInit(): void {
-
+  async ngOnInit(): Promise<void> {
+    await this.getUserLocation();
     this.dataService.getProductFilters().subscribe(response => {
       if (response) {
         this.productFilter = response;
@@ -35,7 +38,14 @@ export class ContentComponent implements OnInit {
       this.productFilter.forEach(filter => filter.checked == true ? filters += filter.filterName + ',' : null);
       if (filters.charAt(filters.length - 1) == ',') filters = filters.substring(0, filters.length - 1);
       if (filters.trim().length > 0) {
-        this.productService.getProductsByPageNoPageSizeAndOrCategory(AppConstants.DEFAULT_PAGE_NO, AppConstants.DEFAULT_PAGE_SIZE, filters).subscribe(response => {
+        let payload = {
+          page: AppConstants.DEFAULT_PAGE_NO,
+          limit: AppConstants.DEFAULT_PAGE_SIZE,
+          category: filters,
+          latitude: this.latitude,
+          longitude: this.longitude,
+        }
+        this.productService.getProductsByPageNoPageSizeAndOrCategory(payload).subscribe(response => {
           this.setProductAndPageData(response);
         });
       } else {
@@ -62,12 +72,22 @@ export class ContentComponent implements OnInit {
     })
   }
   getAllProductData() {
-    this.productService.getProductsByPageNoPageSizeAndOrCategory().subscribe(response => {
+    let payload = {
+      latitude: this.latitude,
+      longitude: this.longitude,
+    }
+    this.productService.getProductsByPageNoPageSizeAndOrCategory(payload).subscribe(response => {
       this.setProductAndPageData(response);
     });
   }
   pageUpdateEvent(e: PageEvent) {
-    this.productService.getProductsByPageNoPageSizeAndOrCategory(e.pageIndex, e.pageSize).subscribe(response => {
+    let payload = {
+      page: e.pageIndex,
+      limit: e.pageSize,
+      latitude: this.latitude,
+      longitude: this.longitude,
+    }
+    this.productService.getProductsByPageNoPageSizeAndOrCategory(payload).subscribe(response => {
       this.setProductAndPageData(response);
     });
   }
@@ -76,5 +96,19 @@ export class ContentComponent implements OnInit {
     this.totalCount = response.data[0].totalProducts[0].count;
     this.pageNo = response.page as number;
     this.pageSize = response.limit as number;
+  }
+
+  async getUserLocation() {
+    if (navigator.geolocation) {
+      await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition((position) => {
+          if(position) {
+            this.latitude = position.coords.latitude;
+            this.longitude = position.coords.longitude;
+          }
+          resolve("done");
+        });
+      });
+    }
   }
 }

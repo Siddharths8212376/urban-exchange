@@ -188,21 +188,24 @@ export class CreateProductComponent implements OnInit {
   validateIfPinCodeMatchesState(attribute: any) {
     return new Promise((resolve, reject) => {
       this.loader.start();
-      this.http.get(`${this.postalBaseUrl}/${attribute.value.value}`).subscribe((response: any) => {
-        if (response && response.length>0 && response[0].Status == 'Success') {
-          let stateFields = this.productForm.get('attrs')['controls'].filter((cntrl: any) => cntrl.value.fieldName == 'State');
-          if(response[0].PostOffice && response[0].PostOffice.length>0 && response[0].PostOffice[0].State !== stateFields[0].value.value) {
-            this.pinCodeControl.setErrors({invalid: true}); // Set error for pin code
-            attribute.setErrors({invalid: true}); // Set error in the form so that submit button is disabled
+      this.productService.validatePinCode(attribute.value.value).subscribe(res => {
+        if(res && res.status == 'success') {
+          let response = res.data;
+          if (response && response.length>0 && response[0].Status == 'Success') {
+            let stateFields = this.productForm.get('attrs')['controls'].filter((cntrl: any) => cntrl.value.fieldName == 'State');
+            if(response[0].PostOffice && response[0].PostOffice.length>0 && response[0].PostOffice[0].State !== stateFields[0].value.value) {
+              this.pinCodeControl.setErrors({invalid: true}); // Set error for pin code
+              attribute.setErrors({invalid: true}); // Set error in the form so that submit button is disabled
+              this.loader.stop();
+              resolve(attribute);
+            }
+            this.loader.stop();
+          } else {
+            this.pinCodeControl.setErrors({invalid: true});
+            attribute.setErrors({invalid: true});
             this.loader.stop();
             resolve(attribute);
           }
-          this.loader.stop();
-        } else {
-          this.pinCodeControl.setErrors({invalid: true});
-          attribute.setErrors({invalid: true});
-          this.loader.stop();
-          resolve(attribute);
         }
       });
     });
