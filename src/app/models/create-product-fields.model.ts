@@ -4,5 +4,6 @@ export interface CreateFields {
     type: string;
     required: boolean;
     multiple: boolean;
-    options?: string[];
+    options?: any[];
+    metadata?: { category: string, fields: CreateFields[] }[];
 }

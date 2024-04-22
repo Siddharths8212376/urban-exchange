@@ -70,8 +70,15 @@
     </div>
 
     <div class="additionalInfo">
-        <h2 class="desc">Description</h2>
-        {{product.description}} 
+        <div class="additionalInfoData">
+            <h2 class="desc">Description</h2>
+            {{product.description}} 
+        </div>
+
+        <div class="additionalInfoData" *ngIf="productLocation.length>0 && displayMap">
+            <h2 class="desc">Location</h2>
+            <app-geolocation [coordinates]="productLocation"></app-geolocation>
+        </div>
     </div>
 
 </div>

@@ -1,3 +1,4 @@
+<div class="product-form product-form--title">Sell Product</div>
 <div *ngIf="productForm" class="product-form">
     <div class="row">
         <div class="col-6">
@@ -8,10 +9,30 @@
                             {{ attr.value.fieldName }} <span style="color: red;" *ngIf="attr.value.required">*</span>
                         </div>
                         <div class="col-6">
-                            <ng-container *ngIf="attr.value.type == 'text' || attr.value.type == 'number'">
+                            <ng-container *ngIf="attr.value.type == 'text'">
                                 <mat-form-field>
                                     <mat-label>{{ attr.value.fieldName }} </mat-label>
                                     <input [type]="attr.value.type" matInput [(ngModel)]="attr.value.value" [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeOfData(attr, $event)">
+                                </mat-form-field>
+                            </ng-container>
+                            <ng-container *ngIf="attr.value.type == 'number' && attr.value.fieldName!='PIN'">
+                                <mat-form-field>
+                                    <mat-label>{{ attr.value.fieldName }} </mat-label>
+                                    <input [type]="attr.value.type" matInput [(ngModel)]="attr.value.value" step="0.01" min="1" [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeOfData(attr, $event)" 
+                                        (keypress)="preventNegativeInput($event)">
+                                </mat-form-field>
+                            </ng-container>
+                            <ng-container *ngIf="attr.value.fieldName=='PIN'">
+                                <mat-form-field>
+                                    <mat-label>{{ attr.value.fieldName }} </mat-label>
+                                    <input matInput [(ngModel)]="attr.value.value" [formControl]="pinCodeControl" (ngModelChange)="onChangeOfData(attr, $event)" 
+                                        [formControl]="pinCodeControl">
+                                        <mat-error *ngIf="pinCodeControl.hasError('pattern')">
+                                            Invalid Pin Code
+                                        </mat-error>
+                                        <mat-error *ngIf="pinCodeControl.hasError('invalid')">
+                                            Pin Code does not match the state
+                                        </mat-error>
                                 </mat-form-field>
                             </ng-container>
                             <ng-container *ngIf="attr.value.type == 'textarea'">
@@ -35,8 +56,8 @@
                                     <mat-label>{{ attr.value.fieldName }} </mat-label>
                                     <input type="text" matInput  [(ngModel)]="attr.value.value"  [matAutocomplete]="auto"  [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeOfData(attr, $event)">
                                     <mat-autocomplete #auto="matAutocomplete">
-                                      <mat-option *ngFor="let option of attr.value.displayOptions" [value]="option[0]">
-                                        {{option[0]}}
+                                      <mat-option *ngFor="let option of attr.value.displayOptions" [value]="attr.value.label == 'state' ? option[0] : option">
+                                        {{attr.value.label == 'state' ? option[0] : option }}
                                       </mat-option>
                                     </mat-autocomplete>
                                   </mat-form-field>
@@ -45,6 +66,38 @@
                                 <div style="padding-bottom: 2rem;">
                                     <button class="ast" type="button" mat-raised-button (click)="fileInput.click()">Choose Files</button>
                                     <input hidden (change)="onFileSelected(attr)" #fileInput type="file" id="file" [multiple]="attr.value.multiple">
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="attr.value.type == 'hashtag'">
+                                <div class="row">
+                                    <div class="col-12 row" style="padding-left: 1rem;">
+                                        <div class="hashtag" *ngFor="let hashtag of hashtags">
+                                            {{hashtag}}
+                                            <span (click)="removeFromHashtags(hashtag, attr)"><mat-icon title="remove" fontIcon="close" class="remove-icon" ></mat-icon></span>
+                                        </div>
+                                </div>
+                                <div class="col-4">
+                                <button class="ast" mat-raised-button color="accent" (click)="displayAddHashTag()" *ngIf="!displayAddHashtags">Add</button> 
+                                </div>
+                                <div *ngIf="displayAddHashtags" class="row" style="margin-top: 1rem;">
+                                <div class="col-8">
+                                <mat-form-field>
+                                    <mat-label>Add Hashtag</mat-label>
+                                    <input  matInput [(ngModel)]="hashtag" [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeHashTag(hashtag)">
+                                </mat-form-field>
+                                    <div *ngIf="!isValidHashTag(hashtag)" class="invalid-hashtag">Not a valid hashtag. Please enter valid format #xyz</div>
+                                    <div class="search-recom overlay text" *ngIf="hashSearchResults.length > 0">
+                                        <div  *ngFor="let hash of hashSearchResults" class="search-result row" (click)="addHashTag(hash.tag)">
+                                           <span>{{hash.tag}} 
+                                           <span class="tag-count">({{hash.items}})</span>
+                                           </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                <button class="ast" mat-raised-button  (click)="submitInfo(hashtag, attr)">Submit</button>  
+                                </div>
+                                </div>
                                 </div>
                             </ng-container>
                         </div>

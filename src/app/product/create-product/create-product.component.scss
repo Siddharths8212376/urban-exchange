@@ -1,11 +1,39 @@
 .product-form {
     margin: 5rem;
+    margin-top: 2.5rem;
     font-family: 'Assistant';
     font-size: large;
+
+    &--title {
+        font-size: x-large;
+        margin-bottom: 2.5rem;
+    }
+}
+
+.hashtag {
+
+    width: fit-content;
+    padding: 0.5rem;
+    padding-top: 0;
+    border-radius: 0.5rem;
+    background-color: #ffebf0;
+    margin: 0.5rem;
+}
+
+.hashtag-container {
+    width: 100%;
+    border: 1px solid gray;
+    border-radius: 0.5rem;
+    height: 2rem;
 }
 
 .submit {
     margin-top: 2rem;
+}
+
+.invalid-hashtag {
+    color: red;
+    font-size: small;
 }
 
 .ast {
@@ -49,6 +77,13 @@ mat-form-field {
     cursor: pointer;
 }
 
+.remove-icon {
+    position: relative;
+    top: 0.3rem;
+    z-index: 999;
+    cursor: pointer;
+}
+
 .camera {
     position: relative;
     top: 0.3rem;
@@ -69,4 +104,31 @@ mat-form-field {
     display: flex;
     color: #e6e6e6;
     justify-content: center;
+}
+
+.search-recom {
+    background-color: white;
+    color: black;
+    width: 100%;
+    margin-top: 0.5rem;
+    /* border: 1px solid gray; */
+    box-shadow: 0rem 0.05rem 0.8rem #e6e6e6;
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+}
+
+.search-result {
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.search-result:hover {
+    transform: scale(1.02);
+    background-color: #ffebf0;
+}
+
+.tag-count {
+    font-size: smaller;
+    font-style: italic;
+    color: #9b9595;
 }

@@ -1,6 +1,7 @@
+<div [ngClass]="subFilterA && subFilterA.options && subFilterA.options.length > 0 ? 'init-cat' : ''" >
 <div class="card" style="width: inherit; margin-bottom: 1rem; border: none;">
     <div class="card-body">
-      <h2 class="card-title">Category</h2>
+      <h2 class="card-title">{{ 'Category' | uppercase }} </h2>
     </div>
 </div>
 
@@ -14,5 +15,38 @@
       </div>
       </div>
 </div>
-
-
+</div>
+<div [ngClass]="subFiltersB && subFiltersB.length > 0 ? 'sub-cat-level-1': ''" *ngIf="subFilterA && subFilterA.options && subFilterA.options.length > 0">
+  <div class="card" style="width: inherit; border: none;">
+    <div class="card-body sub-filter">
+      <h2 class="card-title">{{subFilterA.category | uppercase }}</h2>
+    </div>
+    <div class="card" *ngFor="let option of subFilterA.options" style="width: inherit; margin-bottom: 1rem; border: none">
+      <div class="card-body filter-body">
+      <div class="form-check">
+          <input class="form-check-input" type="radio" [value]="option.value" [checked]="option.checked" (change)="updateSubFilters(option.value, $event, 1)"  [checked]="">
+          <label class="form-check-label" style="font-size: small;" [ngClass]="option.checked ? 'checked-filter-sub' : ''">
+            {{ option.value }}
+          </label>
+        </div>
+        </div>
+  </div>
+</div> 
+</div>
+<div *ngIf="subFiltersB && subFiltersB.length > 0 ">
+  <div *ngFor="let subFilter of subFiltersB" class="card" style="width: inherit; border: none;">
+    <div class="card-body sub-filter" *ngIf="subFilter.options && subFilter.options.length > 0">
+      <h2 class="card-title">{{subFilter.category | uppercase }} | {{ subFilter.field}}</h2>
+    </div>
+    <div class="card" *ngFor="let option of subFilter.options" style="width: inherit; margin-bottom: 1rem; border: none">
+      <div class="card-body filter-body">
+      <div class="form-check">
+          <input class="form-check-input" type="radio" [value]="option.value" [checked]="option.checked" (change)="updateSubFilters(option.value, $event, 2, subFilter.field)"  [checked]="">
+          <label class="form-check-label" style="font-size: small;" [ngClass]="option.checked ? 'checked-filter-sub' : ''">
+            {{ option.value }}
+          </label>
+        </div>
+        </div>
+  </div>
+</div> 
+</div>

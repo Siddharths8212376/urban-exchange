@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from 'src/app/authentication/auth.service';  
+import { AuthService } from 'src/app/authentication/auth.service';
 import { defaultProduct } from 'src/app/constants/product.constant';
 import { Product } from 'src/app/models/product.model';
 import { ImageService } from 'src/app/services/image/image.service';
@@ -9,7 +9,8 @@ import { ProductService } from 'src/app/services/product/product.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { LoaderService } from 'src/app/services/loader/loader.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ChatInterfaceComponent } from 'src/app/components/chat-interface/chat-interface.component'; 
+import { ChatInterfaceComponent } from 'src/app/components/chat-interface/chat-interface.component';
+import { env } from 'src/environments/environment';
 
 @Component({
   selector: 'app-display-product',
@@ -24,7 +25,12 @@ export class DisplayProductComponent implements OnInit {
   imageFiles: File[] | any = [];
   isInWishlist: boolean = false;
   wishlist: any = [];
+
  currUser : any;
+
+  productLocation: any = [];
+  displayMap: boolean = env.type == 'prod' ? true : false;
+
   constructor(
     private userService: UserService,
     private loader: LoaderService,
@@ -51,6 +57,7 @@ export class DisplayProductComponent implements OnInit {
     this.productService.getProductById(this.productId).subscribe(response => {
       this.product = response.data;
       this.productImages = this.product.productImages;
+      if (this.product.address != undefined || this.product.address != null) this.productLocation = this.product.address.location.coordinates;
       this.entries = Object.entries(this.product);
       if (this.productImages.length > 0) {
         this.productImages.forEach(imageName => this.imageService.getImageByName(imageName).subscribe(image => {
@@ -93,30 +100,30 @@ export class DisplayProductComponent implements OnInit {
     });
   }
 
-  openChat( seller : any ) {
+  openChat(seller: any) {
 
-     let currentUser = this.authService.getCurrentUser()? this.authService.getCurrentUser() : '';
+    let currentUser = this.authService.getCurrentUser() ? this.authService.getCurrentUser() : '';
 
-    this.productService.getChatId(currentUser, this.productId,seller).subscribe((response: any) => {
+    this.productService.getChatId(currentUser, this.productId, seller).subscribe((response: any) => {
 
       //if response is 404 then cr
 
-    
 
-      if(response &&  response.message != 'Chat not found') {
-        console.log(response , 'response1'); 
+
+      if (response && response.message != 'Chat not found') {
+        console.log(response, 'response1');
         let data = {
-          chatData : response
+          chatData: response
         }
         this.openChatInterface(data);
-  
+
       } else {
-        this.productService.createChat(currentUser, this.productId , seller).subscribe(response => {
-          console.log(response.data , 'response2'); 
+        this.productService.createChat(currentUser, this.productId, seller).subscribe(response => {
+          console.log(response.data, 'response2');
           let data = {
-            chatData : response.data['_id']
+            chatData: response.data['_id']
           }
-  
+
           this.openChatInterface(data);
         });
       }
@@ -130,7 +137,7 @@ export class DisplayProductComponent implements OnInit {
     const dialogRef = this.dialog.open(ChatInterfaceComponent, {
       width: '60%',
       height: '80%',
-      data: { chatData : seller } // Pass the seller data to your dialog component
+      data: { chatData: seller } // Pass the seller data to your dialog component
     });
   }
 
