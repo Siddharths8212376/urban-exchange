@@ -16,7 +16,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { MatDialogModule } from '@angular/material/dialog';
+
+import { ChatListComponent } from './chat-list/chat-list.component';
+
 import { GeolocationComponent } from './geolocation/geolocation.component';
+
 
 
 @NgModule({
@@ -24,7 +28,11 @@ import { GeolocationComponent } from './geolocation/geolocation.component';
     DisplayProductComponent,
     CreateProductComponent,
     CarouselComponent,
+
+    ChatListComponent
+
     GeolocationComponent
+
   ],
   imports: [
     FormsModule,

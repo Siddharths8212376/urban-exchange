@@ -24,6 +24,7 @@ import {
   GoogleLoginProvider
 } from '@abacritt/angularx-social-login';
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -46,6 +47,7 @@ import { env } from 'src/environments/environment';
 import { ChatInterfaceComponent } from './components/chat-interface/chat-interface.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,6 +65,7 @@ import { ChatInterfaceComponent } from './components/chat-interface/chat-interfa
     LandingPageComponent,
     WishlistComponent,
     ChatInterfaceComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -83,6 +86,7 @@ import { ChatInterfaceComponent } from './components/chat-interface/chat-interfa
     SocialLoginModule,
     GoogleSigninButtonModule,
     MatProgressBarModule,
+    MatDialogModule,
     OAuthModule.forRoot({
       resourceServer: {
         allowedUrls: [`${env.apiUrl}/user`], // Your Node.js API server URL

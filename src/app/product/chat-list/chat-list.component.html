@@ -1,0 +1,14 @@
+<div class="profile">
+    <table class="userProfile">
+        <thead>
+            <tr>
+                <th>Chat ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr  *ngFor="let c of chats" (click)="openChat(c)">
+                <td >{{c._id}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -5,15 +5,16 @@
 <div class="col-3">
     <!-- Left Navigation Pane -->
     <div class="sidenav">
-      <a>View Profile</a>
+      <a (click)="openProfile()">View Profile</a>
       <a>Products Purchased</a>
       <a>Products Listed </a>
       <a>Wishlist </a>
+      <a (click)="openChat()">Chats</a>
       <!-- Add more navigation links here -->
     </div>
   </div>
 
-<div class="col-5" #userdetailsForm>
+<div class="col-5" #userdetailsForm *ngIf="!ischat">
     <form [formGroup]="userProfileForm" (ngSubmit)="onSubmit()">
         <div>
             <label for="username">Username<span aria-label="required">*</span></label>
@@ -61,6 +62,18 @@
 
 
 </div>
+
+<div class="col-5 " *ngIf="ischat">
+  <table class="chatTable">
+      <tbody>
+          <tr *ngFor="let chat of chats" (click)="openChatWindow(chat)">
+              <td>{{chat.buyer}}</td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+
+
 <div class="col-2"></div>
 </div>
 </div>

@@ -85,8 +85,18 @@ export class ProductService {
     return this.http.post(`${env.apiUrl}/chat/getChatId`, { currentUser, prodId, seller });
   }
 
+
+  getChatsForUser(sender: any) {
+    console.log(sender,"sender");
+    return this.http.post(`${env.apiUrl}/chat/getChatsForUser`, {sender});
+  }
+
+  createChat(currentUser: any ,prodId : any , seller : any ): Observable<{ message: string, data: any }> {
+    return this.http.post<{ message: string, data: any }>(`${env.apiUrl}/chat/createChat`, {currentUser,prodId , seller});
+
   createChat(currentUser: any, prodId: any, seller: any): Observable<{ message: string, data: any }> {
     return this.http.post<{ message: string, data: any }>(`${env.apiUrl}/chat/createChat`, { currentUser, prodId, seller });
+
   }
   updateChat(chatid: any, messages: any[]): Observable<{ message: string, data: any }> {
     console.log(chatid, messages, 'chatid , messages');
@@ -95,5 +105,9 @@ export class ProductService {
 
   getChat(chatId: any) {
     return this.http.get<{ message: string, data: string[] }>(`${env.apiUrl}/chat/getChat/${chatId}`);
+  }
+
+  getChatsForProduct(prodId: any) {
+    return this.http.post(`${env.apiUrl}/chat/getChatsForProduct`, {prodId});
   }
 }

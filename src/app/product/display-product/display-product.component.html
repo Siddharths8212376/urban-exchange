@@ -63,7 +63,9 @@
                 <img src="../../../assets/images/avatar.png" alt="Avatar" class="avatar">
                 <h3 class="sellerName">{{product.sellerUname ? product.sellerUname : 'Apurva Hegde'}}</h3>
             </div>
-            <button (click)="openChat(product.seller)" class="chatBtn mt-2">Chat With Seller</button>
+            <div *ngIf="checkIfProductisOfSeller(product)" [routerLink]="['/product', product._id, 'chats']"><button class="chatBtn mt-2">Chats</button></div>
+        
+            <button *ngIf="!checkIfProductisOfSeller(product)" (click)="openChat(product.seller)" class="chatBtn mt-2">Chat With Seller</button>
         </span>
     </div>
 
