@@ -28,11 +28,8 @@ import { GeolocationComponent } from './geolocation/geolocation.component';
     DisplayProductComponent,
     CreateProductComponent,
     CarouselComponent,
-
-    ChatListComponent
-
+    ChatListComponent,
     GeolocationComponent
-
   ],
   imports: [
     FormsModule,
