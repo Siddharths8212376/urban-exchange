@@ -12,15 +12,19 @@ export class ChatService {
     this.socket = io('http://localhost:5000');
   }
 
-  sendMessage(message: any): void {
-    this.socket.emit('chatMessage', message);
-  }
+  joinRoom(chatId: any, userid : any): void {
+    this.socket.emit('createConnection', userid);
+}
 
-  receiveMessage(): Observable<string> {
-    return new Observable<string>(observer => {
-      this.socket.on('chatMessage', (message: string) => {
-        observer.next(message);
+sendMessage(message: any, senderId: any, receiverId: any): void {
+    this.socket.emit('chatMessage', { message, senderId ,receiverId });
+}
+
+receiveMessage(chatId: any): Observable<string> {
+  return new Observable<string>(observer => {
+      this.socket.on('receivedMsg', (message: string) => {
+          observer.next(message);
       });
-    });
-  }
+  });
+}
 }

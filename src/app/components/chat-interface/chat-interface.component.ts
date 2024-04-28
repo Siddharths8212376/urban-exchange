@@ -24,6 +24,8 @@ export class ChatInterfaceComponent {
   chatData = this.data.chatData;
   userData =  '';
   userName = '';
+  sender = '';
+  receiver = '';
   
 
   messages : any = [];
@@ -38,8 +40,30 @@ export class ChatInterfaceComponent {
     console.log(this.chatData, "chatData")
     let chatid  = ''
     chatid = this.chatData.chatData? this.chatData.chatData : this.chatData._id;
+    if(this.messages.length <= 0){
+      this.ProductService.getChat(chatid).subscribe((message: any) => {
+        if(message.messages && message.messages.length > 0){
+          this.messages = message.messages;
+          console.log(this.messages, "chatDataaaaaaaaa");
+          let sellerid = message.seller;
+          let buyerid = message.buyer;
+          if(this.authService.getCurrentUser()._id == sellerid){
+            this.sender = sellerid;
+            this.receiver = buyerid;
+        }
+        else{
+
+          this.sender = buyerid;
+          this.receiver = sellerid;
+        }
+      }
+      })
+  
+      }
+
+    this.ChatService.joinRoom(this.data.chatData.chatData?this.data.chatData.chatData : this.data.chatData._id , this.authService.getCurrentUser()._id)
     this.ChatService
-    .receiveMessage()
+    .receiveMessage(this.data.chatData.chatData?this.data.chatData.chatData : this.data.chatData._id)
     .subscribe((message: any) => {
       if(this.messages.length != 0 && this.messages[this.messages.length - 1]['text'] != message.text && this.messages[this.messages.length - 1]['chatPartner'] != message.chatPartner ){
         console.log(this.messages, "pushing another message");
@@ -49,23 +73,19 @@ export class ChatInterfaceComponent {
       }
    
     });
-    if(this.messages.length <= 0){
-    this.ProductService.getChat(chatid).subscribe((message: any) => {
-      if(message.messages && message.messages.length > 0){
-        this.messages = message.messages;
-      }
-  
-    })
-
-    }
-
   }
 
   sendMessage() {
   
 
-    let newMsg = { chatPartner: this.userName, text: this.newMessage }
-    this.ChatService.sendMessage(newMsg);
+    let currentTime = new Date();
+
+    let newMsg = { 
+        chatPartner: this.userName, 
+        text: this.newMessage, 
+        time: currentTime 
+    }
+    this.ChatService.sendMessage(newMsg,this.sender,this.receiver);
     this.messages.push(newMsg);
     console.log(this.data.chatData, "chatdata confirmation");
 
