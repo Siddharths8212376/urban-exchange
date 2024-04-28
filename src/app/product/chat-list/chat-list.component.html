@@ -7,7 +7,10 @@
         </thead>
         <tbody>
             <tr  *ngFor="let c of chats" (click)="openChat(c)">
-                <td >{{c._id}}</td>
+                <td *ngIf="c.buyerName">
+                    {{c.buyerName}}
+                  </td>
+                  <td *ngIf="!c.buyerName">{{c._id}}</td>
             </tr>
         </tbody>
     </table>
