@@ -7,6 +7,9 @@ enum displayModes {
   view,
   edit
 }
+import { ProductService } from 'src/app/services/product/product.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ChatInterfaceComponent } from '../chat-interface/chat-interface.component';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -16,9 +19,13 @@ export class UserProfileComponent implements OnInit {
   userProfileForm: FormGroup;
   currentUser!: User;
   displayMode: displayModes = displayModes.view;
+  chats: any[] = [];
+  ischat: boolean = false;
   constructor(private fb: FormBuilder,
     private UserService: UserService,
-    private dataService: DataService
+    private dataService: DataService,
+    private ProductService: ProductService,
+    public dialog: MatDialog,
   ) {
     this.userProfileForm = this.fb.group({
       username: ['', Validators.required],
@@ -41,7 +48,15 @@ export class UserProfileComponent implements OnInit {
           // Update the form with retrieved data
           this.userProfileForm.patchValue(userData);
         });
+
+
+        this.ProductService.getChatsForUser(this.currentUser._id).subscribe((response: any) => {
+          this.chats = response;
+          console.log(this.chats, "chattsss");
+        });
       }
+
+
     })
 
   }
@@ -78,4 +93,24 @@ export class UserProfileComponent implements OnInit {
       });
     }
   }
+
+  openProfile() {
+    this.ischat = false;
+  }
+
+  openChat() {
+    this.ischat = true;
+  }
+
+  openChatWindow(chat: any) {
+    //open chatinterface component in dialog
+    const dialogRef = this.dialog.open(ChatInterfaceComponent, {
+      width: '60%',
+      height: '80%',
+      data: { chatData: chat } // Pass the seller data to your dialog component
+    });
+
+
+  }
+
 }

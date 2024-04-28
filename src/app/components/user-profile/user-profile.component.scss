@@ -184,3 +184,10 @@ select {
   margin-left: 1.1rem;
   font-size: large;
 }
+
+.chatTable th,
+.chatTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
