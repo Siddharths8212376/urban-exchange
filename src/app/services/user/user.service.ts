@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, Injector} from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from 'src/app/authentication/auth.service';
 import { defaultUser } from 'src/app/constants/user.constant';
@@ -9,7 +9,7 @@ import { env } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService{
+export class UserService {
   wishlist: any = [];
   constructor(
     private http: HttpClient,
@@ -34,11 +34,11 @@ export class UserService{
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
   }
   async getWislist() {
-    if(this.wishlist.length == 0) {
-      if(localStorage.getItem('wishlist')!=null) return JSON.parse(localStorage['wishlist']);
-      else { 
+    if (this.wishlist.length == 0) {
+      if (localStorage.getItem('wishlist') != null) return JSON.parse(localStorage['wishlist']);
+      else {
         await this.getUserWishlist().subscribe((response: any) => {
-          if(response) {
+          if (response) {
             this.setUserWishlist(response.data);
             return response.data;
           }
@@ -57,8 +57,8 @@ export class UserService{
     }
     return this.http.post(`${env.apiUrl}/user/add-wishlist`, payload);
   }
-  userDetails(userDetails: string) {
-   
+  userDetails(userDetails: User) {
+
     return this.http.post(`${env.apiUrl}/user/getUserDetails`, userDetails);
   }
 

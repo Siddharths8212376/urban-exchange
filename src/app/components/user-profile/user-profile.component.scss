@@ -14,8 +14,9 @@ div {
 }
 
 label {
-  font-weight: bold;
   font-family: 'Assistant';
+  color: #9a9a9a;
+  font-size: small;
 }
 
 input[type="text"],
@@ -99,16 +100,17 @@ label[for]>span[aria-label="required"] {
 /* Styling for the left navigation pane */
 .sidenav {
   height: 100%;
-  background-color: #333;
-  color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  // background-color: #333;
+  // color: white;
   padding: 20px;
 }
 
 .sidenav a {
   padding: 10px 20px;
   text-decoration: none;
-  font-size: 18px;
-  color: white;
+  color: black;
   display: block;
 }
 
@@ -143,4 +145,42 @@ select {
   display: flex;
   justify-content: center;
   flex-direction: column;
+}
+
+.view-elem {
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.actions {
+  position: absolute;
+  bottom: 0;
+}
+
+.cancel {
+  margin-left: 1rem;
+  font-weight: 400;
+}
+
+.edit,
+.save {
+  font-weight: 400;
+}
+
+.profile-title {
+  font-family: 'Assistant';
+  font-size: x-large;
+  padding-left: 0.25rem;
+}
+
+.last-login {
+  font-family: 'Assistant';
+  font-size: smaller;
+  padding-left: 0.25rem;
+}
+
+.username {
+  margin-left: 1.1rem;
+  font-size: large;
 }

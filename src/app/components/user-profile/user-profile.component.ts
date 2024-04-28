@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user/user.service';
 import { DataService } from 'src/app/services/data/data.service';
+import { User } from 'src/app/models/user.model';
+enum displayModes {
+  view,
+  edit
+}
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -9,7 +14,8 @@ import { DataService } from 'src/app/services/data/data.service';
 })
 export class UserProfileComponent implements OnInit {
   userProfileForm: FormGroup;
-  currentUser: any;
+  currentUser!: User;
+  displayMode: displayModes = displayModes.view;
   constructor(private fb: FormBuilder,
     private UserService: UserService,
     private dataService: DataService
@@ -29,8 +35,8 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataService.getCurrentUser().subscribe(currentUser => {
-      this.currentUser = currentUser;
       if (currentUser) {
+        this.currentUser = currentUser;
         this.UserService.userDetails(this.currentUser).subscribe((userData: any) => {
           // Update the form with retrieved data
           this.userProfileForm.patchValue(userData);
@@ -39,7 +45,16 @@ export class UserProfileComponent implements OnInit {
     })
 
   }
-
+  onClickEdit() {
+    this.displayMode = displayModes.edit;
+  }
+  onClickCancel() {
+    this.displayMode = displayModes.view;
+  }
+  getProcessedImage(imgSrc: string): string {
+    imgSrc = imgSrc.replace('s96-c', 's250-c');
+    return imgSrc;
+  }
   onSubmit() {
     if (this.userProfileForm.valid) {
       // Handle form submission here
@@ -59,6 +74,7 @@ export class UserProfileComponent implements OnInit {
       this.UserService.setUserDetails(userData).subscribe((response: any) => {
         // Update the form with retrieved data
         this.userProfileForm.patchValue(response);
+        this.displayMode = displayModes.view;
       });
     }
   }

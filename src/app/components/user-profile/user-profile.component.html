@@ -1,61 +1,85 @@
 <div class="profile">
  <div class="row userProfile">
+  <div class="col-12 row">
+    <div class="col-2"></div>
+    <div class="col-2">
+      <div class="profile-title">
+        Profile & Settings
+      </div>
+      <div class="last-login">
+        Last Login {{ currentUser.lastLogin | date:'dd/mm/yyyy  h:mm a' }}
+      </div>
+    </div>
+    <div class="col-2"></div>
+  </div>
 <!-- navigation pane  -->
 <div class="col-2"></div>
-<div class="col-3">
+<div class="col-2">
     <!-- Left Navigation Pane -->
     <div class="sidenav">
-      <a>View Profile</a>
+      <span *ngIf="currentUser">
+      <img *ngIf="currentUser.avatar && currentUser.avatar.length > 0; else noImage" style="border-radius: 0.5rem; height: 5rem; margin-left: 1rem; margin-bottom: 1rem; cursor: pointer;" [src]="getProcessedImage(currentUser.avatar)">
+      <ng-template #noImage>
+        <img style="border-radius: 0.5rem; height: 5rem; margin-left: 1rem; margin-bottom: 1rem; cursor: pointer;" [src]="'../../assets/images/default-user.png'">
+      </ng-template>
+      <div class="username">{{currentUser.username}}</div>
+    </span>
       <a>Products Purchased</a>
       <a>Products Listed </a>
-      <a>Wishlist </a>
+      <a routerLink="/wishlist" routerLinkActive="mat-accent">Wishlist </a>
       <!-- Add more navigation links here -->
     </div>
   </div>
 
-<div class="col-5" #userdetailsForm>
-    <form [formGroup]="userProfileForm" (ngSubmit)="onSubmit()">
-        <div>
-            <label for="username">Username<span aria-label="required">*</span></label>
-            <input type="text" id="username" formControlName="username" required>
-          </div>
+<div class="col-6" #userdetailsForm>
+    <form [formGroup]="userProfileForm" (ngSubmit)="onSubmit()" style="min-height: 55vh; position: relative;">
+      <div class="row">
+        <div class="col-md-4">
+            <label for="username">Username</label>
+            <input *ngIf="displayMode == 1; else username" type="text" id="username" formControlName="username" required>
+            <ng-template #username>
+              <div class="view-elem">{{ this.userProfileForm.get('username')?.value}}</div>
+            </ng-template>
+        </div>
 
-        <div>
+        <div class="col-md-4">
           <label for="firstName">First Name</label>
-          <input type="text" id="firstName" formControlName="firstName">
+          <input *ngIf="displayMode == 1; else firstName" type="text" id="firstName" formControlName="firstName">
+          <ng-template #firstName>
+            <div class="view-elem">{{ this.userProfileForm.get('firstName')?.value}}</div>
+          </ng-template>
         </div>
       
-        <div>
+        <div class="col-md-4">
           <label for="lastName">Last Name</label>
-          <input type="text" id="lastName" formControlName="lastName">
+          <input *ngIf="displayMode == 1; else lastName" type="text" id="lastName" formControlName="lastName">
+          <ng-template #lastName>
+            <div class="view-elem">{{ this.userProfileForm.get('lastName')?.value}}</div>
+          </ng-template>
         </div>
-      
-        <!-- <div>
-          <label for="description">Description:</label>
-          <textarea id="description" formControlName="description"></textarea>
+
+        <div class="col-md-4">
+          <label for="email">Email</label>
+          <div class="view-elem">{{ this.currentUser.email }}</div>
         </div>
-       -->
-        <div>
+
+        <div class="col-md-4">
           <label for="phone">Phone</label>
-          <input type="tel" id="phone" formControlName="Phone">
+          <input *ngIf="displayMode == 1; else phone" type="tel" id="phone" formControlName="Phone">
+          <ng-template #phone>
+            <div class="view-elem">
+              {{ this.userProfileForm.get('Phone')?.value}}
+            </div>
+          </ng-template>
         </div>
-      
-        <!-- <div>
-            <label for="password">Password<span aria-label="required">*</span>:</label>
-            <input type="password" id="password" formControlName="password" required>
-          </div> -->
-      
-        <!-- <div>
-          <label for="avatar">Avatar</label>
-          <select id="avatar" formControlName="avatar">
-            <option value="default-avatar.png">Default Avatar</option>
-            <option value="avatar1.png">Avatar 1</option>
-            <option value="avatar2.png">Avatar 2</option>
-          </select>
-        </div> -->
-      
-        <div>
-          <button type="submit" [disabled]="!userProfileForm.valid" style="background-color: #ff4081;">Save</button>
+
+
+    
+      </div>
+        <div class="actions">
+          <button mat-raised-button color="accent" *ngIf="displayMode == 1" type="submit" [disabled]="!userProfileForm.valid" style="background-color: #ff4081;" class="save">Save</button>
+          <button mat-raised-button *ngIf="displayMode == 1" type="button" [disabled]="!userProfileForm.valid" style="background-color: #ffffff; color:black" class="cancel" (click)="onClickCancel()">Cancel</button>
+          <button mat-raised-button color="accent"  *ngIf="displayMode == 0" type="button" [disabled]="!userProfileForm.valid" style="background-color: #fff; color:black" (click)="onClickEdit()" class="edit">Edit</button>
         </div>
       </form>
 
