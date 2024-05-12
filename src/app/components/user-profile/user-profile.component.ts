@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user/user.service';
 import { DataService } from 'src/app/services/data/data.service';
+import { User } from 'src/app/models/user.model';
+enum displayModes {
+  view,
+  edit
+}
 import { ProductService } from 'src/app/services/product/product.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ChatInterfaceComponent } from '../chat-interface/chat-interface.component';
@@ -12,7 +17,8 @@ import { ChatInterfaceComponent } from '../chat-interface/chat-interface.compone
 })
 export class UserProfileComponent implements OnInit {
   userProfileForm: FormGroup;
-  currentUser: any;
+  currentUser!: User;
+  displayMode: displayModes = displayModes.view;
   chats: any[] = [];
   ischat: boolean = false;
   constructor(private fb: FormBuilder,
@@ -36,8 +42,8 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataService.getCurrentUser().subscribe(currentUser => {
-      this.currentUser = currentUser;
       if (currentUser) {
+        this.currentUser = currentUser;
         this.UserService.userDetails(this.currentUser).subscribe((userData: any) => {
           // Update the form with retrieved data
           this.userProfileForm.patchValue(userData);
@@ -46,18 +52,24 @@ export class UserProfileComponent implements OnInit {
 
         this.ProductService.getChatsForUser(this.currentUser._id).subscribe((response: any) => {
           this.chats = response;
-          console.log(this.chats,"chattsss");
-    });
+          console.log(this.chats, "chattsss");
+        });
       }
 
 
     })
 
-
-     //api to get all chats basing current user as sender
-    
-}
-
+  }
+  onClickEdit() {
+    this.displayMode = displayModes.edit;
+  }
+  onClickCancel() {
+    this.displayMode = displayModes.view;
+  }
+  getProcessedImage(imgSrc: string): string {
+    imgSrc = imgSrc.replace('s96-c', 's250-c');
+    return imgSrc;
+  }
   onSubmit() {
     if (this.userProfileForm.valid) {
       // Handle form submission here
@@ -77,25 +89,26 @@ export class UserProfileComponent implements OnInit {
       this.UserService.setUserDetails(userData).subscribe((response: any) => {
         // Update the form with retrieved data
         this.userProfileForm.patchValue(response);
+        this.displayMode = displayModes.view;
       });
     }
   }
 
-  openProfile(){
+  openProfile() {
     this.ischat = false;
   }
 
-  openChat(){
+  openChat() {
     this.ischat = true;
   }
 
-  openChatWindow(chat: any){
-   //open chatinterface component in dialog
-   const dialogRef = this.dialog.open(ChatInterfaceComponent, {
-    width: '60%',
-    height: '80%',
-    data: { chatData : chat } // Pass the seller data to your dialog component
-  });
+  openChatWindow(chat: any) {
+    //open chatinterface component in dialog
+    const dialogRef = this.dialog.open(ChatInterfaceComponent, {
+      width: '60%',
+      height: '80%',
+      data: { chatData: chat } // Pass the seller data to your dialog component
+    });
 
 
   }

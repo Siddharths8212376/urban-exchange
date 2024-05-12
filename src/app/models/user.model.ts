@@ -13,4 +13,5 @@ export interface User {
     productsPurchased?: Product[];
     wishlist?: Product[],
     chatList?: any[],
+    lastLogin?: Date;
 }

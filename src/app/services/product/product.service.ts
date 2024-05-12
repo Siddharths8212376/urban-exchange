@@ -60,7 +60,7 @@ export class ProductService {
     return this.http.get<{ message: string, data: CreateFields[] }>(`${env.apiUrl}/product/create-product-fields`);
   }
   validatePinCode(attributeValue: any): Observable<any> {
-    let body = {attributeValue};
+    let body = { attributeValue };
     return this.http.post<any>(`${env.apiUrl}/product/validatePin`, body);
   }
   getProductCategories(): Observable<{ message: string, data: string[], metadata: { category: string, options: string[], subOptions: { category: string, field: string, options: string[] }[] }[] }> {
@@ -87,12 +87,10 @@ export class ProductService {
 
 
   getChatsForUser(sender: any) {
-    console.log(sender,"sender");
-    return this.http.post(`${env.apiUrl}/chat/getChatsForUser`, {sender});
+    console.log(sender, "sender");
+    return this.http.post(`${env.apiUrl}/chat/getChatsForUser`, { sender });
   }
 
-  createChat(currentUser: any ,prodId : any , seller : any ): Observable<{ message: string, data: any }> {
-    return this.http.post<{ message: string, data: any }>(`${env.apiUrl}/chat/createChat`, {currentUser,prodId , seller});
 
   createChat(currentUser: any, prodId: any, seller: any): Observable<{ message: string, data: any }> {
     return this.http.post<{ message: string, data: any }>(`${env.apiUrl}/chat/createChat`, { currentUser, prodId, seller });
@@ -108,6 +106,6 @@ export class ProductService {
   }
 
   getChatsForProduct(prodId: any) {
-    return this.http.post(`${env.apiUrl}/chat/getChatsForProduct`, {prodId});
+    return this.http.post(`${env.apiUrl}/chat/getChatsForProduct`, { prodId });
   }
 }
