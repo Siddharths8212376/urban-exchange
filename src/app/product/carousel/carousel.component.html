@@ -1,10 +1,11 @@
-<div id="carouselExampleIndicators" class="carousel slide">
-  <div class="carousel-indicators" >
+<div id="carouselExampleIndicators" class="carousel slide" [ngClass]="isBanner?'banner-carousel':''">
+  <div class="carousel-indicators" [ngClass]="isBanner? 'indicator': ''">
     <button *ngFor="let image of imageFiles; let i=index;" type="button" data-bs-target="#carouselExampleIndicators" [attr.data-bs-slide-to]="i" [ngClass]="{'active': i == 0 }" aria-current="true" aria-label="Product Images indicator"></button>
   </div>
-  <div class="carousel-inner">
+  <div class="carousel-inner" [ngClass]="isBanner? 'banner': ''">
     <div class="carousel-item" *ngFor="let image of imageFiles; let i=index;" [ngClass]="{'active': i == 0 }">
-      <img class="imgPosition" width="200" height="200" [src]="image" alt="First slide">
+      <img *ngIf="!isBanner" class="imgPosition" height="300px" width="300px" [src]="image" alt="First slide">
+      <img *ngIf="isBanner" class="imgPosition"  [src]="image" alt="First slide">
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">

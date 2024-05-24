@@ -33,7 +33,9 @@ export class ContentComponent implements OnInit {
     public loader: LoaderService,
   ) { }
   async ngOnInit(): Promise<void> {
-    await this.getUserLocation();    
+    console.time('getUserLocation');
+    await this.getUserLocation();
+    console.timeEnd('getUserLocation');
     this.dataService.getSubFilters().subscribe(response => {
       if (response) {
         this.productSubFilters = response;
@@ -158,12 +160,14 @@ export class ContentComponent implements OnInit {
     if (navigator.geolocation) {
       await new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition((position) => {
-          if(position) {
+          if (position) {
             this.latitude = position.coords.latitude;
             this.longitude = position.coords.longitude;
           }
           resolve("done");
-        });
+        }, (err) => {
+          reject(err);
+        }, { enableHighAccuracy: false, maximumAge: 3600000 });
       });
     }
   }

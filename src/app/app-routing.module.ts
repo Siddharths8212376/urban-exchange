@@ -8,9 +8,11 @@ import { SignupComponent } from './authentication/signup/signup.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { AuthGuard } from './authentication/auth.guard';
+import { BannerComponent } from './banner/banner.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent, canActivate: [AuthGuard] },
+  { path: 'banner', component: BannerComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   // { path: '', redirectTo: '/login', pathMatch: 'full' },

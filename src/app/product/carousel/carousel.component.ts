@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-carousel',
@@ -7,4 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class CarouselComponent {
   @Input() imageFiles: any[] = [];
+  @Input() isBanner: boolean = false;
 }
