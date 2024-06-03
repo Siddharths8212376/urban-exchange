@@ -26,7 +26,7 @@ export class DisplayProductComponent implements OnInit {
   isInWishlist: boolean = false;
   wishlist: any = [];
 
- currUser : any;
+  currUser: any;
 
   productLocation: any = [];
   displayMap: boolean = env.type == 'prod' ? true : false;
@@ -45,9 +45,9 @@ export class DisplayProductComponent implements OnInit {
     this.route.params.subscribe(param => {
       this.productId = this.route.snapshot.paramMap.get('id');
       this.getProductDetails();
-      
+
     })
-    this.currUser = this.authService.getCurrentUser()? this.authService.getCurrentUser() : '';
+    this.currUser = this.authService.getCurrentUser() ? this.authService.getCurrentUser() : '';
     this.productId = this.route.snapshot.paramMap.get('id');
     this.wishlist = await this.userService.getWislist();
     this.isInWishlist = this.wishlist.includes(this.productId);
@@ -110,18 +110,16 @@ export class DisplayProductComponent implements OnInit {
 
 
 
-      if (response && response.message != 'Chat not found') {
-        console.log(response, 'response1');
+      if (response && response.message !== 'Chat not found') {
         let data = {
-          chatData: response
+          chatData: response.message
         }
         this.openChatInterface(data);
 
       } else {
         this.productService.createChat(currentUser, this.productId, seller).subscribe(response => {
-          console.log(response.data, 'response2');
           let data = {
-            chatData: response.data['_id']
+            chatData: response.data
           }
 
           this.openChatInterface(data);
@@ -133,15 +131,15 @@ export class DisplayProductComponent implements OnInit {
 
   }
 
-  openChatInterface(seller: any) {
+  openChatInterface(data: any) {
     const dialogRef = this.dialog.open(ChatInterfaceComponent, {
-      width: '60%',
-      height: '80%',
-      data: { chatData: seller } // Pass the seller data to your dialog component
+      width: '50%',
+      height: '60%',
+      data: data  // Pass the seller data to your dialog component
     });
   }
 
-  checkIfProductisOfSeller(product : any){
+  checkIfProductisOfSeller(product: any) {
     return this.currUser._id == product.seller;
   }
 }

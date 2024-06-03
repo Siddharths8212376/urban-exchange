@@ -70,8 +70,6 @@ export class ProductService {
 
     let auth = this.httpOptions.headers.get('Authorization');
 
-    console.log(auth, 'authHere');
-
     return this.http.post<{ message: string, productId: string }>(`${env.apiUrl}/product`, payload, this.httpOptions);
   }
   searchProduct(searchTerm: string): Observable<{ message: string, data: ProductSearchResponse[] }> {
@@ -87,7 +85,6 @@ export class ProductService {
 
 
   getChatsForUser(sender: any) {
-    console.log(sender, "sender");
     return this.http.post(`${env.apiUrl}/chat/getChatsForUser`, { sender });
   }
 
@@ -97,7 +94,6 @@ export class ProductService {
 
   }
   updateChat(chatid: any, messages: any[]): Observable<{ message: string, data: any }> {
-    console.log(chatid, messages, 'chatid , messages');
     return this.http.post<{ message: string, data: any }>(`${env.apiUrl}/chat/updateChat`, { chatid, messages });
   }
 

@@ -1,6 +1,6 @@
 .chat-window {
   width: auto;
-  height: -webkit-fill-available;
+  max-height: 49vh;
   border: 1px solid #ccc;
   display: flex;
   flex-direction: column;
@@ -116,8 +116,9 @@ body {
 
 .msg-bubble {
   max-width: fit-content;
-  padding: 15px;
-  border-radius: 15px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  margin-bottom: 2.5px;
   background: var(--left-msg-bg);
 }
 
@@ -160,6 +161,7 @@ body {
   padding: 10px;
   border-top: var(--border);
   background: #eee;
+  width: 100%;
 }
 
 .msger-inputarea * {

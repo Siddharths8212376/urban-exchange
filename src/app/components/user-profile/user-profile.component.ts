@@ -52,7 +52,6 @@ export class UserProfileComponent implements OnInit {
 
         this.ProductService.getChatsForUser(this.currentUser._id).subscribe((response: any) => {
           this.chats = response;
-          console.log(this.chats, "chattsss");
         });
       }
 
@@ -105,8 +104,8 @@ export class UserProfileComponent implements OnInit {
   openChatWindow(chat: any) {
     //open chatinterface component in dialog
     const dialogRef = this.dialog.open(ChatInterfaceComponent, {
-      width: '60%',
-      height: '80%',
+      width: '50%',
+      height: '60%',
       data: { chatData: chat } // Pass the seller data to your dialog component
     });
 
