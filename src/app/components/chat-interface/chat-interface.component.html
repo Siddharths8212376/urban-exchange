@@ -1,27 +1,27 @@
-<div class="chat-window">
+<div mat-dialog-title>Chat!</div>
+<div mat-dialog-content class="chat-window">
     <div class="messages">
       <div *ngFor="let message of messages">
 
 
-      <div class="msg-container" [ngClass]="getAlignment(message.chatPartner)">
-      <div class="msg-bubble" [ngClass]="getAlignmentBubble(message.chatPartner)" >
-        <div class="msg-info">
-          <div class="msg-info-name">{{message.chatPartner}}</div>
-        </div>
+      <div class="msg-container" [ngClass]="getAlignment(message.sender)">
+      <div class="msg-bubble" [ngClass]="getAlignmentBubble(message.sender)" >
 
         <div class="msg-text">
-           {{message.text}}
+           {{message.messageText}}
         </div>
       </div>
       </div>
 
     </div>
-    <!-- <div class="input-area">
     
-    </div> -->
+    <div #chatEnd class="chat-end"></div>
+  </div>
+  </div>
+  <div mat-dialog-actions>
     <div class="msger-inputarea">
 
-      <input [(ngModel)]="newMessage" placeholder="Type a message" class="msger-input col-11" >
-      <button (click)="sendMessage()" class="msger-send-btn col-1">Send</button>
+      <input [(ngModel)]="newMessage" placeholder="Type a message" class="msger-input col-11" (keydown.enter)="sendMessage()">
+      <button (click)="sendMessage()" class="msger-send-btn col-1" [disabled]="newMessage.trim().length == 0">Send</button>
     </div>
   </div>

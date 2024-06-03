@@ -1,0 +1,28 @@
+<div class="banner">
+<!-- display banners as a list -->
+<div class="carousel-div">
+<app-carousel 
+class="carousel"
+[imageFiles]="carouselFiles" [isBanner]="true">
+</app-carousel>
+</div>
+<!-- display cards -->
+<div class="cards row">
+
+        <div *ngFor="let card of cardFiles" class="col-md-3 card-value">
+            <img class="imgPosition"  [src]="card" alt="card">
+        </div>
+</div>
+
+<!-- display top brands -->
+<div class="top-brands row">
+    <div class="top-brands--title col-md-12">
+        Top Brands
+    </div>
+    <div class="top-brands--values col-md-12 row">
+        <div *ngFor="let brand of topBrands" class="top-brands--values--brand col-md-2">
+           {{ brand }} 
+        </div>
+    </div>
+</div>
+</div>

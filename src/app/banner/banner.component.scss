@@ -1,0 +1,61 @@
+.top-brands {
+    position: relative;
+    top: 32rem;
+    padding-left: 10%;
+    padding-right: 10%;
+
+    &--title {
+        padding-top: 1rem;
+        font-family: 'Assistant';
+        font-size: xx-large;
+        font-weight: 900;
+
+    }
+
+    &--values {
+        padding: 2rem;
+        display: flex;
+        justify-content: space-around;
+
+        &--brand {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 7rem;
+            width: 7rem;
+            background: #2d373c;
+            font-family: 'Assistant';
+            font-weight: 900;
+            font-size: large;
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        &--brand:hover {
+            transform: scale(1.04);
+        }
+    }
+}
+
+.banner {
+    display: block;
+    height: calc(100vh - 110px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.cards {
+    top: 30rem;
+    padding: 0 10%;
+    position: relative;
+}
+
+.card-value {
+    display: flex;
+    justify-content: center;
+}
+
+.carousel {
+    top: 15rem;
+}

@@ -2,6 +2,7 @@
     flex: 1 1 25rem;
     border-radius: 0.25rem;
     border: 1px solid #ddd;
+    background: white;
 }
 
 .search-span::before {
@@ -50,7 +51,7 @@
 }
 
 .search-result:hover {
-    background: #ffebf0;
+    background: #dceafe;
     padding-left: 0.25rem;
 }
 
@@ -65,6 +66,10 @@
 .search {
     flex: 1 1 25rem;
     // margin-left: 9.5%;
+}
+
+.search-div {
+    padding: 0.5rem;
 }
 
 .search-span::before {

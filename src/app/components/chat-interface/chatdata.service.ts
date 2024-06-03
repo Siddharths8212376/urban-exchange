@@ -18,7 +18,7 @@ export class ChatService {
 
   receiveMessage(): Observable<string> {
     return new Observable<string>(observer => {
-      this.socket.on('chatMessage', (message: string) => {
+      this.socket.on('receivedMsg', (message: string) => {
         observer.next(message);
       });
     });

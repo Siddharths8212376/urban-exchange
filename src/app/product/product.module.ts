@@ -20,6 +20,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ChatListComponent } from './chat-list/chat-list.component';
 
 import { GeolocationComponent } from './geolocation/geolocation.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -27,7 +28,6 @@ import { GeolocationComponent } from './geolocation/geolocation.component';
   declarations: [
     DisplayProductComponent,
     CreateProductComponent,
-    CarouselComponent,
     ChatListComponent,
     GeolocationComponent
   ],
@@ -42,7 +42,8 @@ import { GeolocationComponent } from './geolocation/geolocation.component';
     CommonModule,
     ProductRoutingModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    SharedModule,
   ]
 })
 export class ProductModule { }

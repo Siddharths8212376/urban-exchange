@@ -4,6 +4,12 @@ ul {
 	margin: 0;
 }
 
+.u-ex {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
 .row {
 	width: 100%;
 }
@@ -20,11 +26,14 @@ a {
 .options {
 	display: flex;
 	justify-content: flex-end;
+	align-items: center;
 }
 
+// color opt: #1f2441
 .text {
-	color: black !important;
+	color: white !important;
 	font-family: 'Assistant';
+	font-weight: 900;
 }
 
 ul {
@@ -46,6 +55,7 @@ ul {
 	position: relative;
 	background: black;
 	z-index: 999;
+	height: 5rem;
 }
 
 .loader-container {

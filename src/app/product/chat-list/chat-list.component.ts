@@ -1,4 +1,4 @@
-import { Component , OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user/user.service';
 import { DataService } from 'src/app/services/data/data.service';
@@ -14,41 +14,39 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ChatListComponent {
 
-chats : any = [];
+  chats: any = [];
 
-constructor(private fb: FormBuilder,
-  private UserService: UserService,
-  private dataService: DataService,
-  private ProductService: ProductService,
-  private route: ActivatedRoute,
-  public dialog: MatDialog,
-) {
+  constructor(private fb: FormBuilder,
+    private UserService: UserService,
+    private dataService: DataService,
+    private ProductService: ProductService,
+    private route: ActivatedRoute,
+    public dialog: MatDialog,
+  ) {
   }
 
 
   ngOnInit(): void {
 
-   // get id from route
-   console.log(this.route.params,"route");
+    // get id from route
     this.route.params.subscribe((params) => {
       this.ProductService.getChatsForProduct(params['id']).subscribe((response: any) => {
         this.chats = response;
-        console.log(this.chats,"chattsss");
       });
 
-  })
+    })
 
 
 
-}
+  }
 
-openChat(chat: any) {
-  const dialogRef = this.dialog.open(ChatInterfaceComponent, {
-    width: '60%',
-    height: '80%',
-    data: { chatData : chat } // Pass the seller data to your dialog component
-  });
+  openChat(chat: any) {
+    const dialogRef = this.dialog.open(ChatInterfaceComponent, {
+      width: '50%',
+      height: '60%',
+      data: { chatData: chat } // Pass the seller data to your dialog component
+    });
 
-}
+  }
 
 }
