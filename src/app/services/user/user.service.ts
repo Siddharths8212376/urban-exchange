@@ -66,7 +66,9 @@ export class UserService {
   setUserDetails(userDetails: any) {
     return this.http.post(`${env.apiUrl}/user/setUserDetails`, userDetails);
   }
-
+  setUserPing(userId: string) {
+    return this.http.post(`${env.apiUrl}/user/pingUser`, { _id: userId });
+  }
   //api to get all chats basing current user as sender
-  
+
 }
