@@ -10,7 +10,7 @@ import { UserService } from '../services/user/user.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  intervalId!: any;
+  intervalPing!: any;
   constructor(
     private authService: AuthService,
     private userService: UserService
@@ -26,17 +26,17 @@ export class AuthInterceptor implements HttpInterceptor {
     if (
       this.authService.getIsAuth() &&
       !req.url.includes('pingUser') &&
-      !this.intervalId
+      !this.intervalPing
     ) {
-      this.intervalId = setInterval(() => {
+      this.intervalPing = setInterval(() => {
         this.ping();
-      }, 60000);
+      }, 30000);
     } else if (
-      this.intervalId &&
+      this.intervalPing &&
       !req.url.includes('pingUser') &&
       !this.authService.getIsAuth()
     ) {
-      clearInterval(this.intervalId);
+      clearInterval(this.intervalPing);
     }
     return next.handle(authRequest);
   }
@@ -44,6 +44,7 @@ export class AuthInterceptor implements HttpInterceptor {
     let currentUser = this.authService.getCurrentUser();
     if (currentUser._id) {
       this.userService.setUserPing(currentUser._id).subscribe((response) => { });
+      this.userService.sendNotif({ user: currentUser, status: "online" });
     }
   }
 }

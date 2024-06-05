@@ -18,7 +18,7 @@
     <!-- Left Navigation Pane -->
     <div class="sidenav">
       <span *ngIf="currentUser">
-      <img *ngIf="currentUser.avatar && currentUser.avatar.length > 0; else noImage" style="border-radius: 0.5rem; height: 5rem; margin-left: 1rem; margin-bottom: 1rem; cursor: pointer;" [src]="getProcessedImage(currentUser.avatar)">
+      <img *ngIf="currentUser.avatar && currentUser.avatar.length > 0; else noImage" style="border-radius: 0.5rem; height: 5rem; margin-left: 1rem; margin-bottom: 1rem; cursor: pointer;" [src]="getProcessedImage(currentUser.avatar)" referrerpolicy="no-referrer">
       <ng-template #noImage>
         <img style="border-radius: 0.5rem; height: 5rem; margin-left: 1rem; margin-bottom: 1rem; cursor: pointer;" [src]="'../../assets/images/default-user.png'">
       </ng-template>

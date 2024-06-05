@@ -112,14 +112,16 @@ export class DisplayProductComponent implements OnInit {
 
       if (response && response.message !== 'Chat not found') {
         let data = {
-          chatData: response.message
+          chatData: response.message,
+          partner: seller,
         }
         this.openChatInterface(data);
 
       } else {
         this.productService.createChat(currentUser, this.productId, seller).subscribe(response => {
           let data = {
-            chatData: response.data
+            chatData: response.data,
+            partner: seller,
           }
 
           this.openChatInterface(data);
@@ -133,8 +135,9 @@ export class DisplayProductComponent implements OnInit {
 
   openChatInterface(data: any) {
     const dialogRef = this.dialog.open(ChatInterfaceComponent, {
-      width: '50%',
-      height: '60%',
+      width: '30%',
+      height: '70%',
+      minWidth: '40rem',
       data: data  // Pass the seller data to your dialog component
     });
   }

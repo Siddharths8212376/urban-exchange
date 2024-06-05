@@ -100,6 +100,7 @@ export class AuthService {
         if (wishlist) {
           this.userService.setUserWishlist(wishlist);
           localStorage.setItem('wishlist', JSON.stringify(wishlist));
+          this.userService.sendNotif({ user: this.currentUser, status: "online" });
         }
         if (token) {
           const expiresInDuration = response.expiresIn;
@@ -135,6 +136,7 @@ export class AuthService {
     this.loggedOut.next(true);
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
+    this.userService.sendNotif({ user: this.currentUser, status: "offline" });
     this.setCurrentUser(defaultUser);
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
@@ -186,6 +188,7 @@ export class AuthService {
           this.dataService.setCurrentUser(this.currentUser);
           this.userService.setUserWishlist(response.user.wishlist);
           localStorage.setItem('wishlist', JSON.stringify(response.user.wishlist));
+          this.userService.sendNotif({ user: this.currentUser, status: "online" });
           this.isAuthenticated = true;
           this.authStatusListener.next(true);
           const now = new Date();
