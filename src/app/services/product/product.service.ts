@@ -24,22 +24,7 @@ export class ProductService {
       Authorization: localStorage.getItem("token") as string
     })
   }
-  constructor(private http: HttpClient) {
-    // this.socket = io('http://localhost:5000');
-  }
-
-
-  // public sendMessage(message : any) {
-  //   this.socket.emit('message', message);
-  // }
-
-  // public getNewMessage = () => {
-  //   this.socket.on('message', (message) =>{
-  //     this.message$.next(message);
-  //   });
-
-  //   return this.message$.asObservable();
-  // };
+  constructor(private http: HttpClient) { }
 
   getAllProducts(): Observable<{ message: string, data: Product[] }> {
     return this.http.get<{ message: string, data: Product[] }>(`${env.apiUrl}/product`);
@@ -79,26 +64,18 @@ export class ProductService {
   getProductListById(payload: any): Observable<{ message: string, data: Product[] }> {
     return this.http.post<{ message: string, data: Product[] }>(`${env.apiUrl}/product/product-list-by-id`, payload);
   }
-
   getChatId(currentUser: any, prodId: any, seller: any) {
     return this.http.post(`${env.apiUrl}/chat/getChatId`, { currentUser, prodId, seller });
   }
-
-
   getChatsForUser(sender: any) {
     return this.http.post(`${env.apiUrl}/chat/getChatsForUser`, { sender });
   }
-
-
   createChat(currentUser: any, prodId: any, seller: any): Observable<{ message: string, data: any }> {
     return this.http.post<{ message: string, data: any }>(`${env.apiUrl}/chat/createChat`, { currentUser, prodId, seller });
-
   }
   updateChat(chatid: any, messages: any[], unread: number, unreadBy: string | undefined): Observable<{ message: string, data: any }> {
-    console.log('update chat', unread, unreadBy);
     return this.http.post<{ message: string, data: any }>(`${env.apiUrl}/chat/updateChat`, { chatid, messages, unread, unreadBy });
   }
-
   getChat(chatId: any) {
     return this.http.get<{ message: string, data: string[] }>(`${env.apiUrl}/chat/getChat/${chatId}`);
   }
@@ -107,5 +84,11 @@ export class ProductService {
   }
   getChatsForProduct(prodId: any) {
     return this.http.post(`${env.apiUrl}/chat/getChatsForProduct`, { prodId });
+  }
+  getUnreadCount(sender: any) {
+    return this.http.post(`${env.apiUrl}/chat/getUnreadCount`, { sender });
+  }
+  updateUnread(unreadInf: any) {
+    return this.http.post(`${env.apiUrl}/chat/updateUnread`, unreadInf);
   }
 }

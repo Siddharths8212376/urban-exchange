@@ -8,6 +8,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { defaultUser } from 'src/app/constants/user.constant';
 import { Chat } from 'src/app/models/chat.model';
 import { Message } from 'src/app/models/Message.model';
+import { DataService } from 'src/app/services/data/data.service';
 
 @Component({
   selector: 'app-chat-interface',
@@ -21,6 +22,7 @@ export class ChatInterfaceComponent implements OnChanges {
     private authService: AuthService,
     private userService: UserService,
     @Inject(MAT_DIALOG_DATA) public data: { chatData: Chat, partner: string },
+    private dataService: DataService,
   ) { }
 
   // take input mat dialog data
@@ -36,6 +38,7 @@ export class ChatInterfaceComponent implements OnChanges {
   messages: Message[] = [];
   newMessage = '';
   isPartnerOnline: boolean = false;
+  unreadMessages!: number;
   ngOnChanges(changes: SimpleChanges): void {
     this.data = {
       chatData: this.chatData,
@@ -45,6 +48,7 @@ export class ChatInterfaceComponent implements OnChanges {
   }
   processInfo() {
     this.messages = [];
+    this.isPartnerOnline = false;
     if (Object.keys(this.data).length > 0) {
       this.chatData = this.data.chatData;
     } else {
@@ -90,6 +94,7 @@ export class ChatInterfaceComponent implements OnChanges {
         if (message.messages && message.messages.length > 0) {
           this.messages = message.messages;
           if (this.chatData.unreadBy == this.currentUser._id) {
+            this.dataService.setUnreadMessages(this.unreadMessages - this.chatData.unread);
             this.chatData.unread = 0;
             this.ProductService.setChatUpdateRead({ chatId: chatid }).subscribe(response => { });
           }
@@ -97,6 +102,7 @@ export class ChatInterfaceComponent implements OnChanges {
         }
       });
     }
+    this.dataService.getUnreadMessages().subscribe(response => this.unreadMessages = response);
   }
   ngOnInit() {
     this.processInfo();

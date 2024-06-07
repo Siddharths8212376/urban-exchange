@@ -10,6 +10,7 @@ export class DataService {
   currentUser$ = new BehaviorSubject(null);
   searchResults$ = new BehaviorSubject(null);
   subFilters$ = new BehaviorSubject(null);
+  public unreadMessages$ = new BehaviorSubject(0);
   constructor() { }
   getProductFilters() {
     return this.productFilters$.asObservable();
@@ -35,5 +36,10 @@ export class DataService {
   setSearchResults(searchResults: any) {
     this.searchResults$.next(searchResults);
   }
-
+  getUnreadMessages() {
+    return this.unreadMessages$.asObservable();
+  }
+  setUnreadMessages(unreadMessages: number) {
+    this.unreadMessages$.next(unreadMessages);
+  }
 }

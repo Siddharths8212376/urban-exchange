@@ -14,6 +14,7 @@ import { ProductService } from 'src/app/services/product/product.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { ChatInterfaceComponent } from '../chat-interface/chat-interface.component';
 import { ChatService } from '../chat-interface/chatdata.service';
+import { scan } from 'rxjs';
 
 @Component({
   selector: 'app-chat-list',
@@ -63,6 +64,8 @@ export class ChatListComponent {
         if (this.currentChat && chat._id !== this.currentChat._id || !this.currentChat) {
           chat.unreadBy = message.receiver;
           chat.unread++;
+          this.ProductService.updateUnread({ _id: chat._id, unread: chat.unread, unreadBy: chat.unreadBy }).subscribe(response => { });
+          this.dataService.setUnreadMessages(this.dataService.unreadMessages$.value + 1);
         }
       }
 
