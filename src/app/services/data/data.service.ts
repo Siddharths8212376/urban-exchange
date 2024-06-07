@@ -35,4 +35,5 @@ export class DataService {
   setSearchResults(searchResults: any) {
     this.searchResults$.next(searchResults);
   }
+
 }

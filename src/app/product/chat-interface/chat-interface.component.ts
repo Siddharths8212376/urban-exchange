@@ -25,9 +25,7 @@ export class ChatInterfaceComponent implements OnChanges {
 
   // take input mat dialog data
   @ViewChild('chatEnd', { read: ElementRef, static: false }) chatEnd!: ElementRef;
-  currentUser = this.authService.getCurrentUser()
-    ? this.authService.getCurrentUser()
-    : '';
+  currentUser: User = this.authService.getCurrentUser();
 
   @Input('chatData') chatData!: Chat;
   @Input('asComp') asComp: boolean = false;
@@ -80,7 +78,8 @@ export class ChatInterfaceComponent implements OnChanges {
     this.chatService.receiveMessage().subscribe((message: any) => {
       if (
         this.messages.length !== 0 &&
-        this.messages[this.messages.length - 1]['messageText'] !== message.messageText
+        this.messages[this.messages.length - 1]['messageText'] !== message.messageText &&
+        this.chatData._id == message._id
       ) {
         this.messages.push(message);
         this.scrollToChatEnd();
@@ -90,6 +89,10 @@ export class ChatInterfaceComponent implements OnChanges {
       this.ProductService.getChat(chatid).subscribe((message: any) => {
         if (message.messages && message.messages.length > 0) {
           this.messages = message.messages;
+          if (this.chatData.unreadBy == this.currentUser._id) {
+            this.chatData.unread = 0;
+            this.ProductService.setChatUpdateRead({ chatId: chatid }).subscribe(response => { });
+          }
           this.scrollToChatEnd();
         }
       });
@@ -107,12 +110,14 @@ export class ChatInterfaceComponent implements OnChanges {
       postedTime: new Date(),
     };
     this.messagePosted.emit({ message: newMsg, chatId: this.data.chatData._id });
-    this.chatService.sendMessage(newMsg);
     this.messages.push(newMsg);
+    this.chatService.sendMessage({ ...newMsg, _id: this.chatData._id });
 
     this.ProductService.updateChat(
       this.data.chatData._id,
-      this.messages
+      this.messages,
+      this.data.chatData.unread + 1,
+      this.partner._id,
     ).subscribe((message: any) => {
     });
     this.newMessage = '';

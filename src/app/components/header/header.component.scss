@@ -74,3 +74,22 @@ ul {
 .remove-shadow {
 	box-shadow: none;
 }
+
+.messages-icon {
+	color: white;
+	transform: scale(1.5);
+}
+
+.unread-message-count {
+	position: absolute;
+	top: -1.5rem;
+	border: 1px solid red;
+	height: 1.5rem;
+	width: 1.5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	right: -0.75rem;
+	border-radius: 50%;
+	background-color: red;
+}

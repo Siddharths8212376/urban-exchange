@@ -60,7 +60,6 @@ export class UserService {
     return this.http.post(`${env.apiUrl}/user/add-wishlist`, payload);
   }
   userDetails(userDetails: User): Observable<User> {
-    console.log(userDetails, 'getUD');
     return this.http.post<User>(`${env.apiUrl}/user/getUserDetails`, userDetails);
   }
 

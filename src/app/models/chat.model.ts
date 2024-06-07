@@ -8,6 +8,9 @@ export interface Chat {
     sellerInfo: User;
     seller: string;
     messages: Message[];
+    unread: number;
+    unreadBy: string;
     prodId: string;
     partner: User;
+    lastMessage: string;
 }

@@ -9,6 +9,12 @@
     <div class="col-md-4 options">
     <ul>
       <li *ngIf="userIsAuthenticated">
+        <a style="position: relative;" mat-button class="text" [routerLink]="['/profile', currentUser?._id, 'chats']" routerLinkActive="mat-accent">
+          <div class="unread-message-count">2</div>
+          <mat-icon title="messages" fontIcon="forum" class="messages-icon"></mat-icon>
+        </a>
+      </li>
+      <li *ngIf="userIsAuthenticated">
         <a mat-button class="text" routerLink="/wishlist" routerLinkActive="mat-accent">
           <i class="bi bi-suit-heart-fill"></i>
         </a>

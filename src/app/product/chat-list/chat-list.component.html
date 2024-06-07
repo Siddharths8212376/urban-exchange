@@ -1,18 +1,3 @@
-<!-- <div class="profile">
-    <table class="userProfile">
-        <thead>
-            <tr>
-                <th>Chat ID</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr  *ngFor="let c of chats" (click)="openChat(c)">
-                <td >{{c._id}}</td>
-            </tr>
-        </tbody>
-    </table>
-</div> -->
-
 <div class="chats-inf">
     <div class="row chats-data">
         <div class="col-4 chat-list">
@@ -31,16 +16,16 @@
                     <div class="col-12 username">
                 {{ chat.partner.firstName }}
                 </div>
-                <div class="col-12 last-text" *ngIf="chat.messages.length > 0">
-                    {{ chat.messages[chat.messages.length-1].messageText }}
+                <div class="col-12 last-text">
+                    {{ chat.lastMessage }}
                 </div>
                 </div>
                 <div class="col-3 row latest-inf">
                     <div class="col-12 last-text-time" *ngIf="chat.messages.length > 0">
                     {{ chat.messages[chat.messages.length-1].postedTime | date:'h:mm' }} {{ chat.messages[chat.messages.length-1].postedTime | date:'a' | lowercase }}
                     </div>
-                    <div class="col-12 unread-count">
-                        
+                    <div class="col-12 unread-count" *ngIf="chat.unread > 0 && chat.unreadBy == currentUser._id">
+                       {{ chat.unread }} 
                     </div>
                 </div>
             </div>

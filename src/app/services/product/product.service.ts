@@ -9,6 +9,7 @@ import { CreateFields } from 'src/app/models/create-product-fields.model';
 import { Product } from 'src/app/models/product.model';
 import { User } from 'src/app/models/user.model';
 import { env } from 'src/environments/environment';
+import { Chat } from 'src/app/models/chat.model';
 
 @Injectable({
   providedIn: 'root'
@@ -93,14 +94,17 @@ export class ProductService {
     return this.http.post<{ message: string, data: any }>(`${env.apiUrl}/chat/createChat`, { currentUser, prodId, seller });
 
   }
-  updateChat(chatid: any, messages: any[]): Observable<{ message: string, data: any }> {
-    return this.http.post<{ message: string, data: any }>(`${env.apiUrl}/chat/updateChat`, { chatid, messages });
+  updateChat(chatid: any, messages: any[], unread: number, unreadBy: string | undefined): Observable<{ message: string, data: any }> {
+    console.log('update chat', unread, unreadBy);
+    return this.http.post<{ message: string, data: any }>(`${env.apiUrl}/chat/updateChat`, { chatid, messages, unread, unreadBy });
   }
 
   getChat(chatId: any) {
     return this.http.get<{ message: string, data: string[] }>(`${env.apiUrl}/chat/getChat/${chatId}`);
   }
-
+  setChatUpdateRead(chatInf: { chatId: string }) {
+    return this.http.post<{ message: string, data: number }>(`${env.apiUrl}/chat/setChatUpdateRead`, chatInf);
+  }
   getChatsForProduct(prodId: any) {
     return this.http.post(`${env.apiUrl}/chat/getChatsForProduct`, { prodId });
   }

@@ -172,7 +172,8 @@ select {
 }
 
 .chats-inf {
-  margin: 5rem 15rem;
+  min-width: 70vw;
+  margin: 5rem 10%;
   border: 2px solid #e9e9e9;
   border-radius: 0.75rem;
 }
@@ -227,8 +228,14 @@ select {
   margin-bottom: 0;
 }
 
+.last-text-time {
+  margin-bottom: 0.25rem;
+}
+
 .latest-inf {
   margin-left: auto;
+  display: flex;
+  justify-content: center;
 }
 
 .chat-list {
@@ -247,4 +254,19 @@ select {
   font-size: x-large;
   color: #cbcbcb;
   font-family: 'Assistant';
+}
+
+.unread-count {
+  border-radius: 1rem;
+  font-family: 'Assistant';
+  background-color: #ff4081;
+  font-weight: 100;
+  font-size: smaller;
+  margin-bottom: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  color: white;
+  justify-content: center;
+  align-items: center;
 }
