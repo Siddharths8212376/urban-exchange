@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, Input, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ProductService } from 'src/app/services/product/product.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthService } from 'src/app/authentication/auth.service';
@@ -6,24 +6,21 @@ import { ChatService } from './chatdata.service';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user/user.service';
 import { defaultUser } from 'src/app/constants/user.constant';
-interface Message {
-  sender: string | undefined;
-  messageText: string;
-  receiver: string | undefined;
-  postedTime: Date;
-}
+import { Chat } from 'src/app/models/chat.model';
+import { Message } from 'src/app/models/Message.model';
+
 @Component({
   selector: 'app-chat-interface',
   templateUrl: './chat-interface.component.html',
   styleUrls: ['./chat-interface.component.scss'],
 })
-export class ChatInterfaceComponent {
+export class ChatInterfaceComponent implements OnChanges {
   constructor(
     public ProductService: ProductService,
     private chatService: ChatService,
     private authService: AuthService,
     private userService: UserService,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: { chatData: Chat, partner: string },
   ) { }
 
   // take input mat dialog data
@@ -32,16 +29,33 @@ export class ChatInterfaceComponent {
     ? this.authService.getCurrentUser()
     : '';
 
-  chatData: any;
+  @Input('chatData') chatData!: Chat;
+  @Input('asComp') asComp: boolean = false;
+  @Output('messagePosted') messagePosted = new EventEmitter<{ message: Message, chatId: string }>();
   userData!: User;
   userName = '';
   partner: User = defaultUser;
   messages: Message[] = [];
   newMessage = '';
   isPartnerOnline: boolean = false;
-  ngOnInit() {
-    this.chatData = this.data.chatData;
-    this.partner._id = this.data.partner;
+  ngOnChanges(changes: SimpleChanges): void {
+    this.data = {
+      chatData: this.chatData,
+      partner: (this.currentUser as User)._id == this.chatData.buyer ? this.chatData.seller : this.chatData.buyer
+    }
+    this.processInfo();
+  }
+  processInfo() {
+    this.messages = [];
+    if (Object.keys(this.data).length > 0) {
+      this.chatData = this.data.chatData;
+    } else {
+      this.data = {
+        chatData: this.chatData,
+        partner: (this.currentUser as User)._id == this.chatData.buyer ? this.chatData.seller : this.chatData.buyer
+      }
+    }
+    this.partner._id = (this.currentUser as User)._id == this.chatData.buyer ? this.chatData.seller : this.chatData.buyer;
     this.userService.receiveNotif().subscribe(response => {
       if (response.user._id == this.partner._id) {
         if (response.status == "online") {
@@ -81,6 +95,9 @@ export class ChatInterfaceComponent {
       });
     }
   }
+  ngOnInit() {
+    this.processInfo();
+  }
 
   sendMessage() {
     let newMsg: Message = {
@@ -89,6 +106,7 @@ export class ChatInterfaceComponent {
       receiver: this.chatData.seller == this.userData?._id ? this.chatData.buyer : this.chatData.seller,
       postedTime: new Date(),
     };
+    this.messagePosted.emit({ message: newMsg, chatId: this.data.chatData._id });
     this.chatService.sendMessage(newMsg);
     this.messages.push(newMsg);
 

@@ -9,8 +9,9 @@ import { ProductService } from 'src/app/services/product/product.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { LoaderService } from 'src/app/services/loader/loader.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ChatInterfaceComponent } from 'src/app/components/chat-interface/chat-interface.component';
 import { env } from 'src/environments/environment';
+import { ChatInterfaceComponent } from '../chat-interface/chat-interface.component';
+import { defaultUser } from 'src/app/constants/user.constant';
 
 @Component({
   selector: 'app-display-product',
@@ -118,14 +119,18 @@ export class DisplayProductComponent implements OnInit {
         this.openChatInterface(data);
 
       } else {
-        this.productService.createChat(currentUser, this.productId, seller).subscribe(response => {
-          let data = {
-            chatData: response.data,
-            partner: seller,
-          }
+        let tempUser = defaultUser; tempUser._id = seller;
+        this.userService.userDetails(tempUser).subscribe(sellerInfo => {
+          this.productService.createChat(currentUser, this.productId, sellerInfo).subscribe(response => {
+            let data = {
+              chatData: response.data,
+              partner: seller,
+            }
 
-          this.openChatInterface(data);
-        });
+            this.openChatInterface(data);
+          });
+        })
+
       }
     }
     );

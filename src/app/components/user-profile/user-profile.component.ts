@@ -9,7 +9,8 @@ enum displayModes {
 }
 import { ProductService } from 'src/app/services/product/product.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ChatInterfaceComponent } from '../chat-interface/chat-interface.component';
+import { ChatInterfaceComponent } from 'src/app/product/chat-interface/chat-interface.component';
+
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',

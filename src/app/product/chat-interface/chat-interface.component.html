@@ -1,4 +1,4 @@
-<div class="chat-inf">
+<div class="chat-inf"  [ngClass]="asComp ? 'resize-chat-window': ''">
 <div mat-dialog-title>
   <div class="partner-info row">
     <div class="partner-profile col-2">
@@ -8,7 +8,7 @@
       </ng-template>
     </div>
     <div class="col-3">
-    <div class="partner-name">{{ partner.firstName }}</div>
+    <div class="partner-name" [ngClass]="asComp? 'first-name-update': ''">{{ partner.firstName }}</div>
     <div class="partner-last-active" *ngIf="!isPartnerOnline; else userOnline">
       Last active {{ partner.lastActive | date: 'h:mm'}} {{ partner.lastActive| date : 'a' | lowercase }}
     </div>
@@ -22,7 +22,7 @@
   </div>
 </div>
 </div>
-<div mat-dialog-content class="chat-window">
+<div mat-dialog-content class="chat-window resize-chat-window">
     <div class="messages">
       <div class="break-gen" *ngIf="messages.length == 0">
         Chat Starts Here. Say Hi! 👋

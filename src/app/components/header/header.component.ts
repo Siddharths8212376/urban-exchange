@@ -32,15 +32,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.userIsAuthenticated = isAuthenticated;
       });
     this.dataService.getCurrentUser().subscribe(currentUser => {
-      let _id = localStorage.getItem('userId')
-      if(_id){
-      this.authService.getUserDetails().subscribe(response => {
-        this.currentUser = response.data;
-        if (!currentUser) {
-          this.dataService.setCurrentUser(this.currentUser);
-        }
-      })
-    }
+      let _id = JSON.parse(localStorage.getItem('currentUser') as any)._id;
+      if (_id) {
+        this.authService.getUserDetails().subscribe(response => {
+          this.currentUser = response.data;
+          if (!currentUser) {
+            this.dataService.setCurrentUser(this.currentUser);
+          }
+        })
+      }
     })
   }
 
@@ -50,7 +50,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   openProfile(currentUser: User) {
     //redirect to profile page with user id
-     this.router.navigate(['/profile', currentUser._id]);
+    this.router.navigate(['/profile', currentUser._id]);
   }
 
   ngOnDestroy() {

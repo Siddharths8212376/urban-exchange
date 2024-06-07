@@ -9,6 +9,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { AuthGuard } from './authentication/auth.guard';
 import { BannerComponent } from './banner/banner.component';
+import { ChatListComponent } from './product/chat-list/chat-list.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent, canActivate: [AuthGuard] },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent, },
   { path: 'wishlist', component: WishlistComponent, },
   { path: 'profile/:id', component: UserProfileComponent },
+  { path: 'profile/:pid/chats', component: ChatListComponent },
   { path: 'product', loadChildren: () => import('./product/product.module').then(module => module.ProductModule) },
   { path: '**', redirectTo: '/home' }
 ]

@@ -25,15 +25,15 @@ export class AuthService {
     private userService: UserService,
   ) { }
   getCurrentUser() {
-    if (localStorage.getItem('userId')) {
-      this.currentUser._id = localStorage.getItem('userId') as string;
+    if (localStorage.getItem('currentUser')) {
+      this.currentUser = JSON.parse(localStorage.getItem('currentUser') as any);
     }
     return this.currentUser;
   }
 
   getUserDetails() {
     // this.getCurrentUser();
-    let _id = localStorage.getItem('userId')
+    let _id = JSON.parse(localStorage.getItem('currentUser') as any)._id;
 
     return this.http.get<{ message: string, data: User }>(`${env.apiUrl}/user/${_id}`);
   }
@@ -78,7 +78,7 @@ export class AuthService {
   }
   setCurrentUser(user: User) {
     if (user) {
-      localStorage.setItem('userId', user._id ? user._id : '');
+      localStorage.setItem('currentUser', JSON.stringify(user));
       this.currentUser = user;
       this.dataService.setCurrentUser(this.currentUser);
     }
@@ -183,7 +183,7 @@ export class AuthService {
           }
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
-          localStorage.setItem('userId', response.user._id ? response.user._id : '');
+          localStorage.setItem('currentUser', response.user ? JSON.stringify(response.user as any) : 'null');
           this.currentUser = response.user;
           this.dataService.setCurrentUser(this.currentUser);
           this.userService.setUserWishlist(response.user.wishlist);

@@ -1,4 +1,4 @@
-<div class="profile">
+<!-- <div class="profile">
     <table class="userProfile">
         <thead>
             <tr>
@@ -11,4 +11,47 @@
             </tr>
         </tbody>
     </table>
+</div> -->
+
+<div class="chats-inf">
+    <div class="row chats-data">
+        <div class="col-4 chat-list">
+            <div class="messages-header">
+                <mat-icon title="messages" fontIcon="forum" class="messages-icon"></mat-icon>
+                Messages
+            </div>
+            <div *ngFor="let chat of chats" class="chat-list-item row" (click)="displayChat(chat)">
+                <div class="col-2 avatar">
+                    <img *ngIf="chat.partner.avatar && chat.partner.avatar.length > 0; else noImage" style="border-radius: 50%; height: 2.5rem; cursor: pointer;" [src]="chat.partner.avatar" referrerpolicy="no-referrer">
+                    <ng-template #noImage>
+                      <img style="border-radius: 50%; height: 2.5rem; cursor: pointer;" [src]="'../../assets/images/default-user.png'">
+                    </ng-template>  
+                </div>
+                <div class="col-7 row user-inf">
+                    <div class="col-12 username">
+                {{ chat.partner.firstName }}
+                </div>
+                <div class="col-12 last-text" *ngIf="chat.messages.length > 0">
+                    {{ chat.messages[chat.messages.length-1].messageText }}
+                </div>
+                </div>
+                <div class="col-3 row latest-inf">
+                    <div class="col-12 last-text-time" *ngIf="chat.messages.length > 0">
+                    {{ chat.messages[chat.messages.length-1].postedTime | date:'h:mm' }} {{ chat.messages[chat.messages.length-1].postedTime | date:'a' | lowercase }}
+                    </div>
+                    <div class="col-12 unread-count">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-8 chat-interface" *ngIf="currentChat; else noChatSelected">
+           <app-chat-interface [chatData]="currentChat" [asComp]="true" (messagePosted)="isMessagePosted($event)"></app-chat-interface>
+        </div>
+        <ng-template #noChatSelected>
+            <div class="col-8 chat-interface no-select">
+                No Chat Selected
+            </div>
+        </ng-template>
+    </div>
 </div>

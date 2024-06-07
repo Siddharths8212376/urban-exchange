@@ -3,6 +3,7 @@
   max-height: 49vh;
   height: 49vh;
   border: 1px solid #ccc;
+  border-radius: 1rem;
   display: flex;
   flex-direction: column;
   // background-image: url(../../../assets/output-onlinepngtools.png);
@@ -369,4 +370,17 @@ body {
   justify-content: center;
   padding: 1rem;
   padding-top: 5rem;
+  align-items: center;
+  font-size: x-large;
+  color: #cbcbcb;
+  font-family: 'Assistant';
+}
+
+.first-name-update {
+  top: 0;
+}
+
+.resize-chat-window {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }

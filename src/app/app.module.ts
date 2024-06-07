@@ -41,8 +41,9 @@ import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { RequestInterceptor } from './services/request/request.interceptor';
 
 import { BannerComponent } from './banner/banner.component';
-import { ChatInterfaceComponent } from './components/chat-interface/chat-interface.component';
 import { SharedModule } from './shared/shared.module';
+import { ChatInterfaceComponent } from './product/chat-interface/chat-interface.component';
+import { ChatListComponent } from './product/chat-list/chat-list.component';
 
 
 
@@ -62,8 +63,9 @@ import { SharedModule } from './shared/shared.module';
     SearchComponent,
     LandingPageComponent,
     WishlistComponent,
-    ChatInterfaceComponent,
     BannerComponent,
+    ChatInterfaceComponent,
+    ChatListComponent,
   ],
   imports: [
     BrowserModule,

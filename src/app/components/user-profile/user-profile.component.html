@@ -27,7 +27,7 @@
       <a>Products Purchased</a>
       <a>Products Listed </a>
       <a routerLink="/wishlist" routerLinkActive="mat-accent">Wishlist </a>
-      <a (click)="openChat()">Chats</a>
+      <a [routerLink]="['/profile', currentUser._id, 'chats']">Chats</a>
       <!-- Add more navigation links here -->
     </div>
   </div>

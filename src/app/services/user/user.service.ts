@@ -60,7 +60,7 @@ export class UserService {
     return this.http.post(`${env.apiUrl}/user/add-wishlist`, payload);
   }
   userDetails(userDetails: User): Observable<User> {
-
+    console.log(userDetails, 'getUD');
     return this.http.post<User>(`${env.apiUrl}/user/getUserDetails`, userDetails);
   }
 
@@ -68,8 +68,8 @@ export class UserService {
   setUserDetails(userDetails: any) {
     return this.http.post(`${env.apiUrl}/user/setUserDetails`, userDetails);
   }
-  setUserPing(userId: string) {
-    return this.http.post(`${env.apiUrl}/user/pingUser`, { _id: userId });
+  setUserPing(currentUser: string) {
+    return this.http.post(`${env.apiUrl}/user/pingUser`, { _id: currentUser });
   }
   //api to get all chats basing current user as sender
   sendNotif(info: any): void {
