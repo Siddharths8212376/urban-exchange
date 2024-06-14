@@ -201,6 +201,17 @@ select {
   border-radius: 0.5rem;
   padding: 1.5rem 1rem;
   cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.chat-list-item:hover {
+  transform: scale(1.01);
+  background-color: #f6f6f6;
+}
+
+.chat-list-item-sel {
+  transform: scale(1.01);
+  background-color: #f6f6f6;
 }
 
 .avatar {

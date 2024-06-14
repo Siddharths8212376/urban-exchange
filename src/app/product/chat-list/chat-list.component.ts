@@ -14,7 +14,6 @@ import { ProductService } from 'src/app/services/product/product.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { ChatInterfaceComponent } from '../chat-interface/chat-interface.component';
 import { ChatService } from '../chat-interface/chatdata.service';
-import { scan } from 'rxjs';
 
 @Component({
   selector: 'app-chat-list',

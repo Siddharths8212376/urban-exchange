@@ -5,7 +5,7 @@
                 <mat-icon title="messages" fontIcon="forum" class="messages-icon"></mat-icon>
                 Messages
             </div>
-            <div *ngFor="let chat of chats" class="chat-list-item row" (click)="displayChat(chat)">
+            <div *ngFor="let chat of chats" class="chat-list-item row" (click)="displayChat(chat)" [ngClass]="currentChat && chat._id == currentChat._id ? 'chat-list-item-sel' : ''">
                 <div class="col-2 avatar">
                     <img *ngIf="chat.partner.avatar && chat.partner.avatar.length > 0; else noImage" style="border-radius: 50%; height: 2.5rem; cursor: pointer;" [src]="chat.partner.avatar" referrerpolicy="no-referrer">
                     <ng-template #noImage>
