@@ -73,3 +73,27 @@ button:active {
 .product img {
     margin-right: 10px;
 }
+
+.remove-btn {
+    background-color: #b62de3;
+}
+
+.remove-btn:hover {
+    background-color: #a021ca;
+}
+
+.remove-btn:active {
+    background-color: #9014ba;
+}
+
+.view-btn {
+    background-color: #ff9e52;
+}
+
+.view-btn:hover {
+    background-color: #ef8635;
+}
+
+.view-btn:active {
+    background-color: #e6741c;
+}

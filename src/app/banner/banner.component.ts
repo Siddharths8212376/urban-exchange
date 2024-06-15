@@ -1,5 +1,7 @@
 import { AfterContentChecked, AfterViewChecked, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HashTag } from '../models/hashtag.model';
+import { HashtagService } from '../services/hashtag/hashtag.service';
 declare let gsap: any;
 
 @Component({
@@ -12,8 +14,10 @@ export class BannerComponent implements OnInit, AfterViewChecked {
   cardFiles: File[] | any = [];
   topBrands: string[] = ['Apple', 'Samsung', 'Adidas', 'Puma', 'Nike', 'Sony', 'LuluLemon'];
   scriptElem!: HTMLScriptElement;
+  topHashTags!: HashTag[];
   constructor(
     private router: Router,
+    private hashTagService: HashtagService,
   ) {
     this.scriptElem = document.createElement('script');
     this.scriptElem.src = "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/TextPlugin.min.js";
@@ -31,6 +35,9 @@ export class BannerComponent implements OnInit, AfterViewChecked {
     if (gsap) {
       gsap.to(".flash-sale", { duration: 0.5, text: "FLASH SALE 🔛", },);
     }
+    this.hashTagService.getTopHashTags(5).subscribe(response => {
+      this.topHashTags = response.data;
+    })
   }
   ngAfterViewChecked(): void {
     gsap.to(".flash-sale", { duration: 0.5, text: "FLASH SALE 🔛", }, "+=0.2");

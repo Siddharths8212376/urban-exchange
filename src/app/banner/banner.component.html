@@ -1,6 +1,14 @@
 <div class="banner">
-    <div class="sale">
-        <div class="flash-sale"></div>
+    <div class="sale row">
+        <div class="flash-sale col-6"></div>
+        <div class="col-6 row trending">
+           <div class="title col-12">TRENDING NOW</div>
+           <div class="top-tags col-12 row">
+            <div class="hash-tag col-2" *ngFor="let hash of topHashTags">
+                {{ hash.tag }}  ({{ hash.items }})
+            </div>
+           </div>
+        </div>
     </div>
 <!-- display banners as a list -->
 <div class="carousel-div">
