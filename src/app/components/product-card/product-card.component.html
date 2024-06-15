@@ -1,7 +1,7 @@
 <div class="card" style="width: 15rem; margin-bottom: 2.5rem; cursor: pointer; padding: 0.4rem;"
   (click)="openProduct(this.product._id)">
   <div *ngIf="productImage; else noImage">
-  <img class="card-img-top card-img-bottom" height="240px" width="180px" [src]="productImage" alt="ProductImage">
+  <img class="card-img-top card-img-bottom" height="210px" width="160px" [src]="productImage" alt="ProductImage">
   </div>
   <ng-template #noImage>
     <div class="no-image">

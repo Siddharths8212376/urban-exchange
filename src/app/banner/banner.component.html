@@ -1,4 +1,7 @@
 <div class="banner">
+    <div class="sale">
+        <div class="flash-sale"></div>
+    </div>
 <!-- display banners as a list -->
 <div class="carousel-div">
 <app-carousel 
@@ -10,7 +13,7 @@ class="carousel"
 <div class="cards row">
 
         <div *ngFor="let card of cardFiles" class="col-md-3 card-value">
-            <img class="imgPosition"  [src]="card" alt="card">
+            <img class="imgPosition"  [src]="card" alt="card" (click)="navigateTo('content')" height="400px" width="300px">
         </div>
 </div>
 

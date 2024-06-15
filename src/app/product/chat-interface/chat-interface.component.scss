@@ -250,21 +250,25 @@ body {
 .rightBubble,
 .rightBubble-equal,
 .rightBubble-top {
-  background-color: #ff4081;
+  // background-color: #ff4081;
+  // background-color: #4e88f7;
   color: rgb(242, 242, 242);
-  border-radius: 8px 0px 8px 8px;
+  border-radius: 1rem 0px 1rem 1rem;
+
+  background: rgb(206, 132, 255) !important;
+  background: linear-gradient(90deg, rgb(255 255 255) 0%, rgb(154 0 255) 0%, rgb(253 192 106) 100%) !important;
 }
 
 .leftBubble,
 .leftBubble-equal,
 .leftBubble-top {
   background-color: #ececec;
-  border-radius: 0 8px 8px 8px;
+  border-radius: 0 1rem 1rem 1rem;
 }
 
 .leftBubble-equal,
 .rightBubble-equal {
-  border-radius: 8px;
+  border-radius: 1rem;
 }
 
 .leftBubble-top,
@@ -320,8 +324,8 @@ body {
   50% {
     -webkit-transform: scale(1);
     transform: scale(1);
-    -webkit-box-shadow: 0 0 0 8px rgba(77, 170, 87, 0);
-    box-shadow: 0 0 0 8px rgba(77, 170, 87, 0)
+    -webkit-box-shadow: 0 0 0 1rem rgba(77, 170, 87, 0);
+    box-shadow: 0 0 0 1rem rgba(77, 170, 87, 0)
   }
 
   100% {
@@ -336,8 +340,8 @@ body {
   position: relative;
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
-  width: 8px;
-  height: 8px;
+  width: 1rem;
+  height: 1rem;
   border: 2px solid #fff;
   border-radius: 50%;
   background: #4daa57;
