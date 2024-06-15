@@ -7,8 +7,8 @@ switch (window.location.hostname) {
         break;
     case "urban-exchange.netlify.app":
         // apiUrl = "https://urban-exchange-backend.onrender.com/api"
-        // apiUrl = "https://uex-backend.onrender.com/api"
-        apiUrl = "https://lime-friendly-calf.cyclic.app/api"
+        apiUrl = "https://uex-backend.onrender.com/api"
+        // apiUrl = "https://lime-friendly-calf.cyclic.app/api"
         type = "prod"
         break;
 }
