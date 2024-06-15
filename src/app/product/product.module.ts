@@ -15,12 +15,13 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
-import { MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 import { ChatListComponent } from './chat-list/chat-list.component';
 
 import { GeolocationComponent } from './geolocation/geolocation.component';
 import { SharedModule } from '../shared/shared.module';
+import { ChatInterfaceComponent } from './chat-interface/chat-interface.component';
 
 
 
@@ -28,8 +29,9 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [
     DisplayProductComponent,
     CreateProductComponent,
-    ChatListComponent,
-    GeolocationComponent
+    // ChatListComponent,
+    GeolocationComponent,
+    // ChatInterfaceComponent,
   ],
   imports: [
     FormsModule,
@@ -44,6 +46,7 @@ import { SharedModule } from '../shared/shared.module';
     MatIconModule,
     MatDialogModule,
     SharedModule,
-  ]
+  ],
+
 })
 export class ProductModule { }

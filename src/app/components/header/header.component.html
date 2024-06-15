@@ -1,7 +1,7 @@
-<mat-toolbar style="color: white; background-color: #1E272C !important;" class="header-toolbar" >
+<mat-toolbar class="header-toolbar" >
   <div class="row">
     <div class="col-md-4 u-ex">
-      <a [routerLink]="userIsAuthenticated ? '/home' : '/'" style="color: white;font-family: 'Assistant';" title="Home"><span style="color: #6197FF;">URBAN </span>EXCHANGE</a>
+      <a [routerLink]="userIsAuthenticated ? '/home' : '/'" style="color: white;font-family: 'Assistant';" title="Home"><span style="color: #fffced; font-weight: 800;">URBAN </span>EXCHANGE</a>
     </div>
     <div class="col-md-4">
     <app-search class="search"></app-search>
@@ -9,26 +9,34 @@
     <div class="col-md-4 options">
     <ul>
       <li *ngIf="userIsAuthenticated">
-        <a mat-button class="text" routerLink="/wishlist" routerLinkActive="mat-accent">
+        <a style="position: relative;" disableRipple="true" mat-button class="text" [routerLink]="['/profile', currentUser._id, 'chats']" routerLinkActive="mat-accent">
+          <div class="unread-message-count" *ngIf="(dataService.unreadMessages$ | async)! > 0">
+            {{ dataService.unreadMessages$ | async }}
+          </div>
+          <mat-icon title="messages" fontIcon="forum" class="messages-icon"></mat-icon>
+        </a>
+      </li>
+      <li *ngIf="userIsAuthenticated">
+        <a mat-button class="text"  disableRipple="true" routerLink="/wishlist" routerLinkActive="mat-accent">
           <i class="bi bi-suit-heart-fill"></i>
         </a>
       </li>
       <li *ngIf="userIsAuthenticated">
-        <a mat-button class="text" routerLink="/product" routerLinkActive="mat-accent">Sell</a>
+        <a mat-button class="text"  disableRipple="true" routerLink="/product" routerLinkActive="mat-accent">Sell</a>
       </li>
       <li *ngIf="!userIsAuthenticated">
-        <a mat-button class="text" routerLink="/login" routerLinkActive="mat-accent">Login</a>
+        <a mat-button class="text"  disableRipple="true" routerLink="/login" routerLinkActive="mat-accent">Login</a>
       </li>
       <li *ngIf="!userIsAuthenticated">
-        <a mat-button class="text" routerLink="/signup" routerLinkActive="mat-accent">Signup</a>
+        <a mat-button class="text"  disableRipple="true" routerLink="/signup" routerLinkActive="mat-accent">Signup</a>
       </li>
       <li *ngIf="userIsAuthenticated">
         <button class="text" mat-button (click)="onLogout()">Log out</button>
       </li>
       <li *ngIf="userIsAuthenticated">
         <span *ngIf="currentUser">
-            <a class="text" (click)="openProfile(currentUser)" title="Profile">
-          <img *ngIf="currentUser.avatar && currentUser.avatar.length > 0; else noImage" style="border-radius: 50%; height: 2.5rem; margin-left: 1rem; cursor: pointer;" [src]="currentUser.avatar">
+            <a class="text profile-icon" (click)="openProfile(currentUser)" title="Profile">
+          <img class="profile-image"*ngIf="currentUser.avatar && currentUser.avatar.length > 0; else noImage" style="border-radius: 50%; height: 2.5rem; margin-left: 1rem; cursor: pointer;" [src]="currentUser.avatar" referrerpolicy="no-referrer">
           <ng-template #noImage>
             <img style="border-radius: 50%; height: 2.5rem; margin-left: 1rem; cursor: pointer;" [src]="'../../assets/images/default-user.png'">
           </ng-template>
@@ -40,7 +48,7 @@
   </div>
 </mat-toolbar>
 <div *ngIf="loader.displayLoader$ | async; else space" >
-  <mat-progress-bar color="accent" mode="indeterminate"></mat-progress-bar>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
 <ng-template #space>
   <div style="height: 4px; width: 100%;"></div>

@@ -1,6 +1,13 @@
 <div class="card" style="width: 15rem; margin-bottom: 2.5rem; cursor: pointer; padding: 0.4rem;"
   (click)="openProduct(this.product._id)">
-  <img class="card-img-top card-img-bottom" height="240px" width="180px" [src]="productImage" alt="ProductImage">
+  <div *ngIf="productImage; else noImage">
+  <img class="card-img-top card-img-bottom" height="210px" width="160px" [src]="productImage" alt="ProductImage">
+  </div>
+  <ng-template #noImage>
+    <div class="no-image">
+      <!-- <mat-progress-bar color="accent" mode="indeterminate"></mat-progress-bar> -->
+    </div>
+  </ng-template>
   <div class="card-body row">
     <div class="col-md-8">
       <h5 class="card-title">

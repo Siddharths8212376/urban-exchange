@@ -1,0 +1,63 @@
+<div class="chat-inf"  [ngClass]="asComp ? 'resize-chat-window': ''">
+<div mat-dialog-title>
+  <div class="partner-info row">
+    <div class="partner-profile col-2">
+      <img *ngIf="partner.avatar && partner.avatar.length > 0; else noImage" style="border-radius: 50%; height: 2.5rem; margin-left: 1rem; cursor: pointer;" [src]="partner.avatar" referrerpolicy="no-referrer">
+      <ng-template #noImage>
+        <img style="border-radius: 50%; height: 2.5rem; margin-left: 1rem; cursor: pointer;" [src]="'../../assets/images/default-user.png'">
+      </ng-template>
+    </div>
+    <div class="col-3">
+    <div class="partner-name" [ngClass]="asComp? 'first-name-update': ''">{{ partner.firstName }}</div>
+    <div class="partner-last-active" *ngIf="!isPartnerOnline; else userOnline">
+      Last active {{ partner.lastActive | date: 'h:mm'}} {{ partner.lastActive| date : 'a' | lowercase }}
+    </div>
+    <ng-template #userOnline>
+      <div class="partner-active">
+        <span class="sticky-header__available-circle"></span>
+        Active
+      </div>
+    </ng-template>
+    </div>
+  </div>
+</div>
+</div>
+<div mat-dialog-content class="chat-window resize-chat-window">
+    <div class="messages">
+      <div class="break-gen" *ngIf="messages.length == 0">
+        Chat Starts Here. Say Hi! 👋
+      </div>
+      <div *ngFor="let message of messages; let i = index">
+
+        <div *ngIf="i > 0 && isDateBreak(i)" class="date-break">
+          {{ message.postedTime | date: 'fullDate'}} 
+        </div>
+
+
+      <div class="msg-container" [ngClass]="getAlignment(message.sender)">
+      <div class="msg-bubble" [ngClass]="getAlignmentBubble(message.sender, i)" >
+
+        <div class="msg-text">
+           {{message.messageText}}
+        </div>
+        <div class="msg-posted-time">
+          {{ message.postedTime | date: 'h:mm'}} {{ message.postedTime| date : 'a' | lowercase }}
+        </div>
+      </div>
+      </div>
+
+    </div>
+    
+    <div #chatEnd class="chat-end"></div>
+  </div>
+  </div>
+  <div mat-dialog-actions>
+    <div class="msger-inputarea row">
+      <div class="col-11">
+      <input [(ngModel)]="newMessage" placeholder="Message" class="msger-input" (keydown.enter)="sendMessage()">
+      </div>
+      <div class="col-1 send-click" (click)="sendMessage()" [ngClass]="newMessage.trim().length == 0 ? 'div-disabled': ''">
+      <mat-icon title="send" class="send-icon" fontIcon="send"></mat-icon>
+      </div>
+    </div>
+  </div>

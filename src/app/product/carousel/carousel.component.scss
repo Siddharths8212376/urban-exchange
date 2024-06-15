@@ -12,8 +12,7 @@
         align-items: center;
 
         .imgPosition {
-            // margin: 60px;
-            // margin-left: 200px;
+            border-radius: 0.75rem;
         }
     }
 }
@@ -29,6 +28,7 @@
 .carousel-item {
     margin-right: 0;
     width: auto;
+    transition: transform 500ms ease, opacity 500ms ease-out
 }
 
 .banner-carousel {

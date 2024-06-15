@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { io } from 'socket.io-client';
 import { AuthService } from 'src/app/authentication/auth.service';
 import { defaultUser } from 'src/app/constants/user.constant';
 import { User } from 'src/app/models/user.model';
@@ -11,10 +12,11 @@ import { env } from 'src/environments/environment';
 })
 export class UserService {
   wishlist: any = [];
+  private socket: any;
   constructor(
     private http: HttpClient,
     private injector: Injector
-  ) { }
+  ) { this.socket = io('http://localhost:5000'); }
   addToUserProducts(productId: string) {
     let authService = this.injector.get(AuthService);
     let payload = {
@@ -57,16 +59,26 @@ export class UserService {
     }
     return this.http.post(`${env.apiUrl}/user/add-wishlist`, payload);
   }
-  userDetails(userDetails: User) {
-
-    return this.http.post(`${env.apiUrl}/user/getUserDetails`, userDetails);
+  userDetails(userDetails: User): Observable<User> {
+    return this.http.post<User>(`${env.apiUrl}/user/getUserDetails`, userDetails);
   }
 
   //api to set user details
   setUserDetails(userDetails: any) {
     return this.http.post(`${env.apiUrl}/user/setUserDetails`, userDetails);
   }
-
+  setUserPing(currentUser: string) {
+    return this.http.post(`${env.apiUrl}/user/pingUser`, { _id: currentUser });
+  }
   //api to get all chats basing current user as sender
-  
+  sendNotif(info: any): void {
+    this.socket.emit('sendNotif', info);
+  }
+  receiveNotif(): Observable<any> {
+    return new Observable<any>(obs => {
+      this.socket.on('receivedNotif', (info: any) => {
+        obs.next(info);
+      })
+    })
+  }
 }

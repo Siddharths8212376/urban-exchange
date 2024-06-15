@@ -9,18 +9,21 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { AuthGuard } from './authentication/auth.guard';
 import { BannerComponent } from './banner/banner.component';
+import { ChatListComponent } from './product/chat-list/chat-list.component';
 
 const routes: Routes = [
-  { path: '', component: LandingPageComponent, canActivate: [AuthGuard] },
-  { path: 'banner', component: BannerComponent },
+  { path: '', component: BannerComponent, canActivate: [AuthGuard] },
+  // { path: 'banner', component: BannerComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   // { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent, },
+  { path: 'home', component: BannerComponent, },
+  { path: 'content', component: HomeComponent, },
   { path: 'wishlist', component: WishlistComponent, },
   { path: 'profile/:id', component: UserProfileComponent },
+  { path: 'profile/:pid/chats', component: ChatListComponent },
   { path: 'product', loadChildren: () => import('./product/product.module').then(module => module.ProductModule) },
-  { path: '**', redirectTo: '/home' }
+  { path: '**', redirectTo: '/' }
 ]
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

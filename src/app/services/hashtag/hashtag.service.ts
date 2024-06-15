@@ -14,4 +14,7 @@ export class HashtagService {
     // removing the # from searchTerm (searchTerm.substring(1)) - as it would be taken as a url fragment
     return this.http.get<{ message: string, data: HashTag[] }>(`${env.apiUrl}/hashtag/search/${searchTerm.substring(1)}`);
   }
+  getTopHashTags(count: number): Observable<{ message: string, data: HashTag[] }> {
+    return this.http.get<{ message: string, data: HashTag[] }>(`${env.apiUrl}/hashtag/top/${count}`)
+  }
 }

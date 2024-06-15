@@ -1,29 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
 body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin:0;
-  }
-  
-  header {
-    background-color: #eeeeee;
-    height:50px;
-  }
-  
-  main {
-    background-color: #fff;
-    flex:1;
-  }
-  
-  footer {
-    background-color: #fff;
-    height:50px;
-  }
-// @import url("../node_modules/bootstrap/dist/css/bootstrap.min.css") ;
+  height: 100%;
+}
 
-// html, body { height: 100%; }
-// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+header {
+  background-color: #eeeeee;
+  height: 50px;
+}
+
+main {
+  background-color: #fff;
+  flex: 1;
+}
+
+footer {
+  background-color: #fff;
+  height: 50px;
+}
+
+img[src=""],
+img:not([src]) {
+  visibility: hidden;
+}

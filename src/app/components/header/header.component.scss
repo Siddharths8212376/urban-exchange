@@ -21,6 +21,24 @@ a {
 	.bi {
 		font-size: 1.5rem;
 	}
+
+	transition: transform 0.1s;
+}
+
+a.text:not(.profile-icon):hover,
+button.text:hover {
+	transform: scale(1.15);
+	background-color: #ff8433;
+}
+
+a.text:not(.profile-icon):active,
+button.text:active {
+	background-color: #ff8433;
+}
+
+.profile-image:hover,
+.profile-image:active {
+	transform: scale(1.15);
 }
 
 .options {
@@ -50,12 +68,14 @@ ul {
 }
 
 .header-toolbar {
-	box-shadow: 0rem 0.05rem 0.8rem #e6e6e6;
-	;
+	color: white;
 	position: relative;
 	background: black;
 	z-index: 999;
 	height: 5rem;
+
+	background: rgb(167, 36, 255) !important;
+	background: linear-gradient(90deg, rgba(167, 36, 255, 1) 0%, rgba(255, 88, 88, 1) 50%, rgba(255, 181, 78, 1) 100%) !important;
 }
 
 .loader-container {
@@ -73,4 +93,23 @@ ul {
 
 .remove-shadow {
 	box-shadow: none;
+}
+
+.messages-icon {
+	color: white;
+	transform: scale(1.5);
+}
+
+.unread-message-count {
+	position: absolute;
+	top: -1.5rem;
+	border: 1px solid red;
+	height: 1.5rem;
+	width: 1.5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	right: -0.75rem;
+	border-radius: 50%;
+	background-color: red;
 }

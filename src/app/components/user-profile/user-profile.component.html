@@ -18,7 +18,7 @@
     <!-- Left Navigation Pane -->
     <div class="sidenav">
       <span *ngIf="currentUser">
-      <img *ngIf="currentUser.avatar && currentUser.avatar.length > 0; else noImage" style="border-radius: 0.5rem; height: 5rem; margin-left: 1rem; margin-bottom: 1rem; cursor: pointer;" [src]="getProcessedImage(currentUser.avatar)">
+      <img *ngIf="currentUser.avatar && currentUser.avatar.length > 0; else noImage" style="border-radius: 0.5rem; height: 5rem; margin-left: 1rem; margin-bottom: 1rem; cursor: pointer;" [src]="getProcessedImage(currentUser.avatar)" referrerpolicy="no-referrer">
       <ng-template #noImage>
         <img style="border-radius: 0.5rem; height: 5rem; margin-left: 1rem; margin-bottom: 1rem; cursor: pointer;" [src]="'../../assets/images/default-user.png'">
       </ng-template>
@@ -27,7 +27,7 @@
       <a>Products Purchased</a>
       <a>Products Listed </a>
       <a routerLink="/wishlist" routerLinkActive="mat-accent">Wishlist </a>
-      <a (click)="openChat()">Chats</a>
+      <a [routerLink]="['/profile', currentUser._id, 'chats']">Chats</a>
       <!-- Add more navigation links here -->
     </div>
   </div>
@@ -78,7 +78,7 @@
     
       </div>
         <div class="actions">
-          <button mat-raised-button color="accent" *ngIf="displayMode == 1" type="submit" [disabled]="!userProfileForm.valid" style="background-color: #ff4081;" class="save">Save</button>
+          <button mat-raised-button color="accent" *ngIf="displayMode == 1" type="submit" [disabled]="!userProfileForm.valid" style="background-color: #4e88f7;" class="save">Save</button>
           <button mat-raised-button *ngIf="displayMode == 1" type="button" [disabled]="!userProfileForm.valid" style="background-color: #ffffff; color:black" class="cancel" (click)="onClickCancel()">Cancel</button>
           <button mat-raised-button color="accent"  *ngIf="displayMode == 0" type="button" [disabled]="!userProfileForm.valid" style="background-color: #fff; color:black" (click)="onClickEdit()" class="edit">Edit</button>
         </div>

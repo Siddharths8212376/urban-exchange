@@ -9,7 +9,8 @@ enum displayModes {
 }
 import { ProductService } from 'src/app/services/product/product.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ChatInterfaceComponent } from '../chat-interface/chat-interface.component';
+import { ChatInterfaceComponent } from 'src/app/product/chat-interface/chat-interface.component';
+
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -104,9 +105,13 @@ export class UserProfileComponent implements OnInit {
   openChatWindow(chat: any) {
     //open chatinterface component in dialog
     const dialogRef = this.dialog.open(ChatInterfaceComponent, {
-      width: '50%',
-      height: '60%',
-      data: { chatData: chat } // Pass the seller data to your dialog component
+      width: '30%',
+      height: '70%',
+      minWidth: '40rem',
+      data: {
+        chatData: chat,
+        partner: chat.buyer,
+      } // Pass the seller data to your dialog component
     });
 
 

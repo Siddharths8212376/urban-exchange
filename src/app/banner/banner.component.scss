@@ -1,6 +1,6 @@
 .top-brands {
     position: relative;
-    top: 32rem;
+    top: 28rem;
     padding-left: 10%;
     padding-right: 10%;
 
@@ -23,13 +23,16 @@
             align-items: center;
             height: 7rem;
             width: 7rem;
-            background: #2d373c;
+            // background: #2d373c;
             font-family: 'Assistant';
             font-weight: 900;
             font-size: large;
             color: white;
             border-radius: 50%;
             cursor: pointer;
+            transition: transform 200ms ease;
+            background: rgb(206, 132, 255);
+            background: linear-gradient(90deg, rgba(206, 132, 255, 1) 0%, rgb(52 64 255) 0%, rgb(197 155 255) 100%);
         }
 
         &--brand:hover {
@@ -46,7 +49,7 @@
 }
 
 .cards {
-    top: 30rem;
+    top: 26rem;
     padding: 0 10%;
     position: relative;
 }
@@ -54,8 +57,109 @@
 .card-value {
     display: flex;
     justify-content: center;
+    cursor: pointer;
+    transition: opacity, transform 200ms ease;
+}
+
+.card-value:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+}
+
+.imgPosition {
+    border-radius: 0.75rem;
 }
 
 .carousel {
-    top: 15rem;
+    top: 12rem;
+}
+
+.sale {
+    margin-top: 1rem;
+    font-size: 600%;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.flash-sale {
+    animation: anim 400ms ease infinite;
+    background: rgb(206, 132, 255);
+    background: linear-gradient(90deg, rgb(191, 96, 255) 0%, rgb(182, 73, 255) 0%, rgb(255, 154, 13) 100%);
+    background-clip: text;
+    color: transparent;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    font-family: 'Assistant';
+    font-weight: 900;
+    transition: transform 200ms ease;
+    cursor: pointer;
+}
+
+.flash-sale:hover {
+    transform: scale(1.02);
+}
+
+@keyframes anim {
+    0% {
+        background: linear-gradient(90deg, rgb(206, 134, 254) 0%, rgb(212, 83, 255) 0%, rgb(255, 154, 13) 100%);
+        background-clip: text;
+        color: transparent;
+    }
+
+    50% {
+        background: linear-gradient(90deg, rgb(255, 78, 199) 0%, rgb(255, 63, 239) 0%, rgb(166, 31, 255, 1) 100%);
+        background-clip: text;
+        color: transparent;
+    }
+
+    100% {
+        background: linear-gradient(90deg, rgb(206, 134, 254) 0%, rgb(189, 83, 255) 0%, rgb(255, 154, 13) 100%);
+        background-clip: text;
+        color: transparent;
+    }
+}
+
+.trending {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: small;
+}
+
+.title {
+    display: flex;
+    justify-content: flex-end;
+    background: linear-gradient(90deg, rgb(191, 96, 255) 0%, rgb(182, 73, 255) 0%, rgb(255, 154, 13) 100%);
+    background-clip: text;
+    color: transparent;
+    animation: anim 400ms ease infinite;
+}
+
+.top-tags {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.hash-tag {
+    display: flex;
+    width: fit-content;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: #ffebf0;
+    margin: 0.5rem;
+    font-family: 'Assistant';
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background: rgb(167, 36, 255) !important;
+    background: linear-gradient(90deg, rgb(173, 50, 255) 0%, rgb(255, 158, 23) 100%) !important;
+    font-size: medium;
+    transition: transform, opacity 500ms ease;
+    cursor: pointer;
+}
+
+.hash-tag:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
 }
