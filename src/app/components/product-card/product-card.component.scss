@@ -12,13 +12,13 @@
 
 .card-subtitle {
     @include curb-lines(2);
-    @include font-style('Assistant', 'Roboto');
+    @include font-style(var(--global-font-family), 'Roboto');
     font-size: small;
 }
 
 .card-title {
     @include curb-lines(1);
-    @include font-style('Assistant', 'Roboto');
+    @include font-style(var(--global-font-family), 'Roboto');
     font-size: large;
     margin-bottom: 0;
 }
@@ -44,8 +44,10 @@
 }
 
 .wishlistBtn {
-    min-width: 3rem !important;
-    width: 3rem !important;
+    min-width: 2rem !important;
+    width: 2rem !important;
+    position: relative;
+    right: 7px;
 }
 
 .no-image {

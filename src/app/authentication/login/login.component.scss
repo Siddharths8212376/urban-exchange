@@ -20,7 +20,7 @@
 
 .login-title {
   margin-right: auto;
-  font-family: 'Assistant';
+  font-family: var(--global-font-family);
 }
 
 .cardlogin {
@@ -97,7 +97,7 @@
 
 .login-button {
   width: 75%;
-  font-family: 'Assistant';
+  font-family: var(--global-font-family);
   height: 3rem;
   margin-bottom: 1rem;
   font-size: large;

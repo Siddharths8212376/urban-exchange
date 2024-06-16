@@ -4,7 +4,7 @@ form {
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
   // box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
@@ -14,7 +14,7 @@ div {
 }
 
 label {
-  font-family: 'Assistant';
+  font-family: var(--global-font-family);
   color: #9a9a9a;
   font-size: small;
 }
@@ -61,7 +61,7 @@ button:disabled {
 
   background-color: rgb(255, 255, 255);
   color: black;
-  font-family: 'Assistant';
+  font-family: var(--global-font-family);
   border-radius: 0.5rem;
 }
 
@@ -101,7 +101,7 @@ label[for]>span[aria-label="required"] {
 .sidenav {
   height: 100%;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 0.5rem;
   // background-color: #333;
   // color: white;
   padding: 20px;
@@ -124,7 +124,7 @@ label[for]>span[aria-label="required"] {
 
 input,
 select {
-  font-family: 'Assistant';
+  font-family: var(--global-font-family);
 }
 
 .sidenav a {
@@ -152,6 +152,8 @@ select {
   height: 2.5rem;
   display: flex;
   align-items: center;
+  font-family: var(--global-font-family);
+  font-size: large;
 }
 
 .actions {
@@ -170,13 +172,13 @@ select {
 }
 
 .profile-title {
-  font-family: 'Assistant';
+  font-family: var(--global-font-family);
   font-size: x-large;
   padding-left: 0.25rem;
 }
 
 .last-login {
-  font-family: 'Assistant';
+  font-family: var(--global-font-family);
   font-size: smaller;
   padding-left: 0.25rem;
 }

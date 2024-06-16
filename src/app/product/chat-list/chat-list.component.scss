@@ -15,7 +15,7 @@ div {
 
 label {
   font-weight: bold;
-  font-family: 'Assistant';
+  font-family: var(--global-font-family);
 }
 
 input[type="text"],
@@ -60,7 +60,7 @@ button:disabled {
 
   background-color: rgb(255, 255, 255);
   color: black;
-  font-family: 'Assistant';
+  font-family: var(--global-font-family);
   border-radius: 0.5rem;
 }
 
@@ -121,7 +121,7 @@ label[for]>span[aria-label="required"] {
 
 input,
 select {
-  font-family: 'Assistant';
+  font-family: var(--global-font-family);
 }
 
 .sidenav a {
@@ -185,7 +185,7 @@ select {
 }
 
 .messages-header {
-  font-family: 'Assistant';
+  font-family: var(--global-font-family);
   font-size: x-large;
   margin-bottom: 2rem;
 }
@@ -219,7 +219,7 @@ select {
 }
 
 .username {
-  font-family: 'Assistant';
+  font-family: var(--global-font-family);
   font-size: large;
   position: relative;
   top: 0.25rem;
@@ -264,12 +264,12 @@ select {
   align-items: center;
   font-size: x-large;
   color: #cbcbcb;
-  font-family: 'Assistant';
+  font-family: var(--global-font-family);
 }
 
 .unread-count {
   border-radius: 1rem;
-  font-family: 'Assistant';
+  font-family: var(--global-font-family);
   background-color: #ff4081;
   font-weight: 100;
   font-size: smaller;

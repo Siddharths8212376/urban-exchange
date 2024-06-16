@@ -1,6 +1,6 @@
 .search {
     flex: 1 1 25rem;
-    border-radius: 0.25rem;
+    border-radius: 0.5rem;
     border: 1px solid #ddd;
     background: white;
 }
@@ -27,7 +27,7 @@
 
 .text {
     color: black !important;
-    font-family: 'Assistant';
+    font-family: var(--global-font-family);
 }
 
 .search-recom {

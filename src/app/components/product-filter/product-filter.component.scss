@@ -1,7 +1,7 @@
 .card-body {
     padding: 0.5rem !important;
     height: 2rem;
-    font-family: 'Assistant', 'Roboto';
+    font-family: var(--global-font-family), 'Roboto';
 }
 
 .card-title {
