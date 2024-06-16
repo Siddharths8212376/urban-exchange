@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { io } from 'socket.io-client';
 import { AuthService } from 'src/app/authentication/auth.service';
-import { defaultUser } from 'src/app/constants/user.constant';
 import { User } from 'src/app/models/user.model';
 import { env } from 'src/environments/environment';
 

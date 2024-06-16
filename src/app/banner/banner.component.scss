@@ -87,7 +87,7 @@
     background: linear-gradient(90deg, rgb(191, 96, 255) 0%, rgb(182, 73, 255) 0%, rgb(255, 154, 13) 100%);
     background-clip: text;
     color: transparent;
-    height: 5rem;
+    min-height: 5rem;
     display: flex;
     align-items: center;
     font-family: 'Assistant';

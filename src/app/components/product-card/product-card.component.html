@@ -1,7 +1,7 @@
-<div class="card" style="width: 15rem; margin-bottom: 2.5rem; cursor: pointer; padding: 0.4rem;"
+<div class="card" style="width: 14rem; margin-bottom: 2.5rem; cursor: pointer; padding: 0.4rem;"
   (click)="openProduct(this.product._id)">
   <div *ngIf="productImage; else noImage">
-  <img class="card-img-top card-img-bottom" height="210px" width="160px" [src]="productImage" alt="ProductImage">
+  <img class="card-img-top card-img-bottom" height="210px" width="150px" [src]="productImage" alt="ProductImage">
   </div>
   <ng-template #noImage>
     <div class="no-image">
@@ -9,13 +9,13 @@
     </div>
   </ng-template>
   <div class="card-body row">
-    <div class="col-md-8">
-      <h5 class="card-title">
+    <div class="col-md-10">
+      <h6 class="card-title">
         {{ this.product.name }}
-      </h5>
+      </h6>
     </div>
-    <div class="col-md-4">
-      <a mat-button class="text wishlistBtn" (click)="addToWishlist($event)">
+    <div class="col-md-2 wishlist">
+      <a mat-button class="text wishlistBtn" (click)="addToWishlist($event)" *ngIf="authService.getIsAuth()">
         <i *ngIf="!isInWishlist" class="bi bi-suit-heart"></i>
         <i *ngIf="isInWishlist" class="bi bi-suit-heart-fill"></i>
       </a>
