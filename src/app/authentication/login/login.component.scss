@@ -6,6 +6,29 @@
   height: calc(100vh - 100px);
 }
 
+.login-span {
+  margin-right: auto;
+  display: inline-flex;
+}
+
+.login-icon {
+  position: relative;
+  top: 4px;
+  padding-left: 2px;
+
+}
+
+.login-title {
+  margin-right: auto;
+  font-family: 'Assistant';
+}
+
+.cardlogin {
+  height: calc(100vh - 10px);
+  // background: linear-gradient(to right, rgba(206, 132, 255, 1) 0%, rgba(166, 31, 255, 1) 0%, rgba(255, 71, 71, 1) 50%, rgba(255, 171, 52, 1) 100%), linear-gradient(to bottom, rgba(206, 132, 255, 1) 0%, rgba(243, 166, 255, 1) 0%, rgba(255, 255, 255, 1) 100%);
+  background: linear-gradient(to right, rgb(206, 132, 255) 0%, rgb(224 176 255) 0%, rgb(255 150 150) 50%, rgb(255 228 191) 100%);
+}
+
 .loading-spinner {
   /* Your custom styles for the loading spinner container */
   display: block;
@@ -58,6 +81,7 @@
 
 .login-card {
   // width: 25%;
+  width: fit-content;
   margin: auto;
   padding: 2%;
   top: 20px;
@@ -82,7 +106,7 @@
 .container {
   // background-image: url('../../../assets/backgroud-home.svg');
   background-size: 100% 108%;
-  height: calc(100vh - 110px);
+  height: calc(100vh - 130px);
   left: 0;
   position: absolute;
   // background-color: #172733;

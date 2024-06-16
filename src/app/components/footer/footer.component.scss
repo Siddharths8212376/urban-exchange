@@ -5,6 +5,7 @@
     left: 0;
     width: 100%;
     font-family: 'Assistant';
+    font-weight: 900;
     color: #c0c0c0;
 }
 
@@ -13,4 +14,9 @@
     justify-content: flex-start;
     align-items: center;
     padding-left: 1rem;
+}
+
+.not-logged {
+    background: linear-gradient(to right, rgb(206, 132, 255) 0%, rgb(224 176 255) 0%, rgb(255 150 150) 50%, rgb(255 228 191) 100%);
+    color: white;
 }
