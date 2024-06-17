@@ -1,9 +1,9 @@
-<div class="container">
+<div class="container-su">
   <div class="cardsignup">
 <mat-card class="signup-card" style="position: relative; top: 20px;"> 
-  <span style="    position: relative;
-  margin: auto;">
-    <img src="../../../assets/person.svg" style="height: 50px;"> 
+  <span class="signup-span">
+  <h2 class="signup-title">Sign Up</h2>
+    <mat-icon title="signup" fontIcon="account_circle" class="signup-icon"></mat-icon>
   </span>
     <mat-spinner *ngIf="isLoading"></mat-spinner>
     <form (submit)="onSignup(signupForm)" #signupForm="ngForm" *ngIf="!isLoading">

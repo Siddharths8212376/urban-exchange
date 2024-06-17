@@ -78,7 +78,7 @@
     
       </div>
         <div class="actions">
-          <button mat-raised-button color="accent" *ngIf="displayMode == 1" type="submit" [disabled]="!userProfileForm.valid" style="background-color: #4e88f7;" class="save">Save</button>
+          <button mat-raised-button color="accent" *ngIf="displayMode == 1" type="submit" [disabled]="!userProfileForm.valid" style="background-color: #ec4c7e;" class="save">Save</button>
           <button mat-raised-button *ngIf="displayMode == 1" type="button" [disabled]="!userProfileForm.valid" style="background-color: #ffffff; color:black" class="cancel" (click)="onClickCancel()">Cancel</button>
           <button mat-raised-button color="accent"  *ngIf="displayMode == 0" type="button" [disabled]="!userProfileForm.valid" style="background-color: #fff; color:black" (click)="onClickEdit()" class="edit">Edit</button>
         </div>

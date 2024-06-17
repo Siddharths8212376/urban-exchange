@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Sanitizer } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/authentication/auth.service';
 import { defaultProduct } from 'src/app/constants/product.constant';
 import { Product } from 'src/app/models/product.model';
 import { ImageService } from 'src/app/services/image/image.service';
@@ -23,7 +24,8 @@ export class ProductCardComponent implements OnInit {
     public loader: LoaderService,
     private imageService: ImageService,
     private userService: UserService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    public authService: AuthService,
   ) { }
   async ngOnInit(): Promise<void> {
     this.wishlist = await this.userService.getWislist();
@@ -54,7 +56,7 @@ export class ProductCardComponent implements OnInit {
 
   addToWishlist(event: Event) {
     event.stopPropagation();
-    this.isInWishlist=!this.isInWishlist;
+    this.isInWishlist = !this.isInWishlist;
     if (this.isInWishlist) this.wishlist.unshift(this.product._id);
     else this.wishlist.splice(this.wishlist.indexOf(this.product._id), 1);
     this.loader.start();

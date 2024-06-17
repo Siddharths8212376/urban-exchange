@@ -6,8 +6,11 @@
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
+  // background:linear-gradient(to right, rgb(232 197 255) 0%, rgb(239 215 255) 0%, rgb(254 198 198) 50%, rgb(250 229 200) 100%);
   // background-image: url(../../../assets/output-onlinepngtools.png);
   // background-repeat: round
+  background: #f9f9f9;
+  box-shadow: inset 1px 1px 5px #e6e6e6;
 }
 
 .messages {
@@ -124,7 +127,7 @@ body {
   margin-bottom: 2.5px;
   background: var(--left-msg-bg);
   position: relative;
-  font-family: 'Assistant';
+  font-family: var(--global-font-family);
 }
 
 .msg-text {
@@ -193,7 +196,7 @@ body {
   background: #ececec;
   border-radius: 1rem;
   width: 100%;
-  font-family: 'Assistant';
+  font-family: var(--global-font-family);
   outline: none;
 }
 
@@ -256,7 +259,7 @@ body {
   border-radius: 1rem 0px 1rem 1rem;
 
   background: rgb(206, 132, 255) !important;
-  background: linear-gradient(90deg, rgb(255 255 255) 0%, rgb(154 0 255) 0%, rgb(253 192 106) 100%) !important;
+  background: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(249 84 102) 0%, rgb(253, 192, 106) 100%) !important;
 }
 
 .leftBubble,
@@ -264,6 +267,8 @@ body {
 .leftBubble-top {
   background-color: #ececec;
   border-radius: 0 1rem 1rem 1rem;
+  background: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(188 49 216) 0%, rgb(250 84 101) 100%) !important;
+  color: white;
 }
 
 .leftBubble-equal,
@@ -293,7 +298,7 @@ body {
 }
 
 .partner-name {
-  font-family: 'Assistant';
+  font-family: var(--global-font-family);
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -303,13 +308,13 @@ body {
 
 .partner-last-active {
   font-size: x-small;
-  font-family: 'Assistant';
+  font-family: var(--global-font-family);
   color: #707070;
 }
 
 .partner-active {
   font-size: x-small;
-  font-family: 'Assistant';
+  font-family: var(--global-font-family);
   color: #4daa57;
 }
 
@@ -377,7 +382,7 @@ body {
   align-items: center;
   font-size: x-large;
   color: #cbcbcb;
-  font-family: 'Assistant';
+  font-family: var(--global-font-family);
 }
 
 .first-name-update {

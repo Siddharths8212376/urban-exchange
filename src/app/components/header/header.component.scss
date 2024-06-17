@@ -50,7 +50,7 @@ button.text:active {
 // color opt: #1f2441
 .text {
 	color: white !important;
-	font-family: 'Assistant';
+	font-family: var(--global-font-family);
 	font-weight: 900;
 }
 

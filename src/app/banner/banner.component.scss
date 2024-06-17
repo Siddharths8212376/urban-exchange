@@ -6,7 +6,7 @@
 
     &--title {
         padding-top: 1rem;
-        font-family: 'Assistant';
+        font-family: var(--global-font-family);
         font-size: xx-large;
         font-weight: 900;
 
@@ -24,7 +24,7 @@
             height: 7rem;
             width: 7rem;
             // background: #2d373c;
-            font-family: 'Assistant';
+            font-family: var(--global-font-family);
             font-weight: 900;
             font-size: large;
             color: white;
@@ -43,7 +43,7 @@
 
 .banner {
     display: block;
-    height: calc(100vh - 110px);
+    height: calc(100vh - 130px);
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -87,10 +87,10 @@
     background: linear-gradient(90deg, rgb(191, 96, 255) 0%, rgb(182, 73, 255) 0%, rgb(255, 154, 13) 100%);
     background-clip: text;
     color: transparent;
-    height: 5rem;
+    min-height: 5rem;
     display: flex;
     align-items: center;
-    font-family: 'Assistant';
+    font-family: var(--global-font-family);
     font-weight: 900;
     transition: transform 200ms ease;
     cursor: pointer;
@@ -148,7 +148,7 @@
     border-radius: 0.5rem;
     background-color: #ffebf0;
     margin: 0.5rem;
-    font-family: 'Assistant';
+    font-family: var(--global-font-family);
     justify-content: center;
     align-items: center;
     color: white;

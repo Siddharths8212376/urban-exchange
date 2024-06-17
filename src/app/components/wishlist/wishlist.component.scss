@@ -9,7 +9,7 @@ h1 {
     padding-bottom: 1rem;
     // color: #3F51B5;
     // color: #6197FF;
-    font-family: 'Assistant';
+    font-family: var(--global-font-family);
 }
 
 table {
@@ -32,7 +32,7 @@ td {
     padding: 20px;
     text-align: center;
     border-bottom: 1px solid #F5F5F5;
-    font-family: 'Assistant';
+    font-family: var(--global-font-family);
 }
 
 img {

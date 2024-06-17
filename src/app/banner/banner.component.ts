@@ -27,10 +27,10 @@ export class BannerComponent implements OnInit, AfterViewChecked {
     this.carouselFiles = [];
     this.cardFiles = [];
     for (let i = 1; i <= 3; i++) {
-      this.carouselFiles.push(`../../assets/images/carousel-${i}.png`);
+      this.carouselFiles.push(`../../assets/images/carousel-${i}.webp`);
     }
     for (let i = 1; i <= 4; i++) {
-      this.cardFiles.push(`../../assets/images/card-${i}.png`);
+      this.cardFiles.push(`../../assets/images/card-${i}.webp`);
     }
     if (gsap) {
       gsap.to(".flash-sale", { duration: 0.5, text: "FLASH SALE 🔛", },);

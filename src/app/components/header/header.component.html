@@ -1,7 +1,7 @@
 <mat-toolbar class="header-toolbar" >
   <div class="row">
     <div class="col-md-4 u-ex">
-      <a [routerLink]="userIsAuthenticated ? '/home' : '/'" style="color: white;font-family: 'Assistant';" title="Home"><span style="color: #fffced; font-weight: 800;">URBAN </span>EXCHANGE</a>
+      <a [routerLink]="userIsAuthenticated ? '/home' : '/'" style="color: white;font-family: var(--global-font-family);" title="Home"><span style="color: #fffced; font-weight: 800;">URBAN </span>EXCHANGE</a>
     </div>
     <div class="col-md-4">
     <app-search class="search"></app-search>
@@ -48,7 +48,7 @@
   </div>
 </mat-toolbar>
 <div *ngIf="loader.displayLoader$ | async; else space" >
-  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  <mat-progress-bar color="warn" mode="indeterminate"></mat-progress-bar>
 </div>
 <ng-template #space>
   <div style="height: 4px; width: 100%;"></div>

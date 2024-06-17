@@ -1,9 +1,9 @@
 @mixin set-font-fam {
-  font-family: 'Assistant';
+  font-family: var(--global-font-family);
 }
 
 .mainContainer {
-  font-family: 'Assistant';
+  font-family: var(--global-font-family);
   padding: 20px;
   // background-color: #ffd9d9;
 

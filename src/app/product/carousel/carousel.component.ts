@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-carousel',
@@ -6,6 +7,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
   styleUrls: ['./carousel.component.scss']
 })
 export class CarouselComponent implements OnInit {
+  constructor(private router: Router) { }
   @Input() imageFiles: any[] = [];
   @Input() isBanner: boolean = false;
   bannerDim!: {
@@ -34,5 +36,7 @@ export class CarouselComponent implements OnInit {
       this.selectedIdx = (this.selectedIdx + 1) % this.imageFiles.length;
     }
   }
-
+  navigateTo(path: string) {
+    this.router.navigate([`${path}`]);
+  }
 }

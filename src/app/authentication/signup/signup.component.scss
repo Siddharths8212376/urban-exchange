@@ -4,8 +4,23 @@
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #fff;
+  background-color: #9f0000;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.signup-title {
+  font-family: var(--global-font-family);
+}
+
+.signup-span {
+  margin-right: auto;
+  display: inline-flex;
+}
+
+.signup-icon {
+  position: relative;
+  top: 5px;
+  padding-left: 2px;
 }
 
 .form-group {
@@ -34,7 +49,7 @@ button[type="submit"] {
   padding: 10px 20px;
   cursor: pointer;
   width: 60%;
-  font-family: 'Assistant';
+  font-family: var(--global-font-family);
   font-size: large;
 }
 
@@ -56,14 +71,12 @@ button[type="submit"]:hover {
   padding: 2%;
 }
 
-.container {
-  // background-image: url('../../../assets/backgroud-home.svg'); /* Replace 'path-to-your-image.jpg' with the actual image file path */
+.container-su {
 
   /* Set background size and positioning */
-  background-size: cover;
   /* You can also use 'contain' or specify dimensions */
-  background-position: center center;
-  height: calc(100vh - 110px);
+  height: calc(100vh - 10px);
+  background: linear-gradient(to right, rgb(206, 132, 255) 0%, rgb(224 176 255) 0%, rgb(255 150 150) 50%, rgb(255 228 191) 100%);
 }
 
 .cardsignup {

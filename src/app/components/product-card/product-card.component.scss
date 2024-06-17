@@ -12,14 +12,19 @@
 
 .card-subtitle {
     @include curb-lines(2);
-    @include font-style('Assistant', 'Roboto');
+    @include font-style(var(--global-font-family), 'Roboto');
     font-size: small;
 }
 
 .card-title {
-    @include curb-lines(2);
-    @include font-style('Assistant', 'Roboto');
+    @include curb-lines(1);
+    @include font-style(var(--global-font-family), 'Roboto');
     font-size: large;
+    margin-bottom: 0;
+}
+
+.card-body {
+    padding: 1rem 0;
 }
 
 .card-text {
@@ -27,7 +32,7 @@
 }
 
 .card {
-    height: 21rem;
+    height: 20rem;
     border: 1px solid #fff;
     border-radius: 0.75rem;
     transition: box-shadow, transform 200ms ease;
@@ -39,9 +44,10 @@
 }
 
 .wishlistBtn {
-    float: right;
-    margin-top: -20%;
-    margin-right: -10%;
+    min-width: 2rem !important;
+    width: 2rem !important;
+    position: relative;
+    right: 7px;
 }
 
 .no-image {
@@ -53,4 +59,9 @@
 
 .card-img-top {
     border-radius: 0.75rem;
+}
+
+.wishlist {
+    display: flex;
+    justify-content: center;
 }

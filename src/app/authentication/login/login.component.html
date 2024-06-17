@@ -1,11 +1,10 @@
 <div>
 <div class="cardlogin">
 <mat-card class="login-card" style="position: relative; top: 20px; ">
-  <span style="    position: relative;
-  margin: auto;">
-    <img src="../../../assets/person.svg" style="height: 50px;"> 
+  <span class="login-span">
+    <h2 class="login-title">Login</h2> 
+    <mat-icon title="login" fontIcon="login" class="login-icon"></mat-icon>
   </span>
-  
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
     <mat-form-field class="form-field">
