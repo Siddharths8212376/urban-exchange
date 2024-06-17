@@ -5,7 +5,7 @@
   <div class="carousel-inner" [ngClass]="isBanner? 'banner': ''">
     <div class="carousel-item" *ngFor="let image of imageFiles; let i=index;" [ngClass]="{'active': i == selectedIdx }">
       <img *ngIf="!isBanner" class="imgPosition" height="300px" width="300px" [src]="image" alt="First slide">
-      <img *ngIf="isBanner" class="imgPosition" [height]="bannerDim.height" [width]="bannerDim.width"  [src]="image" alt="First slide" (click)="navigateTo('content')">
+      <img *ngIf="isBanner" class="imgPosition" [height]="bannerDim.height" [width]="bannerDim.width"  [src]="image" alt="First slide" (click)="navigateTo('content')" fetchpriority="high">
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" (click)="updateIdx('prev')">
