@@ -28,8 +28,10 @@ export class ProductCardComponent implements OnInit {
     public authService: AuthService,
   ) { }
   async ngOnInit(): Promise<void> {
-    this.wishlist = await this.userService.getWislist();
-    this.isInWishlist = this.wishlist.includes(this.product._id);
+    if (this.authService.getIsAuth()) {
+      this.wishlist = await this.userService.getWislist();
+      this.isInWishlist = this.wishlist.includes(this.product._id);
+    }
     this.productImageName = this.product?.productImages?.length > 0 ? this.product.productImages[0] : '';
     if (this.productImageName.length > 0) {
       this.imageService.getImageByName(this.productImageName).subscribe(response => {
