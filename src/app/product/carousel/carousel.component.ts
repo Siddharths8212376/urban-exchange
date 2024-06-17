@@ -21,11 +21,15 @@ export class CarouselComponent implements OnInit {
       width: window.innerWidth * 0.8
     }
     if (this.isBanner) {
-      let intervalId = setInterval(() => {
-        if (this.imageFiles.length > 0) {
-          this.selectedIdx = (this.selectedIdx + 1) % this.imageFiles.length;
-        }
-      }, 3000);
+      let timeOut = setTimeout(() => {
+        let intervalId = setInterval(() => {
+          if (this.imageFiles.length > 0) {
+            this.selectedIdx = (this.selectedIdx + 1) % this.imageFiles.length;
+          }
+        }, 3000);
+        clearTimeout(timeOut);
+      }, 2000);
+
     }
   }
   updateIdx(val: "prev" | "next") {
