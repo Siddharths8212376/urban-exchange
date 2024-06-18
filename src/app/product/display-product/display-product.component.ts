@@ -30,7 +30,7 @@ export class DisplayProductComponent implements OnInit {
   currUser: any;
 
   productLocation: any = [];
-  displayMap: boolean = env.type == 'prod' ? true : false;
+  displayMap: boolean = env.type !== 'prod' ? true : false;
 
   constructor(
     private userService: UserService,
@@ -60,10 +60,11 @@ export class DisplayProductComponent implements OnInit {
     this.productService.getProductById(this.productId).subscribe((response) => {
       this.product = response.data;
       this.productImages = this.product.productImages;
-      console.log(this.productImages, 'imagesList');
+      console.log(this.product, 'here');
       if (this.product.address != undefined && this.product.address != null && this.product.address['location']) {
         this.productLocation = this.product.address.location.coordinates;
       }
+      console.log(this.productLocation, 'hhh');
       this.entries = Object.entries(this.product);
       if (this.productImages.length > 0) {
         this.productImages.forEach((imageName) => {
