@@ -15,7 +15,7 @@ export class UserService {
   constructor(
     private http: HttpClient,
     private injector: Injector
-  ) { this.socket = io('http://localhost:5000'); }
+  ) { this.socket = io(env.apiHostName); }
   addToUserProducts(productId: string) {
     let authService = this.injector.get(AuthService);
     let payload = {
