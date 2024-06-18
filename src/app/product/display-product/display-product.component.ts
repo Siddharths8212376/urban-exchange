@@ -30,7 +30,7 @@ export class DisplayProductComponent implements OnInit {
   currUser: any;
 
   productLocation: any = [];
-  displayMap: boolean = env.type !== 'prod' ? true : false;
+  displayMap: boolean = env.type == 'prod' ? true : false;
 
   constructor(
     private userService: UserService,
