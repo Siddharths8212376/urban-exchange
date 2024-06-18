@@ -34,6 +34,7 @@ export class ContentComponent implements OnInit {
   ) { }
   async ngOnInit(): Promise<void> {
     console.time('getUserLocation');
+    console.log(navigator.geolocation, 'heyo');
     await this.getUserLocation();
     console.timeEnd('getUserLocation');
     this.dataService.getSubFilters().subscribe(response => {
@@ -166,8 +167,9 @@ export class ContentComponent implements OnInit {
           }
           resolve("done");
         }, (err) => {
-          reject(err);
-        }, { enableHighAccuracy: false, maximumAge: 3600000 });
+          this.latitude = 12.9716; this.longitude = 77.594566;
+          resolve("default");
+        }, { enableHighAccuracy: false, timeout: 1500, maximumAge: 3600000 });
       });
     }
   }

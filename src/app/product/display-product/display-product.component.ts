@@ -30,7 +30,7 @@ export class DisplayProductComponent implements OnInit {
   currUser: any;
 
   productLocation: any = [];
-  displayMap: boolean = env.type == 'prod' ? true : false;
+  displayMap: boolean = env.type !== 'prod' ? true : false;
 
   constructor(
     private userService: UserService,
@@ -60,11 +60,14 @@ export class DisplayProductComponent implements OnInit {
     this.productService.getProductById(this.productId).subscribe((response) => {
       this.product = response.data;
       this.productImages = this.product.productImages;
-      if (this.product.address != undefined || this.product.address != null)
+      console.log(this.product, 'here');
+      if (this.product.address != undefined && this.product.address != null && this.product.address['location']) {
         this.productLocation = this.product.address.location.coordinates;
+      }
+      console.log(this.productLocation, 'hhh');
       this.entries = Object.entries(this.product);
       if (this.productImages.length > 0) {
-        this.productImages.forEach((imageName) =>
+        this.productImages.forEach((imageName) => {
           this.imageService.getImageByName(imageName).subscribe(
             (image) => {
               let objectURL = URL.createObjectURL(image);
@@ -86,14 +89,15 @@ export class DisplayProductComponent implements OnInit {
                 });
             }
           )
-        );
+        });
+
       } else {
         this.imageFiles.push('../../assets/images/no-image.svg');
       }
     });
   }
   getProductLocation(product: Product): string {
-    let loc = product.address?.meta[0];
+    let loc = product.address?.meta ? product.address?.meta[0] : null;
     return loc
       ? `${loc.postalLocation}, ${loc.district}, ${loc.state}`
       : 'Bangalore';

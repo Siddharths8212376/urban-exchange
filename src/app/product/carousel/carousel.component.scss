@@ -1,11 +1,11 @@
 .carousel {
-    width: 90%;
-    height: 90%;
+    // width: 100%;
+    height: 100%;
 
     .carousel-inner {
         width: 100%;
         height: 100%;
-        background: #333;
+        // background: #f2f2f2;
         position: absolute;
         display: flex;
         justify-content: center;
@@ -15,6 +15,36 @@
             border-radius: 0.75rem;
         }
     }
+}
+
+.image-prev {
+    margin-bottom: 1rem;
+}
+
+.images-preview {
+    margin-right: -2rem;
+}
+
+.preview {
+    cursor: pointer;
+    opacity: 0.5;
+    transition: transform, opacity 200ms ease;
+    border: 1px solid gray;
+    border-radius: 0.5rem;
+}
+
+.preview:hover,
+.set-sel {
+    transform: scale(1.15);
+    opacity: 1;
+    border: 2px solid #b52ce5;
+}
+
+
+.genrow {
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
 }
 
 .indicator {
@@ -27,8 +57,33 @@
 
 .carousel-item {
     margin-right: 0;
-    width: auto;
-    transition: transform 500ms ease, opacity 500ms ease-out
+    transition: transform 500ms ease, opacity 500ms ease-out;
+    width: inherit;
+    height: inherit;
+
+}
+
+.imgPosition-nb {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+    object-position: 50% 0;
+}
+
+.no-banner-item {
+    transition: transform 200ms ease, opacity 50ms ease-out;
+}
+
+.no-banner {
+    border-radius: 0 !important;
+    cursor: pointer;
+}
+
+.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .banner-carousel {
@@ -44,4 +99,33 @@
         height: fit-content;
         background-color: #fff;
     }
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    // height: 3rem;
+    // width: 3rem;
+    // background-color: rgb(227, 227, 227);
+    // border: 1px solid rgb(68, 68, 68);
+    // opacity: .25;
+    // border-radius: 50%;
+    transition: background-color, border, opacity 200ms ease;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    // height: 3rem;
+    // width: 3rem;
+
+    // opacity: .25;
+    // border-radius: 50%;
+    background-color: rgb(234 234 234);
+    border: 1px solid rgb(68, 68, 68);
+    opacity: 0.3;
+}
+
+.carousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

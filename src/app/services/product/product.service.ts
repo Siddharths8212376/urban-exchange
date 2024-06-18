@@ -21,7 +21,7 @@ export class ProductService {
 
   httpOptions = {
     headers: new HttpHeaders({
-      Authorization: localStorage.getItem("token") as string
+      Authorization: JSON.stringify(localStorage.getItem("token"))
     })
   }
   constructor(private http: HttpClient) { }
@@ -55,7 +55,7 @@ export class ProductService {
   createProduct(payload: any): Observable<{ message: string, productId: string }> {
 
     let auth = this.httpOptions.headers.get('Authorization');
-
+    console.log('auth', auth);
     return this.http.post<{ message: string, productId: string }>(`${env.apiUrl}/product`, payload, this.httpOptions);
   }
   searchProduct(searchTerm: string): Observable<{ message: string, data: ProductSearchResponse[] }> {

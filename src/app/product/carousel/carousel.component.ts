@@ -43,4 +43,7 @@ export class CarouselComponent implements OnInit {
   navigateTo(path: string) {
     this.router.navigate([`${path}`]);
   }
+  setSelImage(index: number) {
+    this.selectedIdx = index;
+  }
 }

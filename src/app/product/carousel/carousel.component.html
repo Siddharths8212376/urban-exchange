@@ -1,19 +1,26 @@
-<div id="carouselExampleIndicators" class="carousel  carousel-fade" [ngClass]="isBanner?'banner-carousel':''">
-  <div class="carousel-indicators" [ngClass]="isBanner? 'indicator': ''">
-    <button *ngFor="let image of imageFiles; let i=index;" type="button" data-bs-target="#carouselExampleIndicators" [attr.data-bs-slide-to]="i" [ngClass]="{'active': i == selectedIdx }" aria-current="true" aria-label="Product Images indicator"></button>
+<div [ngClass]="isBanner ? '' : 'row genrow'">
+<div class="images-preview col-2" *ngIf="!isBanner">
+  <div class="image-prev" *ngFor="let image of imageFiles; let i = index">
+    <img class="preview" [ngClass]="selectedIdx == i ? 'set-sel' : ''" (mouseenter)="setSelImage(i)" (click)="setSelImage(i)" height="60px" width="60px" [src]="image" alt="prev"> 
   </div>
+</div>
+<div id="carouselExampleIndicators" class="carousel carousel-fade" [ngClass]="isBanner?'banner-carousel':'carousel-dark col-10'">
+  <!-- <div class="carousel-indicators" [ngClass]="isBanner? 'indicator': ''">
+    <button *ngFor="let image of imageFiles; let i=index;" type="button" data-bs-target="#carouselExampleIndicators" [attr.data-bs-slide-to]="i" [ngClass]="{'active': i == selectedIdx }" aria-current="true" aria-label="Product Images indicator"></button>
+  </div> -->
   <div class="carousel-inner" [ngClass]="isBanner? 'banner': ''">
-    <div class="carousel-item" *ngFor="let image of imageFiles; let i=index;" [ngClass]="{'active': i == selectedIdx }">
-      <img *ngIf="!isBanner" class="imgPosition" height="300px" width="300px" [src]="image" alt="First slide">
+    <div class="carousel-item" *ngFor="let image of imageFiles; let i=index;" [ngClass]="{'active': i == selectedIdx, 'no-banner-item' : !isBanner }">
+      <img *ngIf="!isBanner" class="imgPosition-nb no-banner"  [src]="image" alt="First slide">
       <img *ngIf="isBanner" class="imgPosition" [height]="bannerDim.height" [width]="bannerDim.width"  [src]="image" alt="First slide" (click)="navigateTo('content')" fetchpriority="high">
     </div>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" (click)="updateIdx('prev')">
+  <button *ngIf="isBanner" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" (click)="updateIdx('prev')">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Previous</span>
   </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" (click)="updateIdx('next')">
+  <button *ngIf="isBanner" class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" (click)="updateIdx('next')">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
+</div>
 </div>
