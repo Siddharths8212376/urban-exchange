@@ -1,3 +1,5 @@
+import { HashTag } from "./hashtag.model";
+
 export interface Product {
     _id: string;
     name: string;
@@ -10,6 +12,7 @@ export interface Product {
     boughtBy?: string;
     tag: string;
     productImages: string[];
+    hashtags?: HashTag[];
     address?: {
         location: {
             type: string;

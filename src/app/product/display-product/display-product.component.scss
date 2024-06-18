@@ -475,3 +475,27 @@ svg #main-circ {
 .desc {
   margin-bottom: 0;
 }
+
+.hashtag {
+  display: inline-flex;
+  width: fit-content;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: #ffebed;
+  font-family: var(--global-font-family);
+  justify-content: center;
+  align-items: center;
+  color: black;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  // background: rgb(167, 36, 255) !important;
+  // background: linear-gradient(90deg, rgb(173, 50, 255) 0%, rgb(255, 158, 23) 100%) !important;
+  font-size: medium;
+  transition: transform, opacity 500ms ease;
+  cursor: pointer;
+}
+
+.hashtag:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
