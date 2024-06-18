@@ -11,7 +11,7 @@
 }
 
 .card-subtitle {
-    @include curb-lines(2);
+    @include curb-lines(1);
     @include font-style(var(--global-font-family), 'Roboto');
     font-size: small;
 }

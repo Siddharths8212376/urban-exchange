@@ -1,14 +1,15 @@
 <div class="mainContainer" *ngIf="product.name.length > 0">
     
-    <div class="mainInfo mb-5">
-        <span class="productImage">
+    <div class="mainInfo row">
+        <!-- <div class="col-1"></div> -->
+        <span class="productImage col-6">
             <app-carousel 
                 class="carousel"
                 [imageFiles]="imageFiles">
             </app-carousel>
         </span>
-        <span class="separator"></span>
-        <span class="productMainInfo">
+        <!-- <span class="separator"></span> -->
+        <span class="productMainInfo col-6">
             <div class="wishlist">          
                 <input type="checkbox" class="checkbox" id="checkbox" [checked]="isInWishlist" (click)="clickOnWishlist(); $event.stopPropagation()"/>
                 <label for="checkbox">
@@ -69,7 +70,7 @@
         </span>
     </div>
 
-    <div class="additionalInfo">
+    <!-- <div class="additionalInfo">
         <div class="additionalInfoData">
             <h2 class="desc">Description</h2>
             {{product.description}} 
@@ -79,6 +80,6 @@
             <h2 class="desc">Location</h2>
             <app-geolocation [coordinates]="productLocation"></app-geolocation>
         </div>
-    </div>
+    </div> -->
 
 </div>
