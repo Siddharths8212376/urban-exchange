@@ -14,7 +14,7 @@ export class BannerComponent implements OnInit, AfterViewChecked {
   cardFiles: File[] | any = [];
   topBrands: string[] = ['Apple', 'Samsung', 'Adidas', 'Puma', 'Nike', 'Sony', 'LuluLemon'];
   scriptElem!: HTMLScriptElement;
-  topHashTags!: HashTag[];
+  topHashTags: HashTag[] = [];
   constructor(
     private router: Router,
     private hashTagService: HashtagService,
