@@ -55,6 +55,7 @@
     height: 210px;
     display: flex;
     align-items: flex-end;
+    animation: load 1s infinite;
 }
 
 .card-img-top {
@@ -64,4 +65,18 @@
 .wishlist {
     display: flex;
     justify-content: center;
+}
+
+@keyframes load {
+    0% {
+        opacity: 100%
+    }
+
+    50% {
+        opacity: 50%
+    }
+
+    100% {
+        opacity: 100%
+    }
 }

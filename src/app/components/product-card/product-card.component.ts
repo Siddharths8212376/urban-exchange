@@ -34,20 +34,22 @@ export class ProductCardComponent implements OnInit {
     }
     this.productImageName = this.product?.productImages?.length > 0 ? this.product.productImages[0] : '';
     if (this.productImageName.length > 0) {
-      this.imageService.getImageByName(this.productImageName).subscribe(response => {
-        let objectURL = URL.createObjectURL(response);
-        this.productImage = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-      }, (error) => {
-        console.error(error);
-        // try cloud images
-        this.imageService.getImageURLByName(this.productImageName).subscribe(response => {
-          if (response.data) {
-            this.productImage = response.data.secureUrl;
-          } else {
-            this.productImage = '../../assets/images/no-image.svg';
-          }
+      setTimeout(() => {
+        this.imageService.getImageByName(this.productImageName).subscribe(response => {
+          let objectURL = URL.createObjectURL(response);
+          this.productImage = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+        }, (error) => {
+          console.error(error);
+          // try cloud images
+          this.imageService.getImageURLByName(this.productImageName).subscribe(response => {
+            if (response.data) {
+              this.productImage = response.data.secureUrl;
+            } else {
+              this.productImage = '../../assets/images/no-image.svg';
+            }
+          })
         })
-      })
+      }, 2000);
     } else {
       this.productImage = '../../assets/images/no-image.svg';
     }
