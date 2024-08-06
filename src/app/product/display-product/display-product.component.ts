@@ -82,7 +82,7 @@ export class DisplayProductComponent implements OnInit {
                 .getImageURLByName(imageName)
                 .subscribe((response) => {
                   if (response.data) {
-                    this.imageFiles.push(response.data.secureUrl);
+                    this.imageFiles.push(response.data.optimizedUrl);
                   } else {
                     this.imageFiles.push('../../assets/images/no-image.svg');
                   }

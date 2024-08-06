@@ -28,9 +28,9 @@ export class WishlistComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.wishlist = await this.userService.getWislist();
     // this.wishlist = response.data;
-    if(this.wishlist.length > 0) {
+    if (this.wishlist.length > 0) {
       this.loader.start();
-      this.productService.getProductListById({idList: this.wishlist}).subscribe(productResponse => {
+      this.productService.getProductListById({ idList: this.wishlist }).subscribe(productResponse => {
         this.wishlistItems = productResponse.data;
         this.convertImage();
         this.loader.stop();
@@ -53,7 +53,7 @@ export class WishlistComponent implements OnInit {
           // try cloud images
           this.imageService.getImageURLByName(productImageName).subscribe(response => {
             if (response.data) {
-              product.productImages[0] = response.data.secureUrl;
+              product.productImages[0] = response.data.optimizedUrl;
             } else {
               product.productImages[0] = '../../assets/images/no-image.svg';
             }
